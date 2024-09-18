@@ -13,7 +13,7 @@ public class SpinPropellor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // rotate propellor around axis, 10 degrees per frame
+        // Rotate propellor around axis, 10 degrees per frame
 
         transform.Rotate(0, 0, 10);
     }
