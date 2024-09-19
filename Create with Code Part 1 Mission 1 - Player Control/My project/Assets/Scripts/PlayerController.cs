@@ -19,12 +19,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Move the vehicle forward
+        // Move the vehicle forward when keys pressed
 
         forwardInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * speed);
 
-        // Turn vehicle left & right
+        // Turn vehicle left & right when keys pressed
         horizontalInput = Input.GetAxis("Horizontal");
         transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
     }
