@@ -186,7 +186,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 179fa88a04d5acb4aa4dbb335303f97e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -256,7 +256,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!114 &499117777
 MonoBehaviour:
@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 800160135}
   - component: {fileID: 800160138}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,7 +408,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2d3418368a663d8478978a9fd4c12667, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -448,7 +448,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -58.7, y: -11.59, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 1, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -791,6 +791,10 @@ MonoBehaviour:
   - {fileID: 7738050467387594989, guid: 1f46d8cfa9ef74a4881e5a7c845ec369, type: 3}
   - {fileID: 4186961647671051418, guid: 23773a93ab5b07740a795ef212008a73, type: 3}
   - {fileID: 3799419557771895499, guid: 39745d327e3cccd4892d429a88c200b9, type: 3}
+  asteroidPrefabs:
+  - {fileID: 4320771578676741989, guid: e7a978ed7fa4d8444bf3a58d113c32e8, type: 3}
+  - {fileID: 4981688660652070508, guid: 441676112395b894392ed43681ed0b8a, type: 3}
+  - {fileID: 8116044250943044118, guid: f5269c5e3f0f8e84988f04bc5bc7fcb1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

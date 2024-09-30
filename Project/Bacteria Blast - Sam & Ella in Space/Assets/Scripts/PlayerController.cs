@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //If game is not over
-        if (!gameOver) 
+        if (!gameOver)
         {
             // If spacebar is pressed and player is below the maximum boost height, and game is not over, an upward force is applied
             if (Input.GetKeyDown(KeyCode.Space) && (transform.position.y < boostMax))
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 doubleSpeed = true;
-               
+
             }
 
             // otherwise, double speed is not activated
@@ -47,12 +47,21 @@ public class PlayerController : MonoBehaviour
             {
 
                 doubleSpeed = false;
-                
+
             }
 
         }
+    }
+    private void OnCollisionEnter(Collision collision) 
+    {
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Asteroid"))
+        {
+            gameOver = true;
+            Destroy(gameObject);
+            Debug.Log("Game Over");
+        }
 
-       
+      
 
     }
 }

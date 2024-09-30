@@ -5,12 +5,14 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject[] bacteriaPrefabs;
+    public GameObject[] asteroidPrefabs;
     private float spawnRangeY = 9;
     private float spawnPosX = -35;
     private float spawnPosZ = -2;
 
     private float startDelay = 2;
     private float bacteriaSpawnRate = 1;
+    private float asteroidSpawnRate = 2;
     private PlayerController playerControllerScript;
 
     // Start is called before the first frame update
@@ -18,6 +20,8 @@ public class SpawnManager : MonoBehaviour
     {
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         InvokeRepeating("SpawnBacteria", startDelay, bacteriaSpawnRate);
+        InvokeRepeating("SpawnAsteroids", startDelay, asteroidSpawnRate);
+
     }
 
     // Update is called once per frame
@@ -37,6 +41,20 @@ public class SpawnManager : MonoBehaviour
 
             Instantiate(bacteriaPrefabs[bacteriumindex], spawnPos, bacteriaPrefabs[bacteriumindex].transform.rotation);
         }
+
+    }
+
+    void SpawnAsteroids() 
+    {
+        if (playerControllerScript.gameOver == false)
+        {
+            int asteroidindex = Random.Range(0, asteroidPrefabs.Length);
+            Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), spawnPosZ);
+
+
+            Instantiate(asteroidPrefabs[asteroidindex], spawnPos, bacteriaPrefabs[asteroidindex].transform.rotation);
+        }
+
 
     }
 }
