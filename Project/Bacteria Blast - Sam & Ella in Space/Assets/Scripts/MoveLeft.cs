@@ -7,6 +7,7 @@ public class MoveLeft : MonoBehaviour
     private float speed = 20;
     private PlayerController playerControllerScript;
     private float leftBound = -80;
+    private float rightBound = -35;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +53,7 @@ public class MoveLeft : MonoBehaviour
 
         }
 
+        // Destroys items when they leave left hand side of screen
         if (transform.position.x < leftBound) 
         { 
             if (gameObject.CompareTag("Bacterium") || gameObject.CompareTag("Sonic Blaster PowerUp") || gameObject.CompareTag("Fuel PowerUp") || gameObject.CompareTag("Asteroid") || gameObject.CompareTag("Virus"))
@@ -62,10 +64,23 @@ public class MoveLeft : MonoBehaviour
 
         }
 
+        // Destroys projectiles when they leave right hand side of screen
+        if (transform.position.x > rightBound)
+        {
+            if (gameObject.CompareTag("Projectile"))
+
+            {
+                Destroy(gameObject);
+            }
+
+        }
 
 
 
-         
+
+
+
+
     }
 
 }
