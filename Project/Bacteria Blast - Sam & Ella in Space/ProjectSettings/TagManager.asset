@@ -8,8 +8,10 @@ TagManager:
   - GameManager
   - Bacterium
   - Virus
-  - PowerUp
   - Asteroid
+  - Fuel PowerUp
+  - Sonic Blaster PowerUp
+  - Projectile
   layers:
   - Default
   - TransparentFX

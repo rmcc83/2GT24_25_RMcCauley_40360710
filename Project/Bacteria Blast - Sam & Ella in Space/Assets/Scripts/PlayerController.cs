@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
     public float topBound;
     public bool gameOver = false;
     public bool doubleSpeed = false;
+    public Transform projectileSpawnPoint;
+   // public GameObject powerupIndicator;
+    public bool hasPowerup = false;
+    public GameObject sonicBlastPrefab;
 
     void Start()
     {
@@ -19,6 +23,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        // Ensure powerup Indicator appears at player position
+      //  powerupIndicator.transform.position = transform.position;
+
         //If game is not over
         if (!gameOver)
         {
@@ -50,18 +58,51 @@ public class PlayerController : MonoBehaviour
 
             }
 
+            // Fire a sonic blast from the player if player has powerup
+
+            if (gameOver == false && hasPowerup == true && Input.GetKey(KeyCode.RightShift))
+
+            {
+                Instantiate(sonicBlastPrefab, projectileSpawnPoint.position, sonicBlastPrefab.transform.rotation);
+                
+            }
+
         }
     }
-    private void OnCollisionEnter(Collision collision) 
+
+    
+
+    public void OnTriggerEnter(Collider other) 
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Asteroid"))
+        // If player collides with sonic blaster powerup, icon disappears, indicator appears, countdown routine begins 
+
+        if (other.CompareTag("Sonic Blaster PowerUp"))
+        {
+            hasPowerup = true;
+         //   powerupIndicator.gameObject.SetActive(true);
+
+            Destroy(other.gameObject);
+            StartCoroutine(PowerupCountdownRoutine());
+        }
+
+        if (other.CompareTag("Ground") || other.CompareTag("Asteroid"))
         {
             gameOver = true;
             Destroy(gameObject);
             Debug.Log("Game Over");
         }
 
-      
-
     }
+
+    // Player has powerup for 5 seconds, the indicator disappears & powerup switches off
+    IEnumerator PowerupCountdownRoutine()
+    {
+
+        yield return new WaitForSeconds(5);
+        hasPowerup = false;
+     //   powerupIndicator.gameObject.SetActive(false);
+        
+    }
+
+
 }

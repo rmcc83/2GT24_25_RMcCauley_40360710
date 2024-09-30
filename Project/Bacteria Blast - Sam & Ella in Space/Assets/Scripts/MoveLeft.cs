@@ -25,6 +25,14 @@ public class MoveLeft : MonoBehaviour
 
             {
                 transform.Translate(Vector3.left * Time.deltaTime * (speed * 2));
+
+                // moves projectile
+                if (gameObject.CompareTag("Projectile"))
+                {
+
+                    transform.Translate(Vector3.right * Time.deltaTime * (speed * 4));
+
+                }
             }
 
             // otherwise, move everything at normal speed
@@ -32,19 +40,31 @@ public class MoveLeft : MonoBehaviour
             {
                 transform.Translate(Vector3.left * Time.deltaTime * speed);
 
+                // moves projectile
+                if (gameObject.CompareTag("Projectile"))
+                {
+
+                    transform.Translate(Vector3.right * Time.deltaTime * (speed * 2));
+
+                }
+
             }
 
         }
 
         if (transform.position.x < leftBound) 
         { 
-            if (gameObject.CompareTag("Bacterium") || gameObject.CompareTag("PowerUp") || gameObject.CompareTag("Asteroid") || gameObject.CompareTag("Virus"))
+            if (gameObject.CompareTag("Bacterium") || gameObject.CompareTag("Sonic Blaster PowerUp") || gameObject.CompareTag("Fuel PowerUp") || gameObject.CompareTag("Asteroid") || gameObject.CompareTag("Virus"))
 
             {
                 Destroy(gameObject);
             }
 
         }
+
+
+
+
          
     }
 
