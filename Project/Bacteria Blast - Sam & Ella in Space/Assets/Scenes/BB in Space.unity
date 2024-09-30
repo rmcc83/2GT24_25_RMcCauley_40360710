@@ -795,6 +795,9 @@ MonoBehaviour:
   - {fileID: 4320771578676741989, guid: e7a978ed7fa4d8444bf3a58d113c32e8, type: 3}
   - {fileID: 4981688660652070508, guid: 441676112395b894392ed43681ed0b8a, type: 3}
   - {fileID: 8116044250943044118, guid: f5269c5e3f0f8e84988f04bc5bc7fcb1, type: 3}
+  powerUpPrefabs:
+  - {fileID: 5012344201971731826, guid: bf5b60fda6459b1428c50df4d2a29e16, type: 3}
+  - {fileID: 4644930508209986059, guid: 0d390fb496fa9b1419e75be476e3398d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

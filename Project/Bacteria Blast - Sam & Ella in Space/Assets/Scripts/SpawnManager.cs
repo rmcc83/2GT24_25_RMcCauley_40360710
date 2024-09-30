@@ -6,6 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject[] bacteriaPrefabs;
     public GameObject[] asteroidPrefabs;
+    public GameObject[] powerUpPrefabs;
     private float spawnRangeY = 9;
     private float spawnPosX = -35;
     private float spawnPosZ = -2;
@@ -13,6 +14,7 @@ public class SpawnManager : MonoBehaviour
     private float startDelay = 2;
     private float bacteriaSpawnRate = 1;
     private float asteroidSpawnRate = 2;
+    private float powerUpSpawnRate = 4;
     private PlayerController playerControllerScript;
 
     // Start is called before the first frame update
@@ -21,6 +23,7 @@ public class SpawnManager : MonoBehaviour
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         InvokeRepeating("SpawnBacteria", startDelay, bacteriaSpawnRate);
         InvokeRepeating("SpawnAsteroids", startDelay, asteroidSpawnRate);
+        InvokeRepeating("SpawnPowerUps", startDelay, powerUpSpawnRate);
 
     }
 
@@ -55,6 +58,18 @@ public class SpawnManager : MonoBehaviour
             Instantiate(asteroidPrefabs[asteroidindex], spawnPos, bacteriaPrefabs[asteroidindex].transform.rotation);
         }
 
+    }
+
+    void SpawnPowerUps()
+    {
+        if (playerControllerScript.gameOver == false)
+        {
+            int powerUpindex = Random.Range(0, powerUpPrefabs.Length);
+            Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), spawnPosZ);
+
+
+            Instantiate(powerUpPrefabs[powerUpindex], spawnPos, powerUpPrefabs[powerUpindex].transform.rotation);
+        }
 
     }
 }
