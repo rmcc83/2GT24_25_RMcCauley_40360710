@@ -224,13 +224,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 499117771}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.018009428, y: -0.010301293, z: 0.7070319, w: 0.7068773}
-  m_LocalPosition: {x: -71.1, y: 1.2, z: -0.3}
-  m_LocalScale: {x: 1, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -68.3, y: -8.5, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -0.624, y: -2.294, z: 90.025}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!54 &499117776
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -256,7 +256,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &499117777
 MonoBehaviour:
@@ -483,6 +483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 930227224}
+  - component: {fileID: 930227225}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -505,6 +506,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &930227225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930227223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad5861aed5b2fbe44a96e025a1e7d855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,7 +605,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0, w: -1}
-  m_LocalPosition: {x: -55.2, y: -0.9, z: -20.3}
+  m_LocalPosition: {x: -55.2, y: -0.9, z: -21.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -738,6 +752,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1509233420}
+  - component: {fileID: 1509233421}
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
@@ -760,6 +775,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1509233421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509233419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22b24c1cbda1f04bbe8eb463d52e91e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bacteriaPrefabs:
+  - {fileID: 7738050467387594989, guid: 1f46d8cfa9ef74a4881e5a7c845ec369, type: 3}
+  - {fileID: 4186961647671051418, guid: 23773a93ab5b07740a795ef212008a73, type: 3}
+  - {fileID: 3799419557771895499, guid: 39745d327e3cccd4892d429a88c200b9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
