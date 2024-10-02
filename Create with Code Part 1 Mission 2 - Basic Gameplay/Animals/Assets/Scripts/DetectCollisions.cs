@@ -16,6 +16,7 @@ public class DetectCollisions : MonoBehaviour
         
     }
 
+    // Destroy both projectile & animal when they collide
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
