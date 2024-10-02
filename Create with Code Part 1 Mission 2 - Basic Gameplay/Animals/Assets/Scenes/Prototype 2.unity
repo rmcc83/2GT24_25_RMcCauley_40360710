@@ -467,13 +467,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.72557056, y: -0, z: -0, w: 0.6881478}
-  m_LocalPosition: {x: -0.1, y: 27.5, z: 7.5}
+  m_LocalRotation: {x: 0.6677017, y: -0, z: -0, w: 0.744429}
+  m_LocalPosition: {x: -0.6, y: 34.8, z: 7.5}
   m_LocalScale: {x: 1, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 93.03299, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 83.78, y: 0, z: 0}
 --- !u!1 &992285705
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,7 +587,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalInput: 0
   speed: 10
-  xRange: 10
+  xRange: 20
   projectilePrefab: {fileID: 9178809173153841413, guid: fe2568d8c0c59c6468c0dc796e5f4a51, type: 3}
 --- !u!1 &1122382935
 GameObject:
