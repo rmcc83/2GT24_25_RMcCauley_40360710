@@ -6,6 +6,7 @@ public class MoveLeft : MonoBehaviour
 {
     private float speed = 20;
     private PlayerController playerControllerScript;
+    private GameManager gameManager;
     private float leftBound = -80;
     private float rightBound = -35;
 
@@ -13,13 +14,14 @@ public class MoveLeft : MonoBehaviour
     void Start()
     {
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if game is not over
-        if (playerControllerScript.gameOver == false)
+        // if game has started & is is not over
+        if (gameManager.gameStarted == true && gameManager.gameOver == false)
         {
             // if double speed is activated, move everything at double speed
             if (playerControllerScript.doubleSpeed)

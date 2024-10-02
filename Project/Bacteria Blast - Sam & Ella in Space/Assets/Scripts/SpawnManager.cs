@@ -10,20 +10,22 @@ public class SpawnManager : MonoBehaviour
     private float spawnRangeY = 9;
     private float spawnPosX = -35;
     private float spawnPosZ = -2;
-
-    private float startDelay = 2;
-    private float bacteriaSpawnRate = 1;
-    private float asteroidSpawnRate = 2;
-    private float powerUpSpawnRate = 4;
+    private GameManager gameManager;
+    private float bacteriaStartDelay = 1;
+    private float asteroidStartDelay = 2;
+    private float powerUpStartDelay = 3;
+    private float bacteriaSpawnInterval = 1;
+    private float asteroidSpawnInterval = 3;
+    private float powerUpSpawnInterval = 4;
     private PlayerController playerControllerScript;
 
     // Start is called before the first frame update
     void Start()
     {
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
-        InvokeRepeating("SpawnBacteria", startDelay, bacteriaSpawnRate);
-        InvokeRepeating("SpawnAsteroids", startDelay, asteroidSpawnRate);
-        InvokeRepeating("SpawnPowerUps", startDelay, powerUpSpawnRate);
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        
 
     }
 
@@ -32,11 +34,12 @@ public class SpawnManager : MonoBehaviour
     {
 
     }
+
     void SpawnBacteria()
 
     {
 
-        if (playerControllerScript.gameOver == false)
+        if (gameManager.gameOver == false)
         {
             int bacteriumindex = Random.Range(0, bacteriaPrefabs.Length);
             Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), spawnPosZ);
@@ -49,7 +52,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnAsteroids() 
     {
-        if (playerControllerScript.gameOver == false)
+        if (gameManager.gameOver == false)
         {
             int asteroidindex = Random.Range(0, asteroidPrefabs.Length);
             Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), spawnPosZ);
@@ -62,7 +65,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnPowerUps()
     {
-        if (playerControllerScript.gameOver == false)
+        if (gameManager.gameOver == false)
         {
             int powerUpindex = Random.Range(0, powerUpPrefabs.Length);
             Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), spawnPosZ);
@@ -71,5 +74,12 @@ public class SpawnManager : MonoBehaviour
             Instantiate(powerUpPrefabs[powerUpindex], spawnPos, powerUpPrefabs[powerUpindex].transform.rotation);
         }
 
+    }
+    public void StartSpawn()
+
+    {
+            InvokeRepeating("SpawnBacteria", bacteriaStartDelay, bacteriaSpawnInterval);
+            InvokeRepeating("SpawnAsteroids", asteroidStartDelay, asteroidSpawnInterval);
+            InvokeRepeating("SpawnPowerUps", powerUpStartDelay, powerUpSpawnInterval);
     }
 }

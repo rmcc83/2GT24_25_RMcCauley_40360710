@@ -9,16 +9,17 @@ public class PlayerController : MonoBehaviour
     public float boostForce;
     public float boostMax;
     public float topBound;
-    public bool gameOver = false;
     public bool doubleSpeed = false;
     public Transform projectileSpawnPoint;
    // public GameObject powerupIndicator;
     public bool hasPowerup = false;
     public GameObject sonicBlastPrefab;
+    public GameManager gameManager;
 
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -27,10 +28,10 @@ public class PlayerController : MonoBehaviour
         // Ensure powerup Indicator appears at player position
       //  powerupIndicator.transform.position = transform.position;
 
-        //If game is not over
-        if (!gameOver)
+        //If game has started & is not over
+        if (gameManager.gameStarted == true && gameManager.gameOver == false)
         {
-            // If spacebar is pressed and player is below the maximum boost height, and game is not over, an upward force is applied
+            // If spacebar is pressed and player is below the maximum boost height and fuel is available, and game is not over, an upward force is applied
             if (Input.GetKeyDown(KeyCode.Space) && (transform.position.y < boostMax))
             {
                 playerRb.AddForce(Vector3.up * boostForce, ForceMode.Impulse);
@@ -60,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
             // Fire a sonic blast from the player if player has powerup
 
-            if (gameOver == false && hasPowerup == true && Input.GetKey(KeyCode.RightShift))
+            if (gameManager.gameStarted == true && gameManager.gameOver == false && hasPowerup == true && Input.GetKey(KeyCode.RightShift))
 
             {
                 Instantiate(sonicBlastPrefab, projectileSpawnPoint.position, sonicBlastPrefab.transform.rotation);
@@ -87,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Ground") || other.CompareTag("Asteroid"))
         {
-            gameOver = true;
+            gameManager.gameOver = true;
             Destroy(gameObject);
             Debug.Log("Game Over");
         }
