@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
 
     private Rigidbody playerRb;
+    public float gravityModifier;
     public float boostForce;
     public float boostMax;
     public float topBound;
@@ -20,6 +23,8 @@ public class PlayerController : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Physics.gravity *= gravityModifier;
+
     }
 
     void Update()
@@ -31,10 +36,11 @@ public class PlayerController : MonoBehaviour
         //If game has started & is not over
         if (gameManager.gameStarted == true && gameManager.gameOver == false)
         {
-            // If spacebar is pressed and player is below the maximum boost height and fuel is available, and game is not over, an upward force is applied
-            if (Input.GetKeyDown(KeyCode.Space) && (transform.position.y < boostMax))
+            // If spacebar is pressed and player is below the maximum boost height and fuel is available, and game is not over, an upward force is applied & fuel reduces by 5%
+            if (Input.GetKeyDown(KeyCode.Space) && (transform.position.y < boostMax) && gameManager.fuel >= 5)
             {
                 playerRb.AddForce(Vector3.up * boostForce, ForceMode.Impulse);
+                gameManager.IncreaseFuel(-5);
             }
 
             // Ensures player cannot go outside the top of the screen
@@ -86,12 +92,35 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(PowerupCountdownRoutine());
         }
 
+        // if player collides with ground or asteroid, both are destroyed and game is over
         if (other.CompareTag("Ground") || other.CompareTag("Asteroid"))
         {
             gameManager.gameOver = true;
             Destroy(gameObject);
             Debug.Log("Game Over");
         }
+
+        // if player collides with small fuel powerup, 20% is added to fuel amount
+
+        if (other.CompareTag("Fuel Small"))
+        {
+            Destroy(other.gameObject);
+            gameManager.IncreaseFuel(20);
+            Debug.Log(gameManager.fuel);
+
+        }
+
+        // if player collides with large fuel powerup, 50 % is added to fuel amount
+
+        if (other.CompareTag("Fuel Large"))
+        {
+            Destroy(other.gameObject);
+            gameManager.IncreaseFuel(50);
+            Debug.Log(gameManager.fuel);
+
+        }
+
+
 
     }
 

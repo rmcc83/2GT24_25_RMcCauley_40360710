@@ -35,8 +35,14 @@ public class GameManager : MonoBehaviour
     { 
             gameStarted = true;
             fuel = 100;
-            spawnManager.StartSpawn();
-          
+            spawnManager.StartSpawn();        
                  
+    }
+
+    public void IncreaseFuel(int value) 
+    { 
+        fuel += value;
+        Debug.Log(fuel);
+    
     }
 }

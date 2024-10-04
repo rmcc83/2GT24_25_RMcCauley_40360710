@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8778517137409646682}
   m_Layer: 0
   m_Name: Fuel PowerUp Large
-  m_TagString: Fuel PowerUp
+  m_TagString: Fuel Large
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

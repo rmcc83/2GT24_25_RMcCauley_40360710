@@ -9,9 +9,10 @@ TagManager:
   - Bacterium
   - Virus
   - Asteroid
-  - Fuel PowerUp
   - Sonic Blaster PowerUp
   - Projectile
+  - Fuel Large
+  - Fuel Small
   layers:
   - Default
   - TransparentFX
