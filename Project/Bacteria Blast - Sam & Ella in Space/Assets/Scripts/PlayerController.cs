@@ -19,11 +19,14 @@ public class PlayerController : MonoBehaviour
     public Transform projectileSpawnPoint2;
     public Transform projectileSpawnPoint3;
     public Transform projectileSpawnPoint4;
+    public Transform thrustPosition1;
+    public Transform thrustPosition2;
     public GameObject powerupIndicator;
     public TextMeshProUGUI armedText;
     public TextMeshProUGUI unarmedText;
     public bool hasPowerup = true;
     public GameObject sonicBlastPrefab;
+    public GameObject flamePrefab;
     public GameObject explosion;
     public GameManager gameManager;
     public SpawnManager spawnManager;
@@ -46,9 +49,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Ensures explosion appears at player position
-       // explosion.transform.position = transform.position;
-
 
         //If game has started & is not over
         if (gameManager.gameStarted == true && gameManager.gameOver == false)
@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
             {
                 playerRb.AddForce(Vector3.up * boostForce, ForceMode.Impulse);
                 gameManager.IncreaseFuel(-5);
+                Instantiate(flamePrefab, thrustPosition1.position, flamePrefab.transform.rotation);
+                Instantiate(flamePrefab, thrustPosition2.position, flamePrefab.transform.rotation);
                 playerAudio.PlayOneShot(boostSound);
 
             }

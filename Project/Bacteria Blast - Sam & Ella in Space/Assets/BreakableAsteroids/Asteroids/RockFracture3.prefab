@@ -545,9 +545,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3782304569843150637}
+  - component: {fileID: -3844089260290649359}
   m_Layer: 0
   m_Name: RockFracture3
-  m_TagString: Untagged
+  m_TagString: Fragment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -667,6 +668,18 @@ Transform:
   - {fileID: 1451970774303518804}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3844089260290649359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523533613071711390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f67572480d1f04ea0358b977bf3447, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &593049998913327841
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,8 +17,23 @@ public class Explosion : MonoBehaviour
     }
     public IEnumerator SelfDestruct() 
     {
-        yield return new WaitForSeconds(2);
-        Destroy(gameObject);
+        if (gameObject.CompareTag("Explosion")) 
+        {
+            yield return new WaitForSeconds(2);
+            Destroy(gameObject);
+        }
+
+        if (gameObject.CompareTag("Flame"))
+        {
+            yield return new WaitForSeconds(0.3f);
+            Destroy(gameObject);
+        }
+
+        if (gameObject.CompareTag("Fragment"))
+        {
+            yield return new WaitForSeconds(1);
+            Destroy(gameObject);
+        }
 
     }
 
