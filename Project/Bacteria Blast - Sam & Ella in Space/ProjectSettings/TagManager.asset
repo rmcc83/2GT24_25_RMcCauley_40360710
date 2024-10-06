@@ -13,11 +13,13 @@ TagManager:
   - Projectile
   - Fuel Large
   - Fuel Small
+  - Weapon Indicator
+  - Explosion
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 

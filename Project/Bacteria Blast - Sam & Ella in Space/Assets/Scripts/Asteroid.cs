@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class Asteroid : MonoBehaviour
 {
+
+    public GameObject fractured;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,18 +18,46 @@ public class Asteroid : MonoBehaviour
     void Update()
     {
         // Rotates asteroid slowly
-        transform.Rotate(30 * Time.deltaTime, 0, 0);
+      // transform.Rotate(10 * Time.deltaTime, 0, 0, Space.Self);
     }
 
-    public void OnTriggerEnter(Collider other) 
+    public void OnCollisionEnter(Collision collision) 
     {
-        if (other.CompareTag("Projectile"))
+        // if asteroid spawns on the ground, it is destroyed
+        if (collision.gameObject.CompareTag("Ground"))
+
         {
             Destroy(gameObject);
-            Destroy(other.gameObject);
            
+        }
+
+        //if the asteroid spawns near a powerup or bacterium, the powerup or bacterium is destroyed
+        if (collision.gameObject.CompareTag("Fuel Large") || collision.gameObject.CompareTag("Fuel Small") || collision.gameObject.CompareTag("Sonic Blaster PowerUp") || collision.gameObject.CompareTag("Bacterium"))
+        {
+            Destroy(collision.gameObject);
+
         }
 
 
     }
+
+    // if projectile collides with asteroid, projectile is destroyed and asteroid breaks up
+    public void OnTriggerEnter(Collider other) 
+    {
+
+        if (other.gameObject.CompareTag("Projectile"))
+        {
+            FractureObject();
+            Destroy(other.gameObject);
+
+        }
+
+    }
+
+    public void FractureObject()
+    {
+        Instantiate(fractured, transform.position, transform.rotation); //Spawn in the broken version
+        Destroy(gameObject); //Destroy the object to stop it getting in the way
+    }
+
 }

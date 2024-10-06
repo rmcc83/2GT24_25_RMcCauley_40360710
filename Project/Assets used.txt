@@ -1,0 +1,5 @@
+assets:
+
+https://www.soundsnap.com/sci_fi_laser_weapon_ricochet_2_wav - weapon sound
+https://www.soundsnap.com/spaceship_or_cheesy_ufo_airy_thrusters_with_steam_release - boost sound
+https://mixkit.co/free-sound-effects/crash/ - crash sound

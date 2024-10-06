@@ -58,7 +58,7 @@ public class MoveLeft : MonoBehaviour
         // Destroys items when they leave left hand side of screen
         if (transform.position.x < leftBound) 
         { 
-            if (gameObject.CompareTag("Bacterium") || gameObject.CompareTag("Sonic Blaster PowerUp") || gameObject.CompareTag("Fuel PowerUp") || gameObject.CompareTag("Asteroid") || gameObject.CompareTag("Virus"))
+            if (gameObject.CompareTag("Bacterium") || gameObject.CompareTag("Sonic Blaster PowerUp") || gameObject.CompareTag("Fuel Large") || gameObject.CompareTag("Fuel Small") || gameObject.CompareTag("Asteroid") || gameObject.CompareTag("Virus"))
 
             {
                 Destroy(gameObject);

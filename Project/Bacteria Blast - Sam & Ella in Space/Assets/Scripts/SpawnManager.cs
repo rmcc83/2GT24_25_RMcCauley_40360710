@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] bacteriaPrefabs;
     public GameObject[] asteroidPrefabs;
     public GameObject[] powerUpPrefabs;
-    private float spawnRangeY = 9;
+    private float spawnRangeY = 8;
     private float spawnPosX = -35;
     private float spawnPosZ = -2;
     private GameManager gameManager;
@@ -15,9 +15,10 @@ public class SpawnManager : MonoBehaviour
     private float asteroidStartDelay = 2;
     private float powerUpStartDelay = 3;
     private float bacteriaSpawnInterval = 1;
-    private float asteroidSpawnInterval = 3;
-    private float powerUpSpawnInterval = 4;
+    private float asteroidSpawnInterval = 1;
+    private float powerUpSpawnInterval = 2;
     private PlayerController playerControllerScript;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class SpawnManager : MonoBehaviour
 
     }
 
+    // Spawns a random bacterium at a random position on the Y axis as long as game is not over
     void SpawnBacteria()
 
     {
@@ -50,6 +52,7 @@ public class SpawnManager : MonoBehaviour
 
     }
 
+    // Spawns a random asteroid at a random position on the Y axis as long as game is not over
     void SpawnAsteroids() 
     {
         if (gameManager.gameOver == false)
@@ -58,11 +61,12 @@ public class SpawnManager : MonoBehaviour
             Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), spawnPosZ);
 
 
-            Instantiate(asteroidPrefabs[asteroidindex], spawnPos, bacteriaPrefabs[asteroidindex].transform.rotation);
+            Instantiate(asteroidPrefabs[asteroidindex], spawnPos, asteroidPrefabs[asteroidindex].transform.rotation);
         }
 
     }
 
+    // Spawns a random powerup at a random position on the Y axis as long as game is not over
     void SpawnPowerUps()
     {
         if (gameManager.gameOver == false)
