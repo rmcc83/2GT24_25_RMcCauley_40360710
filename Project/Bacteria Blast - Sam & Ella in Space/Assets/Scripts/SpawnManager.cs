@@ -7,16 +7,20 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] bacteriaPrefabs;
     public GameObject[] asteroidPrefabs;
     public GameObject[] powerUpPrefabs;
+    public GameObject[] virusPrefabs;
     private float spawnRangeY = 8;
     private float spawnPosX = -35;
     private float spawnPosZ = -2;
+    private float virusSpawnZ = -0.5f;
     private GameManager gameManager;
     private float bacteriaStartDelay = 1;
     private float asteroidStartDelay = 2;
-    private float powerUpStartDelay = 3;
+    private float powerUpStartDelay = 4;
+    private float virusStartDelay = 3;
     private float bacteriaSpawnInterval = 1;
     private float asteroidSpawnInterval = 1;
     private float powerUpSpawnInterval = 2;
+    private float virusSpawnInterval = 2;
     private PlayerController playerControllerScript;
 
 
@@ -79,11 +83,27 @@ public class SpawnManager : MonoBehaviour
         }
 
     }
+
+    void SpawnVirus() 
+    {
+        if (gameManager.gameOver == false)
+        {
+            int virusindex = Random.Range(0, virusPrefabs.Length);
+            Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), virusSpawnZ);
+
+
+            Instantiate(virusPrefabs[virusindex], spawnPos, virusPrefabs[virusindex].transform.rotation);
+        }
+
+
+    }
     public void StartSpawn()
 
     {
             InvokeRepeating("SpawnBacteria", bacteriaStartDelay, bacteriaSpawnInterval);
             InvokeRepeating("SpawnAsteroids", asteroidStartDelay, asteroidSpawnInterval);
             InvokeRepeating("SpawnPowerUps", powerUpStartDelay, powerUpSpawnInterval);
+            InvokeRepeating("SpawnVirus", virusStartDelay, virusSpawnInterval);
+
     }
 }

@@ -31,23 +31,25 @@ public class Asteroid : MonoBehaviour
            
         }
 
-        //if the asteroid spawns near a powerup or bacterium, the powerup or bacterium is destroyed
-        if (collision.gameObject.CompareTag("Fuel Large") || collision.gameObject.CompareTag("Fuel Small") || collision.gameObject.CompareTag("Sonic Blaster PowerUp") || collision.gameObject.CompareTag("Bacterium"))
-        {
-            Destroy(collision.gameObject);
-
-        }
-
 
     }
 
-    // if projectile collides with asteroid, projectile is destroyed and asteroid breaks up
+    
     public void OnTriggerEnter(Collider other) 
     {
+        // if projectile collides with asteroid, projectile is destroyed and asteroid breaks up
 
         if (other.gameObject.CompareTag("Projectile"))
         {
             FractureObject();
+            Destroy(other.gameObject);
+
+        }
+
+
+        // if the asteroid spawns near a powerup or bacterium, the powerup or bacterium is destroyed
+        if (other.gameObject.CompareTag("Fuel Large") || other.gameObject.CompareTag("Fuel Small") || other.gameObject.CompareTag("Sonic Blaster PowerUp") || other.gameObject.CompareTag("Bacterium"))
+        {
             Destroy(other.gameObject);
 
         }
