@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+
 
 public class Asteroid : MonoBehaviour
 {
@@ -48,7 +48,7 @@ public class Asteroid : MonoBehaviour
 
 
         // if the asteroid spawns near a powerup or bacterium, the powerup or bacterium is destroyed
-        if (other.gameObject.CompareTag("Fuel Large") || other.gameObject.CompareTag("Fuel Small") || other.gameObject.CompareTag("Sonic Blaster PowerUp") || other.gameObject.CompareTag("Bacterium"))
+        if (other.gameObject.CompareTag("Fuel Large") || other.gameObject.CompareTag("Fuel Small") || other.gameObject.CompareTag("Sonic Blaster PowerUp") || other.gameObject.CompareTag("Blue Bacterium") || other.gameObject.CompareTag("Red Bacterium") || other.gameObject.CompareTag("Purple Bacterium"))
         {
             Destroy(other.gameObject);
 

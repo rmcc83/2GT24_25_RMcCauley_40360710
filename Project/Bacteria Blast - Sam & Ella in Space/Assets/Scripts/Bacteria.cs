@@ -30,13 +30,44 @@ public class Bacteria : MonoBehaviour
         
     }
 
+    //The type of this bacterium
+    public BacteriaType bacteriaType = BacteriaType.Red;
+
+
     private void OnTriggerEnter(Collider other) 
+
     {
+        // If Player & Bacteria Collide, bacterium is destroyed & appropriate count is incremented
+
         if (other.CompareTag("Player")) 
         {
-            gameManager.AddScore(pointValue);
-            Destroy(gameObject);
-           
+            if (bacteriaType == BacteriaType.Blue)
+            {
+                gameManager.blueRemaining -= 1;
+                Destroy(gameObject);
+            }
+
+            if (bacteriaType == BacteriaType.Purple)
+            {
+                gameManager.purpleRemaining -= 1;
+                Destroy(gameObject);
+            }
+
+            if (bacteriaType == BacteriaType.Red)
+            {
+                gameManager.redRemaining -= 1;
+                Destroy(gameObject);
+            }
+
+        }
+
+        // If bacteria & powerup or virus spawn together, powerup or virus is destroyed
+
+        if (other.gameObject.CompareTag("Fuel Large") || other.gameObject.CompareTag("Fuel Small") || other.gameObject.CompareTag("Sonic Blaster PowerUp") || other.gameObject.CompareTag("Virus"))
+        {
+            Destroy(other.gameObject);
+
+
         }
 
 

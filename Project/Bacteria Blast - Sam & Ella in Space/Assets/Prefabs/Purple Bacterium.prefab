@@ -1538,7 +1538,7 @@ GameObject:
   - component: {fileID: 5190587942738402645}
   m_Layer: 0
   m_Name: Purple Bacterium
-  m_TagString: Bacterium
+  m_TagString: Purple Bacterium
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1606,6 +1606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 2
+  bacteriaType: 1
 --- !u!135 &5190587942738402645
 SphereCollider:
   m_ObjectHideFlags: 0

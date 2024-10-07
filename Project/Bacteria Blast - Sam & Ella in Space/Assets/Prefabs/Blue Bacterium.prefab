@@ -520,7 +520,7 @@ GameObject:
   - component: {fileID: 2596849331792733136}
   m_Layer: 0
   m_Name: Blue Bacterium
-  m_TagString: Bacterium
+  m_TagString: Blue Bacterium
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -597,6 +597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 3
+  bacteriaType: 2
 --- !u!114 &2596849331792733136
 MonoBehaviour:
   m_ObjectHideFlags: 0

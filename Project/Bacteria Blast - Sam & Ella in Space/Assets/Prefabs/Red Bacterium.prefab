@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: -833588374219852349}
   m_Layer: 0
   m_Name: Red Bacterium
-  m_TagString: Bacterium
+  m_TagString: Red Bacterium
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -491,8 +491,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.01426, z: 1}
-  m_Center: {x: 0, y: 0.45657793, z: -0}
+  m_Size: {x: 1, y: 1.0785102, z: 1}
+  m_Center: {x: -0, y: 0.48870286, z: -0}
 --- !u!114 &1298203122280899684
 MonoBehaviour:
   m_ObjectHideFlags: 0

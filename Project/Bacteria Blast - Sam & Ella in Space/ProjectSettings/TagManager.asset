@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Ground
   - GameManager
-  - Bacterium
   - Virus
   - Asteroid
   - Sonic Blaster PowerUp
@@ -17,6 +16,9 @@ TagManager:
   - Explosion
   - Flame
   - Fragment
+  - Blue Bacterium
+  - Red Bacterium
+  - Purple Bacterium
   layers:
   - Default
   - TransparentFX

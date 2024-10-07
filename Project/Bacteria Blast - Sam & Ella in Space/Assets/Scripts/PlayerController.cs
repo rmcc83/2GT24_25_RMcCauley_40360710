@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
             // If spacebar is pressed and player is below the maximum boost height and fuel is available, and game is not over, an upward force is applied & fuel reduces by 5%
             if (Input.GetKeyDown(KeyCode.Space) && (transform.position.y < boostMax) && gameManager.fuel >= 5)
             {
+                playerRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
                 playerRb.AddForce(Vector3.up * boostForce, ForceMode.Impulse);
                 gameManager.IncreaseFuel(-5);
                 Instantiate(flamePrefab, thrustPosition1.position, flamePrefab.transform.rotation);

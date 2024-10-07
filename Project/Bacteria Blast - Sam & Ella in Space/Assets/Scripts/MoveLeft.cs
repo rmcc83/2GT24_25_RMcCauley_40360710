@@ -29,7 +29,7 @@ public class MoveLeft : MonoBehaviour
             {
                 transform.Translate(Vector3.left * Time.deltaTime * (speed * 2));
 
-                if (gameObject.CompareTag("Bacterium") || gameObject.CompareTag("Virus"))
+                if (gameObject.CompareTag("Blue Bacterium") || gameObject.CompareTag("Red Bacterium") || gameObject.CompareTag("Purple Bacterium") || gameObject.CompareTag("Virus"))
                 {
                     transform.Translate(Vector3.right * Time.deltaTime * (speed * 2));
                 }
@@ -52,7 +52,7 @@ public class MoveLeft : MonoBehaviour
             {
                 transform.Translate(Vector3.left * Time.deltaTime * speed);
 
-                if (gameObject.CompareTag("Bacterium") || gameObject.CompareTag("Virus"))
+                if (gameObject.CompareTag("Blue Bacterium") || gameObject.CompareTag("Red Bacterium") || gameObject.CompareTag("Purple Bacterium") || gameObject.CompareTag("Virus"))
                 {
 
                     transform.Translate(Vector3.right * Time.deltaTime * (speed * 2));
@@ -74,8 +74,8 @@ public class MoveLeft : MonoBehaviour
 
         // Destroys items when they leave left hand side of screen
         if (transform.position.x < leftBound) 
-        { 
-            if (gameObject.CompareTag("Bacterium") || gameObject.CompareTag("Sonic Blaster PowerUp") || gameObject.CompareTag("Fuel Large") || gameObject.CompareTag("Fuel Small") || gameObject.CompareTag("Asteroid") || gameObject.CompareTag("Virus"))
+        {
+            if (gameObject.CompareTag("Blue Bacterium") || gameObject.CompareTag("Red Bacterium") || gameObject.CompareTag("Purple Bacterium") || gameObject.CompareTag("Sonic Blaster PowerUp") || gameObject.CompareTag("Fuel Large") || gameObject.CompareTag("Fuel Small") || gameObject.CompareTag("Asteroid") || gameObject.CompareTag("Virus"))
 
             {
                 Destroy(gameObject);
