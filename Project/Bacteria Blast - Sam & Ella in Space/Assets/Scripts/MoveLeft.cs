@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveLeft : MonoBehaviour
 {
     private float speed = 20;
-    private PlayerController playerControllerScript;
+    private PlayerController playerController;
     private GameManager gameManager;
     private float leftBound = -80;
     private float rightBound = -35;
@@ -13,7 +13,7 @@ public class MoveLeft : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
@@ -24,7 +24,7 @@ public class MoveLeft : MonoBehaviour
         if (gameManager.gameStarted == true && gameManager.gameOver == false)
         {
             // if double speed is activated, move everything at double speed
-            if (playerControllerScript.doubleSpeed)
+            if (playerController.doubleSpeed)
 
             {
                 transform.Translate(Vector3.left * Time.deltaTime * (speed * 2));
@@ -48,7 +48,7 @@ public class MoveLeft : MonoBehaviour
 
 
             // otherwise, move everything at normal speed
-            if (playerControllerScript.doubleSpeed == false)
+            if (playerController.doubleSpeed == false)
             {
                 transform.Translate(Vector3.left * Time.deltaTime * speed);
 

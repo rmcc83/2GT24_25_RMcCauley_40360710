@@ -7,13 +7,13 @@ public class Virus : MonoBehaviour
     // Start is called before the first frame update
 
     private GameManager gameManager;
-    public PlayerController playerController;
+  
 
 
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+     
 
 
     }

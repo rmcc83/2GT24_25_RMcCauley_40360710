@@ -33,11 +33,13 @@ public class PlayerController : MonoBehaviour
     public AudioClip weaponSound;
     public AudioClip boostSound;
     public AudioClip crashSound;
+    public PlayerController playerController;
 
 
 
     void Start()
     {
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         groundAudio = GameObject.Find("Ground").GetComponent<AudioSource>();
         playerAudio = GetComponent<AudioSource>();
         playerRb = GetComponent<Rigidbody>();
@@ -122,15 +124,17 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(PowerupCountdownRoutine());
         }
 
-        // if player collides with ground or asteroid, player is destroyed, explosion visuals & sound occur, and game is over
+        // if player collides with ground or asteroid, player is hidden, explosion visuals & sound occur, and game is over
         if (other.CompareTag("Ground") || other.CompareTag("Asteroid"))
         {
             gameManager.gameOver = true;
+            gameManager.gameLose = true;
             Vector3 expSpawnpos = new(transform.position.x, transform.position.y, transform.position.z);
             Instantiate(explosion, expSpawnpos, explosion.transform.rotation);
-            Destroy(gameObject);
             groundAudio.PlayOneShot(crashSound);
-            Debug.Log("Game Over");
+            gameObject.SetActive(false);
+            gameManager.GameLose();
+
         }
 
         // if player collides with small fuel powerup, 20% is added to fuel amount

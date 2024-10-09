@@ -8,10 +8,12 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] asteroidPrefabs;
     public GameObject[] powerUpPrefabs;
     public GameObject[] virusPrefabs;
+    public GameObject player;
     private float spawnRangeY = 8;
     private float spawnPosX = -35;
     private float spawnPosZ = -2;
     private float virusSpawnZ = -0.5f;
+    private float playerPos;
     private GameManager gameManager;
     private float bacteriaStartDelay = 1;
     private float asteroidStartDelay = 2;
@@ -21,16 +23,17 @@ public class SpawnManager : MonoBehaviour
     private float asteroidSpawnInterval = 1;
     private float powerUpSpawnInterval = 2;
     private float virusSpawnInterval = 2;
-    private PlayerController playerControllerScript;
+    private PlayerController playerController;
+    private Rigidbody playerRb;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
 
-        
 
     }
 
@@ -106,4 +109,6 @@ public class SpawnManager : MonoBehaviour
             InvokeRepeating("SpawnVirus", virusStartDelay, virusSpawnInterval);
 
     }
+
+ 
 }
