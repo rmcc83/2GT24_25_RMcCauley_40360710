@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     private SpawnManager spawnManager;
     public PlayerController playerController;
     private Rigidbody playerRb;
+    public float gravityModifier;
 
     // Start is called before the first frame update
     void Start()
@@ -39,13 +40,16 @@ public class GameManager : MonoBehaviour
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
-       
+
+
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         UpdateBacteriaBlasted();
 
 
@@ -111,9 +115,7 @@ public class GameManager : MonoBehaviour
 
         }
 
-        //   playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        
-        Time.timeScale = 1;
+        ResetGravity();
         gameStarted = true;
         gameOver = false;
         gameWin = false;
@@ -124,7 +126,7 @@ public class GameManager : MonoBehaviour
         livesText.text = "LIVES: " + lives;
         fuelText.text = "FUEL: " + fuel;
         spawnManager.StartSpawn();
-        
+
 
 
 
@@ -153,8 +155,9 @@ public class GameManager : MonoBehaviour
         {
             livesText.text = "LIVES: " + lives;
             lives = 0;
-            gameOver = true;
-            gameLose = true;
+           // gameOver = true;
+           // gameLose = true;
+            GameLose();
 
         }
         else
@@ -199,16 +202,19 @@ public class GameManager : MonoBehaviour
 
     public void GameWin()
     {
-        Time.timeScale = 0;
+
         winScreen.gameObject.SetActive(true);
 
     }
 
     public void GameLose() 
     {
-
+        
+        gameOver = true;
+        gameLose = true;
+        gameStarted = false;
         loseScreen.gameObject.SetActive(true);
-    
+
     }
 
     public void NextLevel() 
@@ -277,7 +283,7 @@ public class GameManager : MonoBehaviour
             player.transform.position = playerPos;
             player.gameObject.SetActive(true);
             playerRb.constraints = RigidbodyConstraints.FreezeAll;
-       
+
             foreach (var gameObj in GameObject.FindGameObjectsWithTag("Red Bacterium"))
             {
                 Destroy(gameObj);
@@ -286,13 +292,13 @@ public class GameManager : MonoBehaviour
 
             foreach (var gameObj in GameObject.FindGameObjectsWithTag("Blue Bacterium"))
             {
-            Destroy(gameObj);
+                 Destroy(gameObj);
 
             }
 
             foreach (var gameObj in GameObject.FindGameObjectsWithTag("Purple Bacterium"))
             {
-            Destroy(gameObj);
+                Destroy(gameObj);
 
             }
 
@@ -304,33 +310,46 @@ public class GameManager : MonoBehaviour
 
             foreach (var gameObj in GameObject.FindGameObjectsWithTag("Asteroid"))
             {
-            Destroy(gameObj);
+                Destroy(gameObj);
 
             }
 
             foreach (var gameObj in GameObject.FindGameObjectsWithTag("Sonic Blaster PowerUp"))
             {
-            Destroy(gameObj);
+                Destroy(gameObj);
 
             }
 
              foreach (var gameObj in GameObject.FindGameObjectsWithTag("Fuel Large"))
              {
-            Destroy(gameObj);
+                Destroy(gameObj);
 
              }
 
             foreach (var gameObj in GameObject.FindGameObjectsWithTag("Fuel Small"))
             {
-            Destroy(gameObj);
+                Destroy(gameObj);
 
             }
 
             StartGame(currentLevel);
+            
 
-           
+          
     }
 
-    
+    public void ReloadScene() 
+    {
+        
+        SceneManager.LoadScene("Sam & Ella in Space");
+
+    }
+
+    public void ResetGravity()
+    {
+        Physics.gravity = new Vector3(0, -9.8f, 0);
+        Physics.gravity *= gravityModifier;
+    }
+
 
 }

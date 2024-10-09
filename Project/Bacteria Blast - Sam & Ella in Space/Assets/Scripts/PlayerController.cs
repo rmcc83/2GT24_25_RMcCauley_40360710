@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private AudioSource groundAudio;
     private AudioSource playerAudio;
     private Rigidbody playerRb;
-    public float gravityModifier;
     public float boostForce;
     public float boostMax;
     public float topBound;
@@ -45,8 +44,6 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
-        Physics.gravity *= gravityModifier;
-
     }
 
     void Update()
@@ -55,9 +52,10 @@ public class PlayerController : MonoBehaviour
         //If game has started & is not over
         if (gameManager.gameStarted == true && gameManager.gameOver == false)
         {
-            // If spacebar is pressed and player is below the maximum boost height and fuel is available, and game is not over, an upward force is applied & fuel reduces by 5%
-            if (Input.GetKeyDown(KeyCode.Space) && (transform.position.y < boostMax) && gameManager.fuel >= 5)
+            // If spacebar is pressed and player is below the maximum boost height and fuel is available, an upward force is applied & fuel reduces by 5%
+            if (Input.GetKeyDown(KeyCode.Space) && transform.position.y < boostMax && gameManager.fuel >= 5)
             {
+
                 playerRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
                 playerRb.AddForce(Vector3.up * boostForce, ForceMode.Impulse);
                 gameManager.IncreaseFuel(-5);
@@ -66,6 +64,7 @@ public class PlayerController : MonoBehaviour
                 playerAudio.PlayOneShot(boostSound);
 
             }
+
 
             // Ensures player cannot go outside the top of the screen
             if (transform.position.y > topBound)
@@ -91,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
             // Fire a sonic blast from the player if player has powerup, and play sound
 
-            if (gameManager.gameStarted == true && gameManager.gameOver == false && hasPowerup == true && Input.GetKey(KeyCode.RightShift))
+            if (gameManager.gameStarted == true && gameManager.gameOver == false && hasPowerup == true && Input.GetKeyDown(KeyCode.RightShift))
 
             {
                 playerAudio.PlayOneShot(weaponSound);
@@ -99,8 +98,6 @@ public class PlayerController : MonoBehaviour
                 Instantiate(sonicBlastPrefab, projectileSpawnPoint2.position, sonicBlastPrefab.transform.rotation);
                 Instantiate(sonicBlastPrefab, projectileSpawnPoint3.position, sonicBlastPrefab.transform.rotation);
                 Instantiate(sonicBlastPrefab, projectileSpawnPoint4.position, sonicBlastPrefab.transform.rotation);
-
-
 
             }
 
@@ -119,7 +116,6 @@ public class PlayerController : MonoBehaviour
             powerupIndicator.gameObject.SetActive(true);
             armedText.gameObject.SetActive(true);
             unarmedText.gameObject.SetActive(false);
-
             Destroy(other.gameObject);
             StartCoroutine(PowerupCountdownRoutine());
         }
@@ -127,8 +123,8 @@ public class PlayerController : MonoBehaviour
         // if player collides with ground or asteroid, player is hidden, explosion visuals & sound occur, and game is over
         if (other.CompareTag("Ground") || other.CompareTag("Asteroid"))
         {
-            gameManager.gameOver = true;
-            gameManager.gameLose = true;
+            // gameManager.gameOver = true;
+            //  gameManager.gameLose = true;
             Vector3 expSpawnpos = new(transform.position.x, transform.position.y, transform.position.z);
             Instantiate(explosion, expSpawnpos, explosion.transform.rotation);
             groundAudio.PlayOneShot(crashSound);
@@ -168,6 +164,8 @@ public class PlayerController : MonoBehaviour
         unarmedText.gameObject.SetActive(true);
 
     }
+
+ 
 
     
 

@@ -9,8 +9,9 @@ public class LevelButton : MonoBehaviour
     private Button button;
     private GameManager gameManager;
     public int level;
-    
-    
+
+
+
 
 
     // Start is called before the first frame update
@@ -37,11 +38,12 @@ public class LevelButton : MonoBehaviour
 
     }
 
-    public void NextLevel() 
-    { 
+    public void NextLevel()
+    {
         gameManager.StartGame(level + 1);
-    
-    
+
+
     }
 }
+
 

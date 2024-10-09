@@ -13,7 +13,6 @@ public class SpawnManager : MonoBehaviour
     private float spawnPosX = -35;
     private float spawnPosZ = -2;
     private float virusSpawnZ = -0.5f;
-    private float playerPos;
     private GameManager gameManager;
     private float bacteriaStartDelay = 1;
     private float asteroidStartDelay = 2;
@@ -23,16 +22,14 @@ public class SpawnManager : MonoBehaviour
     private float asteroidSpawnInterval = 1;
     private float powerUpSpawnInterval = 2;
     private float virusSpawnInterval = 2;
-    private PlayerController playerController;
-    private Rigidbody playerRb;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
+
 
 
     }
@@ -43,12 +40,12 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-    // Spawns a random bacterium at a random position on the Y axis as long as game is not over
+    // Spawns a random bacterium at a random position on the Y axis as long as game has started & is not over
     void SpawnBacteria()
 
     {
 
-        if (gameManager.gameOver == false)
+        if (gameManager.gameOver == false && gameManager.gameStarted == true)
         {
             int bacteriumindex = Random.Range(0, bacteriaPrefabs.Length);
             Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), spawnPosZ);
@@ -62,7 +59,7 @@ public class SpawnManager : MonoBehaviour
     // Spawns a random asteroid at a random position on the Y axis as long as game is not over
     void SpawnAsteroids() 
     {
-        if (gameManager.gameOver == false)
+        if (gameManager.gameOver == false && gameManager.gameStarted == true)
         {
             int asteroidindex = Random.Range(0, asteroidPrefabs.Length);
             Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), spawnPosZ);
@@ -76,8 +73,8 @@ public class SpawnManager : MonoBehaviour
     // Spawns a random powerup at a random position on the Y axis as long as game is not over
     void SpawnPowerUps()
     {
-        if (gameManager.gameOver == false)
-        {
+        if (gameManager.gameOver == false && gameManager.gameStarted == true)
+            {
             int powerUpindex = Random.Range(0, powerUpPrefabs.Length);
             Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), spawnPosZ);
 
@@ -89,8 +86,8 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnVirus() 
     {
-        if (gameManager.gameOver == false)
-        {
+        if (gameManager.gameOver == false && gameManager.gameStarted == true)
+            {
             int virusindex = Random.Range(0, virusPrefabs.Length);
             Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), virusSpawnZ);
 
@@ -98,16 +95,15 @@ public class SpawnManager : MonoBehaviour
             Instantiate(virusPrefabs[virusindex], spawnPos, virusPrefabs[virusindex].transform.rotation);
         }
 
-
     }
     public void StartSpawn()
 
     {
+                
             InvokeRepeating("SpawnBacteria", bacteriaStartDelay, bacteriaSpawnInterval);
             InvokeRepeating("SpawnAsteroids", asteroidStartDelay, asteroidSpawnInterval);
             InvokeRepeating("SpawnPowerUps", powerUpStartDelay, powerUpSpawnInterval);
-            InvokeRepeating("SpawnVirus", virusStartDelay, virusSpawnInterval);
-
+            InvokeRepeating("SpawnVirus", virusStartDelay, virusSpawnInterval);        
     }
 
  
