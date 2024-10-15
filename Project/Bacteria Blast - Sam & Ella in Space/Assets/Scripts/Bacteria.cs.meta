@@ -3,7 +3,11 @@ guid: 62a7dd29ab5af37468cc0fd33680556c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bacteriaAudio: {instanceID: 0}
+  - scream1: {fileID: 8300000, guid: 2dd8a90acf697a446a514deda50cfc7f, type: 3}
+  - scream2: {fileID: 8300000, guid: 11411c876ac2cd548bf432ff130be5c2, type: 3}
+  - scream3: {fileID: 8300000, guid: f28a6947952ec1847aaf64d47029b480, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

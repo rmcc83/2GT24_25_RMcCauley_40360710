@@ -38,12 +38,6 @@ public class LevelButton : MonoBehaviour
 
     }
 
-    public void NextLevel()
-    {
-        gameManager.StartGame(level + 1);
-
-
-    }
 }
 
 

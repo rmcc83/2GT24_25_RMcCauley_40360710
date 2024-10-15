@@ -15,13 +15,16 @@ public class Bacteria : MonoBehaviour
 
 {
     private GameManager gameManager;
+    public AudioSource bacteriaAudio;
     public int pointValue;
+   
 
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
     }
 
     // Update is called once per frame
@@ -37,7 +40,7 @@ public class Bacteria : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
 
     {
-        // If Player & Bacteria Collide, bacterium is destroyed & appropriate count is incremented
+        // If Player & Bacteria Collide, sound is played, bacterium is destroyed, & appropriate count is incremented
 
         if (other.CompareTag("Player")) 
         {

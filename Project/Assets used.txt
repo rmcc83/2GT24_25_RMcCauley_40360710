@@ -3,3 +3,14 @@ assets:
 https://www.soundsnap.com/sci_fi_laser_weapon_ricochet_2_wav - weapon sound
 https://www.soundsnap.com/spaceship_or_cheesy_ufo_airy_thrusters_with_steam_release - boost sound
 https://mixkit.co/free-sound-effects/crash/ - crash sound
+Sound Effect from <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=83171">Pixabay</a> - weird scream
+
+Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=105751">Pixabay</a> - whooo
+
+Sound Effect from <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=86403">Pixabay</a> - pinkie pie
+
+Sound Effect from <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=95552">Pixabay</a> - fuel sound
+
+Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=83543">Pixabay</a> - rocket pickup
+
+Sound Effect by <a href="https://pixabay.com/users/ribhavagrawal-39286533/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=230555">Ribhav Agrawal</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=230555">Pixabay</a> - lose

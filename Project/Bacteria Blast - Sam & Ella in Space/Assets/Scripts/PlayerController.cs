@@ -32,6 +32,12 @@ public class PlayerController : MonoBehaviour
     public AudioClip weaponSound;
     public AudioClip boostSound;
     public AudioClip crashSound;
+    public AudioClip scream1;
+    public AudioClip scream2;
+    public AudioClip scream3;
+    public AudioClip laugh;
+    public AudioClip fuelFill;
+    public AudioClip weaponArm;
     public PlayerController playerController;
 
 
@@ -114,21 +120,21 @@ public class PlayerController : MonoBehaviour
         {
             hasPowerup = true;
             powerupIndicator.gameObject.SetActive(true);
+            playerAudio.PlayOneShot(weaponArm);
             armedText.gameObject.SetActive(true);
             unarmedText.gameObject.SetActive(false);
             Destroy(other.gameObject);
             StartCoroutine(PowerupCountdownRoutine());
         }
 
-        // if player collides with ground or asteroid, player is hidden, explosion visuals & sound occur, and game is over
+        // if player collides with ground or asteroid, player is destroyed, explosion visuals & sound occur, and game is over
         if (other.CompareTag("Ground") || other.CompareTag("Asteroid"))
         {
-            // gameManager.gameOver = true;
-            //  gameManager.gameLose = true;
+
             Vector3 expSpawnpos = new(transform.position.x, transform.position.y, transform.position.z);
             Instantiate(explosion, expSpawnpos, explosion.transform.rotation);
             groundAudio.PlayOneShot(crashSound);
-            gameObject.SetActive(false);
+            Destroy(gameObject);
             gameManager.GameLose();
 
         }
@@ -138,8 +144,9 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Fuel Small"))
         {
             Destroy(other.gameObject);
-            gameManager.IncreaseFuel(20);
 
+            gameManager.IncreaseFuel(20);
+            playerAudio.PlayOneShot(fuelFill);
         }
 
         // if player collides with large fuel powerup, 50 % is added to fuel amount
@@ -147,9 +154,36 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Fuel Large"))
         {
             Destroy(other.gameObject);
-            gameManager.IncreaseFuel(50);;
+            gameManager.IncreaseFuel(50);
+            playerAudio.PlayOneShot(fuelFill);
 
         }
+
+        if (other.CompareTag("Blue Bacterium")) 
+        {
+            playerAudio.PlayOneShot(scream1);
+
+        }
+
+        if (other.CompareTag("Red Bacterium"))
+        {
+            playerAudio.PlayOneShot(scream2);
+
+        }
+
+        if (other.CompareTag("Purple Bacterium"))
+        {
+            playerAudio.PlayOneShot(scream3);
+
+        }
+
+        if (other.CompareTag("Virus"))
+        {
+            playerAudio.PlayOneShot(laugh);
+
+        }
+
+
 
     }
 
