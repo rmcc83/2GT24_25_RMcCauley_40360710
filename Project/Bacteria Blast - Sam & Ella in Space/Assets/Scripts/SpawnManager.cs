@@ -5,14 +5,16 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject[] bacteriaPrefabs;
+    public GameObject[] bacteriaPrefabsEndless;
     public GameObject[] asteroidPrefabs;
     public GameObject[] powerUpPrefabs;
     public GameObject[] virusPrefabs;
     public GameObject player;
     private float spawnRangeY = 8;
     private float spawnPosX = -35;
-    private float spawnPosZ = -2;
+    private float bactSpawnPosZ = -2;
     private float virusSpawnZ = -0.5f;
+    private float powerSpawnZ = -0.5f;
     private GameManager gameManager;
     private float bacteriaStartDelay = 1;
     private float asteroidStartDelay = 2;
@@ -48,13 +50,22 @@ public class SpawnManager : MonoBehaviour
         if (gameManager.gameOver == false && gameManager.gameStarted == true)
         {
             int bacteriumindex = Random.Range(0, bacteriaPrefabs.Length);
-            Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), spawnPosZ);
+            Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), bactSpawnPosZ);
 
 
             Instantiate(bacteriaPrefabs[bacteriumindex], spawnPos, bacteriaPrefabs[bacteriumindex].transform.rotation);
         }
 
-    }
+        else if (gameManager.gameOver == false && gameManager.gameStarted == true && gameManager.gameEndless == true) 
+        {
+            int bacteriumEndlessindex = Random.Range(0, bacteriaPrefabsEndless.Length);
+            Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), bactSpawnPosZ);
+
+
+            Instantiate(bacteriaPrefabsEndless[bacteriumEndlessindex], spawnPos, bacteriaPrefabsEndless[bacteriumEndlessindex].transform.rotation);
+        }
+
+    } 
 
     // Spawns a random asteroid at a random position on the Y axis as long as game is not over
     void SpawnAsteroids() 
@@ -62,7 +73,7 @@ public class SpawnManager : MonoBehaviour
         if (gameManager.gameOver == false && gameManager.gameStarted == true)
         {
             int asteroidindex = Random.Range(0, asteroidPrefabs.Length);
-            Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), spawnPosZ);
+            Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), bactSpawnPosZ);
 
 
             Instantiate(asteroidPrefabs[asteroidindex], spawnPos, asteroidPrefabs[asteroidindex].transform.rotation);
@@ -76,7 +87,7 @@ public class SpawnManager : MonoBehaviour
         if (gameManager.gameOver == false && gameManager.gameStarted == true)
             {
             int powerUpindex = Random.Range(0, powerUpPrefabs.Length);
-            Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), spawnPosZ);
+            Vector3 spawnPos = new(spawnPosX, Random.Range(-spawnRangeY, spawnRangeY), powerSpawnZ);
 
 
             Instantiate(powerUpPrefabs[powerUpindex], spawnPos, powerUpPrefabs[powerUpindex].transform.rotation);

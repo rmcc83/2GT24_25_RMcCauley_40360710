@@ -47,18 +47,38 @@ public class Bacteria : MonoBehaviour
             if (bacteriaType == BacteriaType.Blue)
             {
                 gameManager.blueRemaining -= 1;
+                gameManager.blueCollected += 1;
+
+                if (gameManager.gameEndless == true) 
+                {
+                    gameManager.AddScore(pointValue);
+
+                }
+                
                 Destroy(gameObject);
             }
 
             if (bacteriaType == BacteriaType.Purple)
             {
                 gameManager.purpleRemaining -= 1;
+                gameManager.purpleCollected += 1;
+                if (gameManager.gameEndless == true)
+                {
+                    gameManager.AddScore(pointValue);
+
+                }
                 Destroy(gameObject);
             }
 
             if (bacteriaType == BacteriaType.Red)
             {
                 gameManager.redRemaining -= 1;
+                gameManager.redCollected += 1;
+                if (gameManager.gameEndless == true)
+                {
+                    gameManager.AddScore(pointValue);
+
+                }
                 Destroy(gameObject);
             }
 

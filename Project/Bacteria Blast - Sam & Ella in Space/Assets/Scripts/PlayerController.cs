@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     public GameObject powerupIndicator;
     public TextMeshProUGUI armedText;
     public TextMeshProUGUI unarmedText;
+    public TextMeshProUGUI armedTextEndless;
+    public TextMeshProUGUI unarmedTextEndless;
     public bool hasPowerup = true;
     public GameObject sonicBlastPrefab;
     public GameObject flamePrefab;
@@ -123,6 +125,8 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(weaponArm);
             armedText.gameObject.SetActive(true);
             unarmedText.gameObject.SetActive(false);
+            armedTextEndless.gameObject.SetActive(true);
+            unarmedTextEndless.gameObject.SetActive(false);
             Destroy(other.gameObject);
             StartCoroutine(PowerupCountdownRoutine());
         }
@@ -196,6 +200,9 @@ public class PlayerController : MonoBehaviour
         powerupIndicator.gameObject.SetActive(false);
         armedText.gameObject.SetActive(false);
         unarmedText.gameObject.SetActive(true);
+        armedTextEndless.gameObject.SetActive(false);
+        unarmedTextEndless.gameObject.SetActive(true);
+
 
     }
 

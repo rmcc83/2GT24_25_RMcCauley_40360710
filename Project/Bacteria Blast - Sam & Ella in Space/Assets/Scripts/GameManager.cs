@@ -17,20 +17,30 @@ public class GameManager : MonoBehaviour
     public int redRemaining;
     public int blueRemaining;
     public int purpleRemaining;
+    public int redCollected;
+    public int blueCollected;
+    public int purpleCollected;
     public int music;
     public TMP_InputField playerName;
     public GameObject winScreen;
     public GameObject gameScreen;
+    public GameObject gameScreenEndless;
     public TextMeshProUGUI winText;
     public GameObject player;
     public GameObject loseScreen;
     public TextMeshProUGUI loseText;
     public GameObject titleScreen;
-    public TextMeshProUGUI redText;
-    public TextMeshProUGUI blueText;
-    public TextMeshProUGUI purpleText;
+    public TextMeshProUGUI redRemainText;
+    public TextMeshProUGUI blueRemainText;
+    public TextMeshProUGUI purpleRemainText;
     public TextMeshProUGUI fuelText;
     public TextMeshProUGUI livesText;
+    public TextMeshProUGUI redCollectText;
+    public TextMeshProUGUI blueCollectText;
+    public TextMeshProUGUI purpleCollectText;
+    public TextMeshProUGUI fuelEndlessText;
+    public TextMeshProUGUI livesEndlessText;
+    public TextMeshProUGUI scoreText;
     public AudioSource track1;
     public AudioSource track2;
     public AudioSource track3;
@@ -46,6 +56,7 @@ public class GameManager : MonoBehaviour
     public bool gameOver;
     public bool gameWin;
     public bool gameLose;
+    public bool gameEndless;
     public int currentLevel;
     private SpawnManager spawnManager;
     public PlayerController playerController;
@@ -153,18 +164,76 @@ public class GameManager : MonoBehaviour
 
         }
 
+
         ResetGravity();
         gameScreen.SetActive(true);
+        gameScreenEndless.SetActive(false);
         gameStarted = true;
         gameOver = false;
         gameWin = false;
         gameLose = false;
-        redText.text = "RED:" + redRemaining;
-        blueText.text = "BLUE:" + blueRemaining;
-        purpleText.text = "PURPLE:" + purpleRemaining;
+        redRemainText.text = "RED:" + redRemaining;
+        blueRemainText.text = "BLUE:" + blueRemaining;
+        purpleRemainText.text = "PURPLE:" + purpleRemaining;
         livesText.text = "LIVES: " + lives;
         fuelText.text = "FUEL: " + fuel;
         spawnManager.StartSpawn();
+
+    }
+
+    public void AddScore(int value)
+    {
+        score += value;
+        scoreText.text = playerName.text + "'s Score : " + score;
+    }
+   
+    public void StartGameEndless(int level) 
+    {
+
+        if (level == 99)
+        {
+            currentLevel = 99;
+            lives = 6;
+            fuel = 100;
+
+        }
+
+        if (level == 98)
+        {
+            currentLevel = 98;
+            lives = 4;
+            fuel = 80;
+
+        }
+
+        if (level == 97)
+        {
+            currentLevel = 97;
+            lives = 2;
+            fuel = 50;
+
+        }
+
+
+        gameEndless = true;
+        redCollected = 0;
+        blueCollected = 0;
+        purpleCollected = 0;
+        ResetGravity();
+        gameScreen.SetActive(false);
+        gameScreenEndless.SetActive(true);
+        gameStarted = true;
+        gameOver = false;
+        gameWin = false;
+        gameLose = false;
+        redCollectText.text = "RED:" + redCollected;
+        blueCollectText.text = "BLUE:" + blueCollected;
+        purpleCollectText.text = "PURPLE:" + purpleCollected;
+        livesEndlessText.text = "LIVES: " + lives;
+        fuelEndlessText.text = "FUEL: " + fuel;
+        spawnManager.StartSpawn();
+
+
 
     }
 
@@ -179,6 +248,7 @@ public class GameManager : MonoBehaviour
 
         }
         fuelText.text = "FUEL:" + fuel + " %";
+        fuelEndlessText.text = "FUEL:" + fuel + " %";
 
     }
 
@@ -190,6 +260,7 @@ public class GameManager : MonoBehaviour
         if (lives <= 0)
         {
             livesText.text = "LIVES: " + lives;
+            livesEndlessText.text = "LIVES: " + lives;
             lives = 0;
             GameLose();
 
@@ -198,38 +269,53 @@ public class GameManager : MonoBehaviour
 
         {
             livesText.text = "LIVES: " + lives;
+            livesEndlessText.text = "LIVES: " + lives;
         }
     }
 
     public void UpdateBacteriaBlasted()
     {
-        redText.text = "RED:" + redRemaining;
-        blueText.text = "BLUE:" + blueRemaining;
-        purpleText.text = "PURPLE:" + purpleRemaining;
 
-        if (redRemaining <= 0)
+        if (gameEndless !=true) 
         {
-            redRemaining = 0;
+            redRemainText.text = "RED:" + redRemaining;
+            blueRemainText.text = "BLUE:" + blueRemaining;
+            purpleRemainText.text = "PURPLE:" + purpleRemaining;
+
+            if (redRemaining <= 0)
+            {
+                redRemaining = 0;
+
+            }
+
+            if (blueRemaining <= 0)
+            {
+                blueRemaining = 0;
+
+            }
+
+            if (purpleRemaining <= 0)
+            {
+                purpleRemaining = 0;
+
+            }
+
+            if (gameStarted == true && redRemaining == 0 && blueRemaining == 0 && purpleRemaining == 0)
+            {
+                gameOver = true;
+                gameWin = true;
+                GameWin();
+            }
 
         }
+    
 
-        if (blueRemaining <= 0)
+        if (gameEndless == true) 
         {
-            blueRemaining = 0;
+            redCollectText.text = "RED:" + redCollected;
+            blueCollectText.text = "BLUE:" + blueCollected;
+            purpleCollectText.text = "PURPLE:" + purpleCollected;
 
-        }
-
-        if (purpleRemaining <= 0)
-        {
-            purpleRemaining = 0;
-
-        }
-
-        if (gameStarted == true && redRemaining == 0 && blueRemaining == 0 && purpleRemaining == 0)
-        {
-            gameOver = true;
-            gameWin = true;
-            GameWin();
         }
 
     }

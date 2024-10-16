@@ -33,8 +33,18 @@ public class LevelButton : MonoBehaviour
     // Once level is selected, game manager start game routine begins
     void SetLevel()
     {
+        if (level == 1 || level == 2 || level == 3 || level == 4 || level == 5) 
+        {
+            gameManager.StartGame(level);
+        }
+           
 
-        gameManager.StartGame(level);
+       else if (level == 99 | level == 98 | level == 97)
+       {
+            gameManager.currentLevel = 99;
+            gameManager.StartGameEndless(level);
+
+       }
 
     }
 
