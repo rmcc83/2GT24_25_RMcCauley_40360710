@@ -139,7 +139,21 @@ public class PlayerController : MonoBehaviour
             Instantiate(explosion, expSpawnpos, explosion.transform.rotation);
             groundAudio.PlayOneShot(crashSound);
             Destroy(gameObject);
-            gameManager.GameLose();
+
+            if (gameManager.gameEndless != true) 
+            {
+                gameManager.GameLose();
+
+            }
+
+            if (gameManager.gameEndless == true)
+            {
+                gameManager.GameOverCrash();
+
+            }
+
+
+
 
         }
 

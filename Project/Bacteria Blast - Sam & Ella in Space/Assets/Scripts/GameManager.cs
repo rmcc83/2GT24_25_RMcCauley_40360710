@@ -25,10 +25,17 @@ public class GameManager : MonoBehaviour
     public GameObject winScreen;
     public GameObject gameScreen;
     public GameObject gameScreenEndless;
+    public GameObject highscoreCongrats;
+    public GameObject highscoreDisplay;
+    public GameObject lastscoreDisplay;
+    public GameObject highscoreScreen;
+    public TextMeshProUGUI highscoreCongratsText;
     public TextMeshProUGUI winText;
     public GameObject player;
     public GameObject loseScreen;
     public TextMeshProUGUI loseText;
+    public GameObject gameOverScreen;
+    public TextMeshProUGUI gameOverText;
     public GameObject titleScreen;
     public TextMeshProUGUI redRemainText;
     public TextMeshProUGUI blueRemainText;
@@ -41,6 +48,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI fuelEndlessText;
     public TextMeshProUGUI livesEndlessText;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI endlessDifficultyText;
+    public TextMeshProUGUI highscoreText;
+    public TextMeshProUGUI lastscoreText;
     public AudioSource track1;
     public AudioSource track2;
     public AudioSource track3;
@@ -57,6 +67,7 @@ public class GameManager : MonoBehaviour
     public bool gameWin;
     public bool gameLose;
     public bool gameEndless;
+    public bool newHighscore;
     public int currentLevel;
     private SpawnManager spawnManager;
     public PlayerController playerController;
@@ -82,7 +93,9 @@ public class GameManager : MonoBehaviour
         string sceneName = currentScene.name;
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 
-
+        CheckHighScore();
+        UpdateHighScoreDisplay();
+        UpdateLastScoreDisplay();
         LoadVolume();
         LoadName();
 
@@ -168,6 +181,8 @@ public class GameManager : MonoBehaviour
         ResetGravity();
         gameScreen.SetActive(true);
         gameScreenEndless.SetActive(false);
+        highscoreDisplay.SetActive(false);
+        lastscoreDisplay.SetActive(false);
         gameStarted = true;
         gameOver = false;
         gameWin = false;
@@ -195,7 +210,7 @@ public class GameManager : MonoBehaviour
             currentLevel = 99;
             lives = 6;
             fuel = 100;
-
+            endlessDifficultyText.text = "Difficulty: Easy";
         }
 
         if (level == 98)
@@ -203,7 +218,7 @@ public class GameManager : MonoBehaviour
             currentLevel = 98;
             lives = 4;
             fuel = 80;
-
+            endlessDifficultyText.text = "Difficulty: Medium";
         }
 
         if (level == 97)
@@ -211,7 +226,7 @@ public class GameManager : MonoBehaviour
             currentLevel = 97;
             lives = 2;
             fuel = 50;
-
+            endlessDifficultyText.text = "Difficulty: Hard";
         }
 
 
@@ -222,6 +237,8 @@ public class GameManager : MonoBehaviour
         ResetGravity();
         gameScreen.SetActive(false);
         gameScreenEndless.SetActive(true);
+        highscoreDisplay.SetActive(false);
+        lastscoreDisplay.SetActive(false);
         gameStarted = true;
         gameOver = false;
         gameWin = false;
@@ -262,7 +279,20 @@ public class GameManager : MonoBehaviour
             livesText.text = "LIVES: " + lives;
             livesEndlessText.text = "LIVES: " + lives;
             lives = 0;
-            GameLose();
+
+            if (gameEndless != true) 
+            {
+                GameLose();
+
+            }
+
+            if (gameEndless == true) 
+            {
+
+                GameOverLives();
+            
+            }
+            
 
         }
         else
@@ -322,7 +352,7 @@ public class GameManager : MonoBehaviour
 
     public void GameWin()
     {
-
+        StopMusic();
         winScreen.gameObject.SetActive(true);
         winText.SetText("CONGRATULATIONS, " + playerName.text + " - YOU HAVE COLLECTED ALL THE REQUIRED BACTERIAL SAMPLES!!!");
 
@@ -339,7 +369,33 @@ public class GameManager : MonoBehaviour
 
     }
 
-    
+    public void GameOverCrash() 
+    {
+        StopMusic();
+        gameOver = true;
+        gameOverScreen.gameObject.SetActive(true);
+        gameOverText.SetText("SORRY, " + playerName.text + " - YOU CRASHED!  DON'T WORRY, RESCUE IS ON THE WAY!");
+        CheckHighScore();
+        SaveLastScore();
+        UpdateHighScoreDisplay();
+        UpdateLastScoreDisplay();
+    }
+
+    public void GameOverLives() 
+    {
+
+        StopMusic();
+        gameOver = true;
+        gameOverScreen.gameObject.SetActive(true);
+        gameOverText.SetText("SORRY, " + playerName.text + " - YOU COLLECTED TOO MANY VIRUSES!  BETTER LUCK NEXT TIME!");
+        playerRb.constraints = RigidbodyConstraints.FreezeAll;
+        CheckHighScore();
+        SaveLastScore();
+        UpdateHighScoreDisplay();
+        UpdateLastScoreDisplay();
+    }
+
+
     public void ReloadScene() 
     {
         
@@ -573,6 +629,120 @@ public class GameManager : MonoBehaviour
             screen4.gameObject.SetActive(true);
         }
 
+    }
+
+    public void CheckHighScore()
+    {
+
+        if (score > PlayerPrefs.GetInt("Highscore"))
+        {
+            newHighscore = true;
+            DisplayHighScoreNotification();
+            PlayerPrefs.SetInt("Highscore", score);
+            PlayerPrefs.SetString("Playername", playerName.text);
+            PlayerPrefs.SetInt("Red", redCollected);
+            PlayerPrefs.SetInt("Blue", blueCollected);
+            PlayerPrefs.SetInt("Purple", purpleCollected);
+            PlayerPrefs.SetString("Level", endlessDifficultyText.text);
+        }
+
+        // Easy Highscore
+
+        if (currentLevel == 99)
+        {
+            if (score > PlayerPrefs.GetInt("EasyHighscore"))
+            {
+                newHighscore = true;
+                DisplayHighScoreNotification();
+                PlayerPrefs.SetInt("EasyHighscore", score);
+                PlayerPrefs.SetString("EasyPlayername", playerName.text);
+                PlayerPrefs.SetInt("EasyRed", redCollected);
+                PlayerPrefs.SetInt("EasyBlue", blueCollected);
+                PlayerPrefs.SetInt("EasyPurple", purpleCollected);
+                PlayerPrefs.SetString("EasyDifficulty", endlessDifficultyText.text);
+            }
+
+        }
+
+        //Medium Highscore
+
+        if (currentLevel == 98)
+        {
+            if (score > PlayerPrefs.GetInt("MediumHighscore"))
+            {             
+                    newHighscore = true;
+                    DisplayHighScoreNotification();
+                    PlayerPrefs.SetInt("MediumHighscore", score);
+                    PlayerPrefs.SetString("MediumPlayername", playerName.text);
+                    PlayerPrefs.SetInt("MediumRed", redCollected);
+                    PlayerPrefs.SetInt("MediumBlue", blueCollected);
+                    PlayerPrefs.SetInt("MediumPurple", purpleCollected);
+                    PlayerPrefs.SetString("MediumDifficulty", endlessDifficultyText.text);
+                
+            }
+
+        }
+
+        //Hard Highscore
+
+        if (currentLevel == 97)
+        {
+            if (score > PlayerPrefs.GetInt("HardHighscore"))
+            {
+                newHighscore = true;
+                DisplayHighScoreNotification();
+                PlayerPrefs.SetInt("HardHighscore", score);
+                PlayerPrefs.SetString("HardPlayername", playerName.text);
+                PlayerPrefs.SetInt("HardRed", redCollected);
+                PlayerPrefs.SetInt("HardBlue", blueCollected);
+                PlayerPrefs.SetInt("HardPurple", purpleCollected);
+                PlayerPrefs.SetString("HardDifficulty", endlessDifficultyText.text);
+            }
+
+
+        }
+    }
+
+
+    public void SaveLastScore()
+    {
+        PlayerPrefs.SetInt("LastGamescore", score);
+        PlayerPrefs.SetString("LastGamePlayername", playerName.text);
+        PlayerPrefs.SetInt("LastGameRed", redCollected);
+        PlayerPrefs.SetInt("LastGameBlue", blueCollected);
+        PlayerPrefs.SetInt("LastGamePurple", purpleCollected);
+        PlayerPrefs.SetString("LastGameLevel", endlessDifficultyText.text);
+
+    }
+
+    public void UpdateHighScoreDisplay() => highscoreText.text = $" Endless Highscore: {PlayerPrefs.GetInt("Highscore")}" + $" Red: {PlayerPrefs.GetInt("Red")}" + $" Blue: {PlayerPrefs.GetInt("Blue")}" + $" Purple: {PlayerPrefs.GetInt("Purple")}" + $" by {PlayerPrefs.GetString("Playername")}" + $" on {PlayerPrefs.GetString("Level")}";
+
+    public void UpdateLastScoreDisplay() => lastscoreText.text = $"Endless Last Game: {PlayerPrefs.GetInt("LastGamescore")}" + $" Red: {PlayerPrefs.GetInt("LastGameRed")}" + $" Blue: {PlayerPrefs.GetInt("LastGameBlue")}" + $" Purple: {PlayerPrefs.GetInt("LastGamePurple")}" + $" by {PlayerPrefs.GetString("LastGamePlayername")}" + $" on {PlayerPrefs.GetString("LastGameLevel")}";
+
+    public void DisplayHighScoreNotification()
+    {
+        if (gameOver == true && newHighscore == true)
+        {
+
+            highscoreCongrats.gameObject.SetActive(true);
+            highscoreCongratsText.SetText("YOU GOT A NEW HIGH SCORE, " + playerName.text + "!");
+        }
+
+    }
+
+    public void ScoresOn()
+    {
+        highscoreScreen.gameObject.SetActive(true);
+        highscoreText.gameObject.SetActive(false);
+        lastscoreText.gameObject.SetActive(false);
+    }
+
+    // For hiding highscores
+    public void ScoresOff()
+    {
+        highscoreScreen.gameObject.SetActive(false);
+        highscoreText.gameObject.SetActive(true);
+        lastscoreText.gameObject.SetActive(true);
     }
 
 
