@@ -33,14 +33,15 @@ public class Bacteria : MonoBehaviour
         
     }
 
-    //The type of this bacterium
+    //The type of this bacterium - set in inspector for each one
     public BacteriaType bacteriaType = BacteriaType.Red;
 
 
     private void OnTriggerEnter(Collider other) 
 
     {
-        // If Player & Bacteria Collide, sound is played, bacterium is destroyed, & appropriate count is incremented
+        // If player & bacteria collide, bacterium is destroyed, appropriate remaining count is decreased and appropriate collected couunt is increased.
+        // If playing an endless game, score is increased by appropriate point value
 
         if (other.CompareTag("Player")) 
         {

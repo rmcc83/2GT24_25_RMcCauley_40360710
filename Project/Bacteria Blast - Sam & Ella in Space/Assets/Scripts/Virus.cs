@@ -27,7 +27,7 @@ public class Virus : MonoBehaviour
     public void OnTriggerEnter(Collider other)
 
     {
-        // If virus hits player, player loses a life.  
+        // If virus hits player, virus is destroyed & player loses a life.  
 
         if (other.CompareTag("Player"))
         {

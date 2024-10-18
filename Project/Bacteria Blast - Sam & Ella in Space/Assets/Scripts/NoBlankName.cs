@@ -11,7 +11,8 @@ public class NoBlankField : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (playerName.text == "")
+        // if player name is blank, the default of A Biotic is entered so the field is not blank
+        if (playerName.text == "") 
         {
             playerName.text = "A Biotic";
         }
@@ -22,6 +23,7 @@ public class NoBlankField : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if player name is blank, the default of A Biotic is entered so the field is not blank
         if (playerName.text == "")
         {
             playerName.text = "A Biotic";

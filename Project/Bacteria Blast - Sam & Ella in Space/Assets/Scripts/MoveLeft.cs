@@ -29,6 +29,7 @@ public class MoveLeft : MonoBehaviour
             {
                 transform.Translate(Vector3.left * Time.deltaTime * (speed * 2));
 
+                // if gameobject is bacterium or virus, it gets moved to the right instead, due to its orientation
                 if (gameObject.CompareTag("Blue Bacterium") || gameObject.CompareTag("Red Bacterium") || gameObject.CompareTag("Purple Bacterium") || gameObject.CompareTag("Virus"))
                 {
                     transform.Translate(Vector3.right * Time.deltaTime * (speed * 2));
@@ -36,7 +37,7 @@ public class MoveLeft : MonoBehaviour
 
 
 
-                // moves projectile
+                // moves projectile to the right
                 if (gameObject.CompareTag("Projectile"))
                 {
 
@@ -52,6 +53,7 @@ public class MoveLeft : MonoBehaviour
             {
                 transform.Translate(Vector3.left * Time.deltaTime * speed);
 
+                // once again, bacteria & virus move to their right
                 if (gameObject.CompareTag("Blue Bacterium") || gameObject.CompareTag("Red Bacterium") || gameObject.CompareTag("Purple Bacterium") || gameObject.CompareTag("Virus"))
                 {
 
@@ -60,7 +62,7 @@ public class MoveLeft : MonoBehaviour
 
                 }
 
-                // moves projectile
+                // moves projectile to the right
                 if (gameObject.CompareTag("Projectile"))
                 {
 

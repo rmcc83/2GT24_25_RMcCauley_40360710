@@ -11,15 +11,12 @@ public class LevelButton : MonoBehaviour
     public int level;
 
 
-
-
-
     // Start is called before the first frame update
     void Start()
     {
 
         button = GetComponent<Button>();
-        button.onClick.AddListener(SetLevel);
+        button.onClick.AddListener(SetLevel); // When button is clicked, it communicates the programmed level
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
     }
@@ -33,15 +30,15 @@ public class LevelButton : MonoBehaviour
     // Once level is selected, game manager start game routine begins
     void SetLevel()
     {
+        // if level is 1-5, the StartGame method in Gamemanager is called and the level number programmed in to the button is sent to it
         if (level == 1 || level == 2 || level == 3 || level == 4 || level == 5) 
         {
             gameManager.StartGame(level);
         }
-           
 
-       else if (level == 99 | level == 98 | level == 97)
+        // if level is 99/98/97, the StartGameEndless method in GameManager is called and the level number programmed in to the button is sent to it
+        else if (level == 99 | level == 98 | level == 97)
        {
-            gameManager.currentLevel = 99;
             gameManager.StartGameEndless(level);
 
        }

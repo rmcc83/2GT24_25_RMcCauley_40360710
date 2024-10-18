@@ -93,12 +93,13 @@ public class GameManager : MonoBehaviour
         string sceneName = currentScene.name;
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 
-        CheckHighScore();
-        UpdateHighScoreDisplay();
-        UpdateLastScoreDisplay();
-        LoadVolume();
-        LoadName();
+        CheckHighScore(); // run check highscore method
+        UpdateHighScoreDisplay(); // run update highscore display method
+        UpdateLastScoreDisplay(); // run update last score display method
+        LoadVolume(); // run load voulme method
+        LoadName(); // run load name method
 
+        // if main scene, music load method is run
         if (sceneName == "Sam & Ella in Space")
         {
             LoadMusic();
@@ -112,13 +113,14 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
-        UpdateBacteriaBlasted();
+        UpdateBacteriaBlasted(); // runs the bacteria blasted method
 
 
     }
 
 
-    public void StartGame(int level)
+    public void StartGame(int level) // level number is passed in from level select button.  Starting lives, starting fuel, amount of bacteria which
+                                     // must be collected to win are set depending on the level selected.
 
     {
        
@@ -177,33 +179,36 @@ public class GameManager : MonoBehaviour
 
         }
 
-
-        ResetGravity();
-        gameScreen.SetActive(true);
-        gameScreenEndless.SetActive(false);
-        highscoreDisplay.SetActive(false);
-        lastscoreDisplay.SetActive(false);
-        gameStarted = true;
-        gameOver = false;
-        gameWin = false;
-        gameLose = false;
-        redRemainText.text = "RED:" + redRemaining;
-        blueRemainText.text = "BLUE:" + blueRemaining;
-        purpleRemainText.text = "PURPLE:" + purpleRemaining;
-        livesText.text = "LIVES: " + lives;
-        fuelText.text = "FUEL: " + fuel + "%";
-        spawnManager.StartSpawn();
-        SaveName();
+        // The below happens for all the levels which call this method
+        ResetGravity(); // run reset gravity method - necessary to ensure gravity does not increase each time game is played, as gravity modifier is being utilised
+        gameScreen.SetActive(true); // sets gamescreen (with score, fuel etc) active
+        gameScreenEndless.SetActive(false); // sets endless game screen inactive
+        highscoreDisplay.SetActive(false); // sets highscore display inactive
+        lastscoreDisplay.SetActive(false); // sets last score display inactive
+        gameStarted = true; // flags that game has started
+        gameOver = false; // flags that game is not over
+        gameWin = false; //sets game win flag flase
+        gameLose = false; //sets game lose flag false
+        redRemainText.text = "RED:" + redRemaining; // displays red bacteria remaining
+        blueRemainText.text = "BLUE:" + blueRemaining; // displays blue bacteria remaining
+        purpleRemainText.text = "PURPLE:" + purpleRemaining; // displays purple bacteria remaining
+        livesText.text = "LIVES: " + lives; //displays lives remaining
+        fuelText.text = "FUEL: " + fuel + "%"; //displays fuel remaining
+        spawnManager.StartSpawn(); // runs start spawn method from spawnmanager
+        SaveName(); // runs savename method
 
     }
 
+    // Adds appropriate value to score when bacteria collected, and updates score display
     public void AddScore(int value)
     {
         score += value;
         scoreText.text = playerName.text.ToUpper() + "'S Score : " + score;
     }
    
-    public void StartGameEndless(int level) 
+
+    public void StartGameEndless(int level) // level number is passed in from level select button.  Starting lives,
+                                            // starting fuel, difficulty in words is set depending on (endless) level selected.
     {
 
         if (level == 99)
@@ -231,33 +236,34 @@ public class GameManager : MonoBehaviour
         }
 
 
-        gameEndless = true;
-        redCollected = 0;
-        blueCollected = 0;
-        purpleCollected = 0;
-        ResetGravity();
-        gameScreen.SetActive(false);
-        gameScreenEndless.SetActive(true);
-        highscoreDisplay.SetActive(false);
-        lastscoreDisplay.SetActive(false);
-        gameStarted = true;
-        gameOver = false;
-        gameWin = false;
-        gameLose = false;
-        scoreText.text = playerName.text.ToUpper() + "'S SCORE : " + score;
-        redCollectText.text = "RED:" + redCollected;
-        blueCollectText.text = "BLUE:" + blueCollected;
-        purpleCollectText.text = "PURPLE:" + purpleCollected;
-        livesEndlessText.text = "LIVES: " + lives;
-        fuelEndlessText.text = "FUEL: " + fuel + "%";
-        spawnManager.StartSpawn();
-        SaveName();
+        gameEndless = true; // flags endless game is selected
+        redCollected = 0; //sets red collected to 0
+        blueCollected = 0; //sets blue collected to 0
+        purpleCollected = 0; //sets purple collected to 0
+        ResetGravity(); // run reset gravity method - necessary to ensure gravity does not increase each time game is played, as gravity modifier is being utilised
+        gameScreen.SetActive(false); // sets normal game screen off
+        gameScreenEndless.SetActive(true); // sets endless game screen on
+        highscoreDisplay.SetActive(false); // turns highscore display off
+        lastscoreDisplay.SetActive(false); //turns lastscore display off
+        gameStarted = true; //flags game started
+        gameOver = false; //game over set to false
+        gameWin = false; //gamewin set to false
+        gameLose = false; //gamelose set to false
+        scoreText.text = playerName.text.ToUpper() + "'S SCORE : " + score; //displays score along with player name
+        redCollectText.text = "RED:" + redCollected; //displays red bacteria collected
+        blueCollectText.text = "BLUE:" + blueCollected; //displays blue bacteria collected
+        purpleCollectText.text = "PURPLE:" + purpleCollected; //displays purple bacteria collected
+        livesEndlessText.text = "LIVES: " + lives; //displays lives remaining
+        fuelEndlessText.text = "FUEL: " + fuel + "%"; //displays fuel remaining
+        spawnManager.StartSpawn(); //calls startspawn method from spawnmanager
+        SaveName(); //runs savename method
 
 
 
 
     }
 
+    // increases fuel by appropriate amount when powerup is collected, and displays it.  Fuel cannot go above 100%.
     public void IncreaseFuel(int value)
     {
        
@@ -273,11 +279,12 @@ public class GameManager : MonoBehaviour
 
     }
 
+    // Adjusts lives & displays current amount
     public void AddLives(int value)
     {
         lives += value;
 
-        // When lives are 0, game is over, you lose
+        // When lives are 0, game is over, you lose.  MEthod called will depend on game mode currently being played
         if (lives <= 0)
         {
             livesText.text = "LIVES: " + lives;
@@ -307,33 +314,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // updates bacteria numbers display
     public void UpdateBacteriaBlasted()
     {
-
-        if (gameEndless !=true) 
+        
+        if (gameEndless !=true)  //if endless game is not being played
         {
-            redRemainText.text = "RED:" + redRemaining;
-            blueRemainText.text = "BLUE:" + blueRemaining;
-            purpleRemainText.text = "PURPLE:" + purpleRemaining;
+            redRemainText.text = "RED:" + redRemaining; // display remaining red
+            blueRemainText.text = "BLUE:" + blueRemaining; //display remaining blue
+            purpleRemainText.text = "PURPLE:" + purpleRemaining; //display remaining purple
 
-            if (redRemaining <= 0)
+            if (redRemaining <= 0) //ensures remaining red will not go below 0, so collecting more than required is no advantage
             {
                 redRemaining = 0;
 
             }
 
-            if (blueRemaining <= 0)
+            if (blueRemaining <= 0) //ensures remaining blue will not go below 0, so collecting more than required is no advantage
             {
                 blueRemaining = 0;
 
             }
 
-            if (purpleRemaining <= 0)
+            if (purpleRemaining <= 0) //ensures remaining purple will not go below 0, so collecting more than required is no advantage
             {
                 purpleRemaining = 0;
 
             }
 
+            // if game has started and all remaining bacteria is 0, game is over, game is won, and gamewin method is run
             if (gameStarted == true && redRemaining == 0 && blueRemaining == 0 && purpleRemaining == 0)
             {
                 gameOver = true;
@@ -344,54 +353,57 @@ public class GameManager : MonoBehaviour
         }
     
 
-        if (gameEndless == true) 
+        if (gameEndless == true) // if endless game is being played
         {
-            redCollectText.text = "RED:" + redCollected;
-            blueCollectText.text = "BLUE:" + blueCollected;
-            purpleCollectText.text = "PURPLE:" + purpleCollected;
+            redCollectText.text = "RED:" + redCollected; // displays number of red bacteria collected
+            blueCollectText.text = "BLUE:" + blueCollected; // displays number of blue bacteria collected
+            purpleCollectText.text = "PURPLE:" + purpleCollected; // displays number of purple bacteria collected
 
         }
 
     }
-
-    public void GameWin()
+    
+    public void GameWin() // at gamewin, music stops, win screen is displayed & a personalised message is displayed
     {
         StopMusic();
         winScreen.gameObject.SetActive(true);
-        winText.SetText("CONGRATULATIONS, " + playerName.text.ToUpper() + " - YOU HAVE COLLECTED ALL THE REQUIRED BACTERIAL SAMPLES!!!");
+        winText.SetText("CONGRATULATIONS, " + playerName.text.ToUpper() + " - YOU HAVE COLLECTED ALL THE REQUIRED BACTERIAL SAMPLES!!!"); // player name is included in message, & forced to upper case
 
 
     }
 
-    public void GameLose() 
+    public void GameLose() // at game lose, music stops, game is over, game is lost, lose screen is displayed, personalised message is displayed
     {
         StopMusic();
         gameOver = true;
         gameLose = true;
         loseScreen.gameObject.SetActive(true);
-        loseText.SetText("SORRY," + playerName.text.ToUpper() + " - THIS TIME YOU DIDN'T COLLECT ENOUGH BACTERIAL SAMPLES.");
+        loseText.SetText("SORRY," + playerName.text.ToUpper() + " - THIS TIME YOU DIDN'T COLLECT ENOUGH BACTERIAL SAMPLES."); // player name is included in message, & forced to upper case
 
     }
 
-    public void GameOverCrash() 
+    public void GameOverCrash() // method used in endless game when player crashes.  Music stops, gameover screen is displayed, personalised message is displayed,
+                                // score is checked against saved highscore, score is saved as last score, highscore & last score displays are updated
     {
         StopMusic();
         gameOver = true;
         gameOverScreen.gameObject.SetActive(true);
-        gameOverText.SetText("SORRY, " + playerName.text.ToUpper() + " - YOU CRASHED!  DON'T WORRY, RESCUE IS ON THE WAY!");
+        gameOverText.SetText("SORRY, " + playerName.text.ToUpper() + " - YOU CRASHED!  DON'T WORRY, RESCUE IS ON THE WAY!"); // player name is included in message, & forced to upper case
         CheckHighScore();
         SaveLastScore();
         UpdateHighScoreDisplay();
         UpdateLastScoreDisplay();
     }
 
-    public void GameOverLives() 
+    public void GameOverLives() // method used in endless game when player runs out of lives.  Music stops, gameover screen is displayed, personalised message is displayed,
+                                // player object motion is fully constrained so it freezes in place, score is checked against saved highscore, score is saved as last score,
+                                // highscore & last score displays are updated
     {
 
         StopMusic();
         gameOver = true;
         gameOverScreen.gameObject.SetActive(true);
-        gameOverText.SetText("SORRY, " + playerName.text.ToUpper() + " - YOU COLLECTED TOO MANY VIRUSES!  BETTER LUCK NEXT TIME!");
+        gameOverText.SetText("SORRY, " + playerName.text.ToUpper() + " - YOU COLLECTED TOO MANY VIRUSES!  BETTER LUCK NEXT TIME!"); // player name is included in message, & forced to upper case
         playerRb.constraints = RigidbodyConstraints.FreezeAll;
         CheckHighScore();
         SaveLastScore();
@@ -400,6 +412,7 @@ public class GameManager : MonoBehaviour
     }
 
 
+    //method called to reload main scene
     public void ReloadScene() 
     {
         
@@ -407,13 +420,13 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void ResetGravity()
+    public void ResetGravity() // resets gravity to default, then multiplies it by gravity modifier.  If this is not run each time the game is played, gravity will increase each time
     {
         Physics.gravity = new Vector3(0, -9.8f, 0);
         Physics.gravity *= gravityModifier;
     }
 
-    public void StopMusic() 
+    public void StopMusic() //stops music entirely
     {
             track1.Stop();
             track2.Stop();
@@ -421,7 +434,7 @@ public class GameManager : MonoBehaviour
             track4.Stop();
     }
 
-    public void SaveName()
+    public void SaveName() // saves entered player name against particular key in playerprefs
     {
         if (player1 == true)
         {
@@ -442,7 +455,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LoadName()
+    public void LoadName() // allows previously saved player name in particular slot to be loaded from playerprefs
     {
 
         if (player1 == true)
@@ -465,7 +478,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void SaveVolume()
+    public void SaveVolume() // saves current volume setting in player prefs for particular player profile
     {
         if (player1 == true)
         {
@@ -487,7 +500,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void LoadVolume()
+    public void LoadVolume() //loads previously saved volume setting for that player profile from playerprefs.  If no saved value, defaults to 50%
     {
         if (player1 == true)
         {
@@ -524,14 +537,14 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void SetMusic(int value)
+    public void SetMusic(int value) // sets music to particular track
     {
         music = value;
 
 
     }
 
-    public void SaveMusic()
+    public void SaveMusic() //saves set music track against current player profile in playerprefs
     {
         if (player1 == true)
         {
@@ -553,7 +566,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void LoadMusic()
+    public void LoadMusic() //loads music setting for current player from playerprefs, and then plays appropriate tune & sets appropriate 'radio' screen to match
     {
 
         if (player1 == true)
@@ -635,10 +648,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void CheckHighScore()
+    public void CheckHighScore() //handles checking for highscore & saving highscores
     {
 
-        if (score > PlayerPrefs.GetInt("Highscore"))
+        if (score > PlayerPrefs.GetInt("Highscore")) //if current score is higher than saved highscore, new highscore flag is true, new high score notification is displayed,
+                                                     //and score/playername/bacteria collected/difficulty are saved in playerprefs against overall highscore key
         {
             newHighscore = true;
             DisplayHighScoreNotification();
@@ -650,7 +664,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetString("Level", endlessDifficultyText.text);
         }
 
-        // Easy Highscore
+        // Checks/saves highscore in playerprefs for easy level
 
         if (currentLevel == 99)
         {
@@ -668,7 +682,7 @@ public class GameManager : MonoBehaviour
 
         }
 
-        //Medium Highscore
+        // Checks/saves highscore in playerprefs for medium level
 
         if (currentLevel == 98)
         {
@@ -687,7 +701,7 @@ public class GameManager : MonoBehaviour
 
         }
 
-        //Hard Highscore
+        // Checks/saves highscore in playerprefs for hard level
 
         if (currentLevel == 97)
         {
@@ -707,7 +721,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    // saves score/player/bacteria collected/difficulty for current game in player prefs
     public void SaveLastScore()
     {
         PlayerPrefs.SetInt("LastGamescore", score);
@@ -719,22 +733,24 @@ public class GameManager : MonoBehaviour
 
     }
 
+    // updates high score display with saved values from player prefs
     public void UpdateHighScoreDisplay() => highscoreText.text = $" Endless Highscore: {PlayerPrefs.GetInt("Highscore")}" + $" Red: {PlayerPrefs.GetInt("Red")}" + $" Blue: {PlayerPrefs.GetInt("Blue")}" + $" Purple: {PlayerPrefs.GetInt("Purple")}" + $" by {PlayerPrefs.GetString("Playername")}" + $" on {PlayerPrefs.GetString("Level")}";
 
+    // updates last score display with saved values from player prefs
     public void UpdateLastScoreDisplay() => lastscoreText.text = $"Endless Last Game: {PlayerPrefs.GetInt("LastGamescore")}" + $" Red: {PlayerPrefs.GetInt("LastGameRed")}" + $" Blue: {PlayerPrefs.GetInt("LastGameBlue")}" + $" Purple: {PlayerPrefs.GetInt("LastGamePurple")}" + $" by {PlayerPrefs.GetString("LastGamePlayername")}" + $" on {PlayerPrefs.GetString("LastGameLevel")}";
 
-    public void DisplayHighScoreNotification()
+    public void DisplayHighScoreNotification() // if gameover is true and new highscore is true, personalised notification is displayed 
     {
         if (gameOver == true && newHighscore == true)
         {
 
             highscoreCongrats.gameObject.SetActive(true);
-            highscoreCongratsText.SetText("YOU GOT A NEW HIGH SCORE, " + playerName.text.ToUpper() + "!");
+            highscoreCongratsText.SetText("YOU GOT A NEW HIGH SCORE, " + playerName.text.ToUpper() + "!"); //ensures player name is displayed in upper case
         }
 
     }
 
-    public void ScoresOn()
+    public void ScoresOn() //displays highscore screen & ensures overall highscore & last game score are hidden
     {
         highscoreScreen.gameObject.SetActive(true);
         highscoreText.gameObject.SetActive(false);
@@ -742,7 +758,7 @@ public class GameManager : MonoBehaviour
     }
 
     // For hiding highscores
-    public void ScoresOff()
+    public void ScoresOff() //hides highscore screen & ensures overall highscore & last game score are visible again
     {
         highscoreScreen.gameObject.SetActive(false);
         highscoreText.gameObject.SetActive(true);

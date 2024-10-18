@@ -9,7 +9,7 @@ public class vkEnabler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //ShowVirtualKeyboard();
+ 
     }
 
     // Update is called once per frame
@@ -18,6 +18,7 @@ public class vkEnabler : MonoBehaviour
         
     }
 	
+    // Method which is called when virtual keyboard is required - keyboard is shown and acts on a particular inputfield
 	public void ShowVirtualKeyboard()
     {
 		TNVirtualKeyboard.instance.ShowVirtualKeyboard();

@@ -60,7 +60,10 @@ public class PlayerController : MonoBehaviour
         //If game has started & is not over
         if (gameManager.gameStarted == true && gameManager.gameOver == false)
         {
-            // If spacebar is pressed and player is below the maximum boost height and fuel is available, an upward force is applied & fuel reduces by 5%
+            // If spacebar is pressed and player is below the maximum boost height and fuel is available,
+            // constraint on player's Y position is removed, an upward force is applied to the player,
+            // & fuel reduces by 5%.  Flame prefbas are also instantiated from bottom of spaceship & appropriate
+            // sound is played
             if (Input.GetKeyDown(KeyCode.Space) && transform.position.y < boostMax && gameManager.fuel >= 5)
             {
 
@@ -96,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            // Fire a sonic blast from the player if player has powerup, and play sound
+            // Fire a sonic blast from the player and play sound if game has started & is not over & player has powerup, and right shift is pressed
 
             if (gameManager.gameStarted == true && gameManager.gameOver == false && hasPowerup == true && Input.GetKeyDown(KeyCode.RightShift))
 
@@ -116,7 +119,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other) 
     {
-        // If player collides with sonic blaster powerup, icon disappears, indicator appears, text changes, countdown routine begins 
+        // If player collides with sonic blaster powerup, powerup disappears, sound is played, indicator appears around player,
+        // weapon text changes from unarmed to armed, countdown routine begins 
 
         if (other.CompareTag("Sonic Blaster PowerUp"))
         {
@@ -131,7 +135,9 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(PowerupCountdownRoutine());
         }
 
-        // if player collides with ground or asteroid, player is destroyed, explosion visuals & sound occur, and game is over
+        // if player collides with ground or asteroid, player is destroyed, explosion visuals are instantiated at impact point,
+        // crash sound is played, and game is over.  What happens at this point (ie what gamemanger method is called) depends on 
+        // whether an endless mode level is being played or not.
         if (other.CompareTag("Ground") || other.CompareTag("Asteroid"))
         {
 
@@ -157,7 +163,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        // if player collides with small fuel powerup, 20% is added to fuel amount
+        // if player collides with small fuel powerup, 20% is added to fuel amount & sound is played
 
         if (other.CompareTag("Fuel Small"))
         {
@@ -167,7 +173,7 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(fuelFill);
         }
 
-        // if player collides with large fuel powerup, 50 % is added to fuel amount
+        // if player collides with large fuel powerup, 50 % is added to fuel amount & sound is played
 
         if (other.CompareTag("Fuel Large"))
         {
@@ -177,11 +183,15 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        // if player collides with blue bacterium, a scream is played
+
         if (other.CompareTag("Blue Bacterium")) 
         {
             playerAudio.PlayOneShot(scream1);
 
         }
+
+        // if player collides with red bacterium, a second scream is played
 
         if (other.CompareTag("Red Bacterium"))
         {
@@ -189,11 +199,15 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        // if player collides with red bacterium, a third scream is played
+
         if (other.CompareTag("Purple Bacterium"))
         {
             playerAudio.PlayOneShot(scream3);
 
         }
+
+        // if player collides with a virus, a laugh is played
 
         if (other.CompareTag("Virus"))
         {
@@ -202,10 +216,10 @@ public class PlayerController : MonoBehaviour
         }
 
 
-
     }
 
-    // Player has powerup for 5 seconds, the indicator disappears, text changes & powerup switches off
+    // Player has powerup for 5 seconds, after which the indicator around the player disappears, weapon text changes
+    // from armed to unarmed, & right shift no longer caused a projectile to be emitted
     IEnumerator PowerupCountdownRoutine()
     {
 
@@ -219,14 +233,5 @@ public class PlayerController : MonoBehaviour
 
 
     }
-
- 
-
-    
-
-
-
-
-
 
 }

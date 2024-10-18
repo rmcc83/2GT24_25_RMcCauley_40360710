@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    public GameObject levelPanel;
-    public GameObject endlessPanel;
+    public GameObject levelPanel; // pop up panel for levels 1-5
+    public GameObject endlessPanel; // pop up panel for endless levels
 
 
     // Start is called before the first frame update
@@ -20,6 +20,7 @@ public class MenuManager : MonoBehaviour
 
     }
 
+    // Method to trigger the pop-up animation for the level select button
     public void LevelSelect()
     {
         levelPanel.GetComponent<Animator>().SetTrigger("Pop");
