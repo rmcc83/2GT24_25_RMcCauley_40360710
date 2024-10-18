@@ -191,15 +191,16 @@ public class GameManager : MonoBehaviour
         blueRemainText.text = "BLUE:" + blueRemaining;
         purpleRemainText.text = "PURPLE:" + purpleRemaining;
         livesText.text = "LIVES: " + lives;
-        fuelText.text = "FUEL: " + fuel;
+        fuelText.text = "FUEL: " + fuel + "%";
         spawnManager.StartSpawn();
+        SaveName();
 
     }
 
     public void AddScore(int value)
     {
         score += value;
-        scoreText.text = playerName.text + "'s Score : " + score;
+        scoreText.text = playerName.text.ToUpper() + "'S Score : " + score;
     }
    
     public void StartGameEndless(int level) 
@@ -243,12 +244,15 @@ public class GameManager : MonoBehaviour
         gameOver = false;
         gameWin = false;
         gameLose = false;
+        scoreText.text = playerName.text.ToUpper() + "'S SCORE : " + score;
         redCollectText.text = "RED:" + redCollected;
         blueCollectText.text = "BLUE:" + blueCollected;
         purpleCollectText.text = "PURPLE:" + purpleCollected;
         livesEndlessText.text = "LIVES: " + lives;
-        fuelEndlessText.text = "FUEL: " + fuel;
+        fuelEndlessText.text = "FUEL: " + fuel + "%";
         spawnManager.StartSpawn();
+        SaveName();
+
 
 
 
@@ -264,8 +268,8 @@ public class GameManager : MonoBehaviour
             fuel = 100;
 
         }
-        fuelText.text = "FUEL:" + fuel + " %";
-        fuelEndlessText.text = "FUEL:" + fuel + " %";
+        fuelText.text = "FUEL:" + fuel + "%";
+        fuelEndlessText.text = "FUEL:" + fuel + "%";
 
     }
 
@@ -354,7 +358,7 @@ public class GameManager : MonoBehaviour
     {
         StopMusic();
         winScreen.gameObject.SetActive(true);
-        winText.SetText("CONGRATULATIONS, " + playerName.text + " - YOU HAVE COLLECTED ALL THE REQUIRED BACTERIAL SAMPLES!!!");
+        winText.SetText("CONGRATULATIONS, " + playerName.text.ToUpper() + " - YOU HAVE COLLECTED ALL THE REQUIRED BACTERIAL SAMPLES!!!");
 
 
     }
@@ -365,7 +369,7 @@ public class GameManager : MonoBehaviour
         gameOver = true;
         gameLose = true;
         loseScreen.gameObject.SetActive(true);
-        loseText.SetText("SORRY," + playerName.text + " - THIS TIME YOU DIDN'T COLLECT ENOUGH BACTERIAL SAMPLES.");
+        loseText.SetText("SORRY," + playerName.text.ToUpper() + " - THIS TIME YOU DIDN'T COLLECT ENOUGH BACTERIAL SAMPLES.");
 
     }
 
@@ -374,7 +378,7 @@ public class GameManager : MonoBehaviour
         StopMusic();
         gameOver = true;
         gameOverScreen.gameObject.SetActive(true);
-        gameOverText.SetText("SORRY, " + playerName.text + " - YOU CRASHED!  DON'T WORRY, RESCUE IS ON THE WAY!");
+        gameOverText.SetText("SORRY, " + playerName.text.ToUpper() + " - YOU CRASHED!  DON'T WORRY, RESCUE IS ON THE WAY!");
         CheckHighScore();
         SaveLastScore();
         UpdateHighScoreDisplay();
@@ -387,7 +391,7 @@ public class GameManager : MonoBehaviour
         StopMusic();
         gameOver = true;
         gameOverScreen.gameObject.SetActive(true);
-        gameOverText.SetText("SORRY, " + playerName.text + " - YOU COLLECTED TOO MANY VIRUSES!  BETTER LUCK NEXT TIME!");
+        gameOverText.SetText("SORRY, " + playerName.text.ToUpper() + " - YOU COLLECTED TOO MANY VIRUSES!  BETTER LUCK NEXT TIME!");
         playerRb.constraints = RigidbodyConstraints.FreezeAll;
         CheckHighScore();
         SaveLastScore();
@@ -639,7 +643,7 @@ public class GameManager : MonoBehaviour
             newHighscore = true;
             DisplayHighScoreNotification();
             PlayerPrefs.SetInt("Highscore", score);
-            PlayerPrefs.SetString("Playername", playerName.text);
+            PlayerPrefs.SetString("Playername", playerName.text.ToUpper());
             PlayerPrefs.SetInt("Red", redCollected);
             PlayerPrefs.SetInt("Blue", blueCollected);
             PlayerPrefs.SetInt("Purple", purpleCollected);
@@ -655,7 +659,7 @@ public class GameManager : MonoBehaviour
                 newHighscore = true;
                 DisplayHighScoreNotification();
                 PlayerPrefs.SetInt("EasyHighscore", score);
-                PlayerPrefs.SetString("EasyPlayername", playerName.text);
+                PlayerPrefs.SetString("EasyPlayername", playerName.text.ToUpper());
                 PlayerPrefs.SetInt("EasyRed", redCollected);
                 PlayerPrefs.SetInt("EasyBlue", blueCollected);
                 PlayerPrefs.SetInt("EasyPurple", purpleCollected);
@@ -673,7 +677,7 @@ public class GameManager : MonoBehaviour
                     newHighscore = true;
                     DisplayHighScoreNotification();
                     PlayerPrefs.SetInt("MediumHighscore", score);
-                    PlayerPrefs.SetString("MediumPlayername", playerName.text);
+                    PlayerPrefs.SetString("MediumPlayername", playerName.text.ToUpper());
                     PlayerPrefs.SetInt("MediumRed", redCollected);
                     PlayerPrefs.SetInt("MediumBlue", blueCollected);
                     PlayerPrefs.SetInt("MediumPurple", purpleCollected);
@@ -692,7 +696,7 @@ public class GameManager : MonoBehaviour
                 newHighscore = true;
                 DisplayHighScoreNotification();
                 PlayerPrefs.SetInt("HardHighscore", score);
-                PlayerPrefs.SetString("HardPlayername", playerName.text);
+                PlayerPrefs.SetString("HardPlayername", playerName.text.ToUpper());
                 PlayerPrefs.SetInt("HardRed", redCollected);
                 PlayerPrefs.SetInt("HardBlue", blueCollected);
                 PlayerPrefs.SetInt("HardPurple", purpleCollected);
@@ -725,7 +729,7 @@ public class GameManager : MonoBehaviour
         {
 
             highscoreCongrats.gameObject.SetActive(true);
-            highscoreCongratsText.SetText("YOU GOT A NEW HIGH SCORE, " + playerName.text + "!");
+            highscoreCongratsText.SetText("YOU GOT A NEW HIGH SCORE, " + playerName.text.ToUpper() + "!");
         }
 
     }
