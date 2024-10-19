@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject highscoreDisplay;
     public GameObject lastscoreDisplay;
     public GameObject highscoreScreen;
+    public GameObject helpScreen;
     public TextMeshProUGUI highscoreCongratsText;
     public TextMeshProUGUI winText;
     public GameObject player;
@@ -761,6 +762,21 @@ public class GameManager : MonoBehaviour
     public void ScoresOff() //hides highscore screen & ensures overall highscore & last game score are visible again
     {
         highscoreScreen.gameObject.SetActive(false);
+        highscoreText.gameObject.SetActive(true);
+        lastscoreText.gameObject.SetActive(true);
+    }
+
+    public void HelpOn() //displays controls screen & ensures overall highscore & last game score are hidden
+    {
+        helpScreen.gameObject.SetActive(true);
+        highscoreText.gameObject.SetActive(false);
+        lastscoreText.gameObject.SetActive(false);
+    }
+
+    // For hiding highscores
+    public void HelpOff() //hides controls screen & ensures overall highscore & last game score are visible again
+    {
+        helpScreen.gameObject.SetActive(false);
         highscoreText.gameObject.SetActive(true);
         lastscoreText.gameObject.SetActive(true);
     }
