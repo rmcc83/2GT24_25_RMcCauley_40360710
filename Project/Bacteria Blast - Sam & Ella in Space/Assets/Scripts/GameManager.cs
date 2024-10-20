@@ -75,6 +75,8 @@ public class GameManager : MonoBehaviour
     private Rigidbody playerRb;
     public float gravityModifier;
     public Slider musicSlider;
+    private AudioSource gameAudio;
+    public AudioClip buttonSound;
 
     // Start is called before the first frame update
     void Start()
@@ -83,6 +85,7 @@ public class GameManager : MonoBehaviour
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
+        gameAudio = GetComponent<AudioSource>();
 
 
     }
@@ -781,6 +784,12 @@ public class GameManager : MonoBehaviour
         helpScreen.gameObject.SetActive(false);
         highscoreText.gameObject.SetActive(true);
         lastscoreText.gameObject.SetActive(true);
+    }
+
+    // To play button click sounds
+    public void ButtonSound()
+    {
+        gameAudio.PlayOneShot(buttonSound, 1.0f);
     }
 
 
