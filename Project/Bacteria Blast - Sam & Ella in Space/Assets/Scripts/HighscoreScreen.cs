@@ -11,16 +11,19 @@ public class HighscoreScreen: MonoBehaviour
     public TextMeshProUGUI easyBlue; // blue collected on highscoring run of easy level
     public TextMeshProUGUI easyPurple; // purple collected on highscoring run on easy level
     public TextMeshProUGUI easyName; // player who acheived easy highscore
+    public TextMeshProUGUI easyTime; // time in which easy highscore was achieved
     public TextMeshProUGUI mediumScore; // highscore on easy level
     public TextMeshProUGUI mediumRed; // red collected on highscoring run of medium level
     public TextMeshProUGUI mediumBlue; // blue collected on highscoring run of medium level
     public TextMeshProUGUI mediumPurple; // purple collected on highscoring run on medium level
     public TextMeshProUGUI mediumName; // player who acheived medium highscore
+    public TextMeshProUGUI mediumTime; // time in which medium highscore was achieved
     public TextMeshProUGUI hardScore; // highscore on hard level
     public TextMeshProUGUI hardRed; // red collected on highscoring run of hard level
     public TextMeshProUGUI hardBlue; // blue collected on highscoring run of hard level
     public TextMeshProUGUI hardPurple; // purple collected on highscoring run on hard level
     public TextMeshProUGUI hardName; // player who acheived hard highscore
+    public TextMeshProUGUI hardTime; // time in which hard highscore was achieved
 
     public void ShowScreen() // runs everything when screen is displayed
     { 
@@ -29,16 +32,19 @@ public class HighscoreScreen: MonoBehaviour
         EasyBlue();
         EasyPurple();
         EasyName();
+        EasyTime();
         MediumScore();
         MediumRed();
         MediumBlue();
         MediumPurple();
         MediumName();
+        MediumTime();
         HardScore();
         HardRed();
         HardBlue();
         HardPurple();
         HardName();
+        HardTime();
 
     }
 
@@ -78,6 +84,13 @@ public class HighscoreScreen: MonoBehaviour
 
     }
 
+    public void EasyTime() //gets the time saved for easy run & displays it
+    {
+
+        easyTime.text = "" + PlayerPrefs.GetString("EasyTime");
+
+    }
+
     public void MediumScore() // gets the medium highscore saved in playerprefs & displays it
     {
 
@@ -113,6 +126,13 @@ public class HighscoreScreen: MonoBehaviour
 
     }
 
+    public void MediumTime() //gets the time saved for medium run & displays it
+    {
+
+        mediumTime.text = "" + PlayerPrefs.GetString("MediumTime");
+
+    }
+
     public void HardScore() // gets the hard highscore saved in playerprefs & displays it
     {
 
@@ -145,6 +165,13 @@ public class HighscoreScreen: MonoBehaviour
     {
 
         hardName.text = "" + PlayerPrefs.GetString("HardPlayername", "A Biotic");
+
+    }
+
+    public void HardTime() //gets the time saved for hard run & displays it
+    {
+
+        hardTime.text = "" + PlayerPrefs.GetString("HardTime");
 
     }
 

@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 
 
@@ -77,6 +78,8 @@ public class GameManager : MonoBehaviour
     public Slider musicSlider;
     private AudioSource gameAudio;
     public AudioClip buttonSound;
+    public float timeElapsed = 0;
+    public TextMeshProUGUI timerText;
 
     // Start is called before the first frame update
     void Start()
@@ -120,6 +123,13 @@ public class GameManager : MonoBehaviour
     {
         
         UpdateBacteriaBlasted(); // runs the bacteria blasted method
+        
+        // Run the timer when the game starts in endless mode & stop it when game is over
+        if (gameStarted == true && gameEndless == true && !gameOver)
+        {
+            RunTimer();
+
+        }
 
 
     }
@@ -668,6 +678,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("Blue", blueCollected);
             PlayerPrefs.SetInt("Purple", purpleCollected);
             PlayerPrefs.SetString("Level", endlessDifficultyText.text);
+            PlayerPrefs.SetString("Time", timerText.text);
         }
 
         // Checks/saves highscore in playerprefs for easy level
@@ -684,6 +695,7 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetInt("EasyBlue", blueCollected);
                 PlayerPrefs.SetInt("EasyPurple", purpleCollected);
                 PlayerPrefs.SetString("EasyDifficulty", endlessDifficultyText.text);
+                PlayerPrefs.SetString("EasyTime", timerText.text);
             }
 
         }
@@ -701,8 +713,9 @@ public class GameManager : MonoBehaviour
                     PlayerPrefs.SetInt("MediumRed", redCollected);
                     PlayerPrefs.SetInt("MediumBlue", blueCollected);
                     PlayerPrefs.SetInt("MediumPurple", purpleCollected);
-                    PlayerPrefs.SetString("MediumDifficulty", endlessDifficultyText.text);
-                
+                    PlayerPrefs.SetString("MediumDifficulty", endlessDifficultyText.text);  
+                    PlayerPrefs.SetString("MediumTime", timerText.text);
+
             }
 
         }
@@ -721,6 +734,7 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetInt("HardBlue", blueCollected);
                 PlayerPrefs.SetInt("HardPurple", purpleCollected);
                 PlayerPrefs.SetString("HardDifficulty", endlessDifficultyText.text);
+                PlayerPrefs.SetString("HardTime", timerText.text);
             }
 
 
@@ -736,14 +750,15 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("LastGameBlue", blueCollected);
         PlayerPrefs.SetInt("LastGamePurple", purpleCollected);
         PlayerPrefs.SetString("LastGameLevel", endlessDifficultyText.text);
+        PlayerPrefs.SetString("LastTime", timerText.text);
 
     }
 
     // updates high score display with saved values from player prefs
-    public void UpdateHighScoreDisplay() => highscoreText.text = $" Endless Highscore: {PlayerPrefs.GetInt("Highscore")}" + $" Red: {PlayerPrefs.GetInt("Red")}" + $" Blue: {PlayerPrefs.GetInt("Blue")}" + $" Purple: {PlayerPrefs.GetInt("Purple")}" + $" by {PlayerPrefs.GetString("Playername")}" + $" on {PlayerPrefs.GetString("Level")}";
+    public void UpdateHighScoreDisplay() => highscoreText.text = $" Endless Highscore: {PlayerPrefs.GetInt("Highscore")}" + $" Red: {PlayerPrefs.GetInt("Red")}" + $" Blue: {PlayerPrefs.GetInt("Blue")}" + $" Purple: {PlayerPrefs.GetInt("Purple")}" + $" {PlayerPrefs.GetString("Time")}" + $" by {PlayerPrefs.GetString("Playername")}" + $" on {PlayerPrefs.GetString("Level")}";
 
     // updates last score display with saved values from player prefs
-    public void UpdateLastScoreDisplay() => lastscoreText.text = $"Endless Last Game: {PlayerPrefs.GetInt("LastGamescore")}" + $" Red: {PlayerPrefs.GetInt("LastGameRed")}" + $" Blue: {PlayerPrefs.GetInt("LastGameBlue")}" + $" Purple: {PlayerPrefs.GetInt("LastGamePurple")}" + $" by {PlayerPrefs.GetString("LastGamePlayername")}" + $" on {PlayerPrefs.GetString("LastGameLevel")}";
+    public void UpdateLastScoreDisplay() => lastscoreText.text = $"Endless Last Game: {PlayerPrefs.GetInt("LastGamescore")}" + $" Red: {PlayerPrefs.GetInt("LastGameRed")}" + $" Blue: {PlayerPrefs.GetInt("LastGameBlue")}" + $" Purple: {PlayerPrefs.GetInt("LastGamePurple")}" + $" {PlayerPrefs.GetString("LastTime")}" + $" by {PlayerPrefs.GetString("LastGamePlayername")}" + $" on {PlayerPrefs.GetString("LastGameLevel")}";
 
     public void DisplayHighScoreNotification() // if gameover is true and new highscore is true, personalised notification is displayed 
     {
@@ -790,6 +805,44 @@ public class GameManager : MonoBehaviour
     public void ButtonSound()
     {
         gameAudio.PlayOneShot(buttonSound, 1.0f);
+    }
+
+    void RunTimer()
+    {
+        timeElapsed += Time.deltaTime;
+        var timeSpan = TimeSpan.FromSeconds(timeElapsed);
+        timerText.text = "TIME:" + string.Format(" {0:00}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
+
+    }
+    //Clears all high scores & player names when GUI button pressed
+    public void ClearHighScore()
+    {
+        PlayerPrefs.SetInt("Highscore", 0);
+        PlayerPrefs.SetString("Playername", "A Biotic");
+        PlayerPrefs.SetInt("Red", 0);
+        PlayerPrefs.SetInt("Blue", 0);
+        PlayerPrefs.SetInt("Purple", 0);
+        PlayerPrefs.SetString("Time", "00:00");
+        PlayerPrefs.SetString("Level", "");
+        PlayerPrefs.SetInt("EasyHighscore", 00);
+        PlayerPrefs.SetString("EasyPlayername", "A Biotic");
+        PlayerPrefs.SetInt("EasyRed", 00);
+        PlayerPrefs.SetInt("EasyBlue", 00);
+        PlayerPrefs.SetInt("EasyPurple", 00);
+        PlayerPrefs.SetString("EasyTime", "00:00");
+        PlayerPrefs.SetInt("MediumHighscore", 00);
+        PlayerPrefs.SetString("MediumPlayername", "A Biotic");
+        PlayerPrefs.SetInt("MediumRed", 00);
+        PlayerPrefs.SetInt("MediumBlue", 00);
+        PlayerPrefs.SetInt("MediumPurple", 0);
+        PlayerPrefs.SetString("MediumTime", "00:00");
+        PlayerPrefs.SetInt("HardHighscore", 00);
+        PlayerPrefs.SetString("HardPlayername", "A Biotic");
+        PlayerPrefs.SetInt("HardRed", 00);
+        PlayerPrefs.SetInt("HardBlue", 00);
+        PlayerPrefs.SetInt("HardPurple", 0);
+        PlayerPrefs.SetString("HardTime", "00:00");
+        UpdateHighScoreDisplay();
     }
 
 
