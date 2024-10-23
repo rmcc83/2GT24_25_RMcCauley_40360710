@@ -56,6 +56,11 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI endlessDifficultyText;
     public TextMeshProUGUI highscoreText;
     public TextMeshProUGUI lastscoreText;
+    public GameObject pauseButtonEndless;
+    public GameObject pauseButton;
+    public GameObject quitButtonEndless;
+    public GameObject quitButton;
+    public GameObject pauseScreen;
     public AudioSource track1;
     public AudioSource track2;
     public AudioSource track3;
@@ -74,6 +79,7 @@ public class GameManager : MonoBehaviour
     public bool gameEndless;
     public bool newHighscore;
     public bool newBestTime;
+    public bool paused;
     public int currentLevel;
     private SpawnManager spawnManager;
     public PlayerController playerController;
@@ -139,6 +145,12 @@ public class GameManager : MonoBehaviour
         {
             RunTimer();
 
+        }
+
+        //Check if the user has pressed the P key - only works in main scene if game has started, so won't show pause screen when names being entered
+        if (Input.GetKeyDown(KeyCode.P) && gameStarted == true)
+        {
+            CheckForPause();
         }
 
 
@@ -397,6 +409,8 @@ public class GameManager : MonoBehaviour
         winText.SetText("CONGRATULATIONS, " + playerName.text.ToUpper() + " - YOU HAVE COLLECTED ALL THE REQUIRED BACTERIAL SAMPLES!!!"); // player name is included in message, & forced to upper case
         playerRb.constraints = RigidbodyConstraints.FreezeAll;
         CheckBestTime(); // check if time is a new best for that level
+        pauseButton.gameObject.SetActive(false);
+        quitButton.gameObject.SetActive(false);
 
     }
 
@@ -407,7 +421,8 @@ public class GameManager : MonoBehaviour
         gameLose = true;
         loseScreen.gameObject.SetActive(true);
         loseText.SetText("SORRY," + playerName.text.ToUpper() + " - THIS TIME YOU DIDN'T COLLECT ENOUGH BACTERIAL SAMPLES."); // player name is included in message, & forced to upper case
-
+        pauseButton.gameObject.SetActive(false);
+        quitButton.gameObject.SetActive(false);
     }
 
     public void GameOverCrash() // method used in endless game when player crashes.  Music stops, gameover screen is displayed, personalised message is displayed,
@@ -415,6 +430,8 @@ public class GameManager : MonoBehaviour
     {
         StopMusic();
         gameOver = true;
+        pauseButtonEndless.gameObject.SetActive(false);
+        quitButtonEndless.gameObject.SetActive(false);
         gameOverScreen.gameObject.SetActive(true);
         gameOverText.SetText("SORRY, " + playerName.text.ToUpper() + " - YOU CRASHED!  DON'T WORRY, RESCUE IS ON THE WAY!"); // player name is included in message, & forced to upper case
         CheckHighScore();
@@ -430,6 +447,8 @@ public class GameManager : MonoBehaviour
 
         StopMusic();
         gameOver = true;
+        pauseButtonEndless.gameObject.SetActive(false);
+        quitButtonEndless.gameObject.SetActive(false);
         gameOverScreen.gameObject.SetActive(true);
         gameOverText.SetText("SORRY, " + playerName.text.ToUpper() + " - YOU COLLECTED TOO MANY VIRUSES!  BETTER LUCK NEXT TIME!"); // player name is included in message, & forced to upper case
         playerRb.constraints = RigidbodyConstraints.FreezeAll;
@@ -985,6 +1004,27 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("Level4Playername", "A Biotic");
         PlayerPrefs.SetFloat("Level5BestTime", 9999);
         PlayerPrefs.SetString("Level5Playername", "A Biotic");
+
+    }
+
+    public void CheckForPause() 
+    {
+        if (!paused)
+        {
+            paused = true;
+            pauseScreen.SetActive(true);
+            AudioListener.pause = true;
+            Time.timeScale = 0;
+        }
+
+        else
+        {
+            paused = false;
+            pauseScreen.SetActive(false);
+            AudioListener.pause = false;
+            Time.timeScale = 1;
+        }
+
 
     }
 }
