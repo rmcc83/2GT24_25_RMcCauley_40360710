@@ -6,6 +6,7 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject levelPanel; // pop up panel for levels 1-5
     public GameObject endlessPanel; // pop up panel for endless levels
+    public GameObject recordsPanel; // pop up panel for records
 
 
     // Start is called before the first frame update
@@ -25,6 +26,14 @@ public class MenuManager : MonoBehaviour
     {
         levelPanel.GetComponent<Animator>().SetTrigger("Pop");
         endlessPanel.GetComponent<Animator>().SetTrigger("Pop");
+       
+    }
+    // Method to trigger the pop-up animation for the records button
+    public void Records() 
+    {
+
+        recordsPanel.GetComponent<Animator>().SetTrigger("Pop");
+
 
     }
 }

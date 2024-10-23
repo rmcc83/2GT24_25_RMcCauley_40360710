@@ -27,11 +27,14 @@ public class GameManager : MonoBehaviour
     public GameObject gameScreen;
     public GameObject gameScreenEndless;
     public GameObject highscoreCongrats;
+    public GameObject bestTimeCongrats;
     public GameObject highscoreDisplay;
     public GameObject lastscoreDisplay;
     public GameObject highscoreScreen;
+    public GameObject timesScreen;
     public GameObject helpScreen;
     public TextMeshProUGUI highscoreCongratsText;
+    public TextMeshProUGUI bestTimeCongratsText;
     public TextMeshProUGUI winText;
     public GameObject player;
     public GameObject loseScreen;
@@ -70,6 +73,7 @@ public class GameManager : MonoBehaviour
     public bool gameLose;
     public bool gameEndless;
     public bool newHighscore;
+    public bool newBestTime;
     public int currentLevel;
     private SpawnManager spawnManager;
     public PlayerController playerController;
@@ -79,12 +83,18 @@ public class GameManager : MonoBehaviour
     private AudioSource gameAudio;
     public AudioClip buttonSound;
     public float timeElapsed = 0;
-    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI timerText; // endless levels
+    public TextMeshProUGUI timerText2; // 'normal' levels
+    public float currentLevel1BestTime;
+    public float currentLevel2BestTime;
+    public float currentLevel3BestTime;
+    public float currentLevel4BestTime;
+    public float currentLevel5BestTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
@@ -121,11 +131,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         UpdateBacteriaBlasted(); // runs the bacteria blasted method
-        
+
         // Run the timer when the game starts in endless mode & stop it when game is over
-        if (gameStarted == true && gameEndless == true && !gameOver)
+        if (gameStarted == true && !gameOver)
         {
             RunTimer();
 
@@ -139,15 +149,15 @@ public class GameManager : MonoBehaviour
                                      // must be collected to win are set depending on the level selected.
 
     {
-       
+
         if (level == 1)
         {
             currentLevel = 1;
             lives = 6;
             fuel = 100;
-            redRemaining = 3;
-            blueRemaining = 3;
-            purpleRemaining = 3;
+            redRemaining = 1;
+            blueRemaining = 0;
+            purpleRemaining = 0;
 
         }
 
@@ -221,7 +231,7 @@ public class GameManager : MonoBehaviour
         score += value;
         scoreText.text = playerName.text.ToUpper() + "'S Score : " + score;
     }
-   
+
 
     public void StartGameEndless(int level) // level number is passed in from level select button.  Starting lives,
                                             // starting fuel, difficulty in words is set depending on (endless) level selected.
@@ -282,7 +292,7 @@ public class GameManager : MonoBehaviour
     // increases fuel by appropriate amount when powerup is collected, and displays it.  Fuel cannot go above 100%.
     public void IncreaseFuel(int value)
     {
-       
+
         fuel += value;
 
         if (fuel > 100)
@@ -307,19 +317,19 @@ public class GameManager : MonoBehaviour
             livesEndlessText.text = "LIVES: " + lives;
             lives = 0;
 
-            if (gameEndless != true) 
+            if (gameEndless != true)
             {
                 GameLose();
 
             }
 
-            if (gameEndless == true) 
+            if (gameEndless == true)
             {
 
                 GameOverLives();
-            
+
             }
-            
+
 
         }
         else
@@ -333,8 +343,8 @@ public class GameManager : MonoBehaviour
     // updates bacteria numbers display
     public void UpdateBacteriaBlasted()
     {
-        
-        if (gameEndless !=true)  //if endless game is not being played
+
+        if (gameEndless != true)  //if endless game is not being played
         {
             redRemainText.text = "RED:" + redRemaining; // display remaining red
             blueRemainText.text = "BLUE:" + blueRemaining; //display remaining blue
@@ -367,7 +377,7 @@ public class GameManager : MonoBehaviour
             }
 
         }
-    
+
 
         if (gameEndless == true) // if endless game is being played
         {
@@ -378,13 +388,15 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    
-    public void GameWin() // at gamewin, music stops, win screen is displayed & a personalised message is displayed
+
+    public void GameWin() // at gamewin, music stops, win screen is displayed, player object motion is fully constrained so it freezes in place,
+                          // & a personalised message is displayed
     {
         StopMusic();
         winScreen.gameObject.SetActive(true);
         winText.SetText("CONGRATULATIONS, " + playerName.text.ToUpper() + " - YOU HAVE COLLECTED ALL THE REQUIRED BACTERIAL SAMPLES!!!"); // player name is included in message, & forced to upper case
-
+        playerRb.constraints = RigidbodyConstraints.FreezeAll;
+        CheckBestTime(); // check if time is a new best for that level
 
     }
 
@@ -429,9 +441,9 @@ public class GameManager : MonoBehaviour
 
 
     //method called to reload main scene
-    public void ReloadScene() 
+    public void ReloadScene()
     {
-        
+
         SceneManager.LoadScene("Sam & Ella in Space");
 
     }
@@ -444,10 +456,10 @@ public class GameManager : MonoBehaviour
 
     public void StopMusic() //stops music entirely
     {
-            track1.Stop();
-            track2.Stop();
-            track3.Stop();
-            track4.Stop();
+        track1.Stop();
+        track2.Stop();
+        track3.Stop();
+        track4.Stop();
     }
 
     public void SaveName() // saves entered player name against particular key in playerprefs
@@ -705,16 +717,16 @@ public class GameManager : MonoBehaviour
         if (currentLevel == 98)
         {
             if (score > PlayerPrefs.GetInt("MediumHighscore"))
-            {             
-                    newHighscore = true;
-                    DisplayHighScoreNotification();
-                    PlayerPrefs.SetInt("MediumHighscore", score);
-                    PlayerPrefs.SetString("MediumPlayername", playerName.text.ToUpper());
-                    PlayerPrefs.SetInt("MediumRed", redCollected);
-                    PlayerPrefs.SetInt("MediumBlue", blueCollected);
-                    PlayerPrefs.SetInt("MediumPurple", purpleCollected);
-                    PlayerPrefs.SetString("MediumDifficulty", endlessDifficultyText.text);  
-                    PlayerPrefs.SetString("MediumTime", timerText.text);
+            {
+                newHighscore = true;
+                DisplayHighScoreNotification();
+                PlayerPrefs.SetInt("MediumHighscore", score);
+                PlayerPrefs.SetString("MediumPlayername", playerName.text.ToUpper());
+                PlayerPrefs.SetInt("MediumRed", redCollected);
+                PlayerPrefs.SetInt("MediumBlue", blueCollected);
+                PlayerPrefs.SetInt("MediumPurple", purpleCollected);
+                PlayerPrefs.SetString("MediumDifficulty", endlessDifficultyText.text);
+                PlayerPrefs.SetString("MediumTime", timerText.text);
 
             }
 
@@ -737,6 +749,90 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetString("HardTime", timerText.text);
             }
 
+
+        }
+    }
+
+    public void CheckBestTime() //handles checking for best time & saving best time
+    {
+
+        // Checks/saves best time in playerprefs for level 1, if no previous time saved, will check against a default of 9999
+
+        if (currentLevel == 1)
+        {
+            currentLevel1BestTime = (PlayerPrefs.GetFloat("Level1BestTime", 9999));
+
+            if (timeElapsed < currentLevel1BestTime)
+            {
+                newBestTime = true;
+                DisplayBestTimeNotification();
+                PlayerPrefs.SetString("Level1Playername", playerName.text.ToUpper()); ;
+                PlayerPrefs.SetFloat("Level1BestTime", timeElapsed);
+            }
+
+        }
+
+        // Checks/saves best time in playerprefs for level 2, if no previous time saved, will check against a default of 9999
+
+        if (currentLevel == 2)
+        {
+            currentLevel2BestTime = (PlayerPrefs.GetFloat("Level2BestTime", 9999));
+
+            if (timeElapsed < currentLevel2BestTime)
+            {
+                newBestTime = true;
+                DisplayBestTimeNotification();
+                PlayerPrefs.SetString("Level2Playername", playerName.text.ToUpper()); ;
+                PlayerPrefs.SetFloat("Level2BestTime", timeElapsed);
+            }
+
+        }
+
+        // Checks/saves best time in playerprefs for level 3, if no previous time saved, will check against a default of 9999
+
+        if (currentLevel == 3)
+        {
+            currentLevel3BestTime = (PlayerPrefs.GetFloat("Level3BestTime", 9999));
+
+            if (timeElapsed < currentLevel3BestTime)
+            {
+                newBestTime = true;
+                DisplayBestTimeNotification();
+                PlayerPrefs.SetString("Level3Playername", playerName.text.ToUpper()); ;
+                PlayerPrefs.SetFloat("Level3BestTime", timeElapsed);
+            }
+
+        }
+
+        // Checks/saves best time in playerprefs for level 4, if no previous time saved, will check against a default of 9999
+
+        if (currentLevel == 4)
+        {
+            currentLevel4BestTime = (PlayerPrefs.GetFloat("Level4BestTime", 9999));
+
+            if (timeElapsed < currentLevel4BestTime)
+            {
+                newBestTime = true;
+                DisplayBestTimeNotification();
+                PlayerPrefs.SetString("Level4Playername", playerName.text.ToUpper()); ;
+                PlayerPrefs.SetFloat("Level4BestTime", timeElapsed);
+            }
+
+        }
+
+        // Checks/saves best time in playerprefs for level 5, if no previous time saved, will check against a default of 9999
+
+        if (currentLevel == 5)
+        {
+            currentLevel5BestTime = (PlayerPrefs.GetFloat("Level5BestTime", 9999));
+
+            if (timeElapsed < currentLevel5BestTime)
+            {
+                newBestTime = true;
+                DisplayBestTimeNotification();
+                PlayerPrefs.SetString("Level5Playername", playerName.text.ToUpper()); ;
+                PlayerPrefs.SetFloat("Level5BestTime", timeElapsed);
+            }
 
         }
     }
@@ -771,6 +867,18 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void DisplayBestTimeNotification() // if gameover is true and new best time is true, personalised notification is displayed 
+    {
+        if (gameOver == true && newBestTime == true)
+        {
+
+            bestTimeCongrats.gameObject.SetActive(true);
+            bestTimeCongratsText.SetText("YOU GOT A NEW BEST TIME, " + playerName.text.ToUpper() + "!"); //ensures player name is displayed in upper case
+        }
+
+    }
+
+    // For showing highscore screen
     public void ScoresOn() //displays highscore screen & ensures overall highscore & last game score are hidden
     {
         highscoreScreen.gameObject.SetActive(true);
@@ -782,6 +890,22 @@ public class GameManager : MonoBehaviour
     public void ScoresOff() //hides highscore screen & ensures overall highscore & last game score are visible again
     {
         highscoreScreen.gameObject.SetActive(false);
+        highscoreText.gameObject.SetActive(true);
+        lastscoreText.gameObject.SetActive(true);
+    }
+
+    // For showing best times screen
+    public void TimesOn() //displays best times screen & ensures overall highscore & last game score are hidden
+    {
+        timesScreen.gameObject.SetActive(true);
+        highscoreText.gameObject.SetActive(false);
+        lastscoreText.gameObject.SetActive(false);
+    }
+
+    // For hiding best times
+    public void TimesOff() //hides best times screen & ensures overall highscore & last game score are visible again
+    {
+        timesScreen.gameObject.SetActive(false);
         highscoreText.gameObject.SetActive(true);
         lastscoreText.gameObject.SetActive(true);
     }
@@ -811,7 +935,9 @@ public class GameManager : MonoBehaviour
     {
         timeElapsed += Time.deltaTime;
         var timeSpan = TimeSpan.FromSeconds(timeElapsed);
-        timerText.text = "TIME:" + string.Format(" {0:00}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
+        timerText.text = "" + string.Format(" {0:00}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
+        timerText2.text = "" + string.Format(" {0:00}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
+
 
     }
     //Clears all high scores & player names when GUI button pressed
@@ -845,5 +971,20 @@ public class GameManager : MonoBehaviour
         UpdateHighScoreDisplay();
     }
 
+    //Clears all best times & player names when GUI button pressed
+    public void ClearBestTImes()
+    {
 
+        PlayerPrefs.SetFloat("Level1BestTime", 9999);
+        PlayerPrefs.SetString("Level1Playername", "A Biotic");
+        PlayerPrefs.SetFloat("Level2BestTime", 9999);
+        PlayerPrefs.SetString("Level2Playername", "A Biotic");
+        PlayerPrefs.SetFloat("Level3BestTime", 9999);
+        PlayerPrefs.SetString("Level3Playername", "A Biotic");
+        PlayerPrefs.SetFloat("Level4BestTime", 9999);
+        PlayerPrefs.SetString("Level4Playername", "A Biotic");
+        PlayerPrefs.SetFloat("Level5BestTime", 9999);
+        PlayerPrefs.SetString("Level5Playername", "A Biotic");
+
+    }
 }

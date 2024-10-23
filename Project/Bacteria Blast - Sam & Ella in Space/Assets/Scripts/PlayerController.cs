@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         {
             // If spacebar is pressed and player is below the maximum boost height and fuel is available,
             // constraint on player's Y position is removed, an upward force is applied to the player,
-            // & fuel reduces by 5%.  Flame prefbas are also instantiated from bottom of spaceship & appropriate
+            // & fuel reduces by 5%.  Flame prefabs are also instantiated from bottom of spaceship & appropriate
             // sound is played
             if (Input.GetKeyDown(KeyCode.Space) && transform.position.y < boostMax && gameManager.fuel >= 5)
             {
