@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class BestTImeScreen : MonoBehaviour
 {
-    public TextMeshProUGUI level1Time; // best time on level 1
-    public TextMeshProUGUI level2Time; // best time on level 2
-    public TextMeshProUGUI level3Time; // best time on level 3
-    public TextMeshProUGUI level4Time; // best time on level 4
-    public TextMeshProUGUI level5Time; // best time on level 5
+    public TextMeshProUGUI timeLevel1Text; // best time on level 1
+    public TextMeshProUGUI timeLevel2Text; // best time on level 2
+    public TextMeshProUGUI timeLevel3Text; // best time on level 3
+    public TextMeshProUGUI timeLevel4Text; // best time on level 4
+    public TextMeshProUGUI timeLevel5Text; // best time on level 5
     public TextMeshProUGUI level1Name; // name of player achieving best time on level 1
     public TextMeshProUGUI level2Name; // name of player achieving best time on level 2
     public TextMeshProUGUI level3Name; // name of player achieving best time on level 3
@@ -36,33 +36,42 @@ public class BestTImeScreen : MonoBehaviour
 
     public void Level1Time() // gets the level 1 best time saved in playerprefs & displays it
     {
-
-        level1Time.text = "" + PlayerPrefs.GetFloat("Level1BestTime");
+        double level1Time = PlayerPrefs.GetFloat("Level1BestTime");
+        var timeSpan = TimeSpan.FromSeconds(level1Time);
+        timeLevel1Text.text = string.Format("{0:00}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
     }
 
     public void Level2Time() // gets the level 2 best time saved in playerprefs & displays it
     {
 
-        level2Time.text = "" + PlayerPrefs.GetFloat("Level2BestTime");
+        double level2Time = PlayerPrefs.GetFloat("Level2BestTime");
+        var timeSpan = TimeSpan.FromSeconds(level2Time);
+        timeLevel2Text.text = string.Format("{0:00}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
 
     }
     public void Level3Time() // gets the level 3 best time saved in playerprefs & displays it
     {
 
-        level3Time.text = "" + PlayerPrefs.GetFloat("Level3BestTime");
+        double level3Time = PlayerPrefs.GetFloat("Level3BestTime");
+        var timeSpan = TimeSpan.FromSeconds(level3Time);
+        timeLevel3Text.text = string.Format("{0:00}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
 
     }
     public void Level4Time() // gets the level 4 best time saved in playerprefs & displays it
     {
 
-        level4Time.text = "" + PlayerPrefs.GetFloat("Level4BestTime");
+        double level4Time = PlayerPrefs.GetFloat("Level4BestTime");
+        var timeSpan = TimeSpan.FromSeconds(level4Time);
+        timeLevel4Text.text = string.Format("{0:00}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
 
     }
 
     public void Level5Time() // gets the level 5 best time saved in playerprefs & displays it
     {
 
-        level5Time.text = "" + PlayerPrefs.GetFloat("Level5BestTime");
+        double level5Time = PlayerPrefs.GetFloat("Level5BestTime");
+        var timeSpan = TimeSpan.FromSeconds(level5Time);
+        timeLevel5Text.text = string.Format("{0:00}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
 
     }
 

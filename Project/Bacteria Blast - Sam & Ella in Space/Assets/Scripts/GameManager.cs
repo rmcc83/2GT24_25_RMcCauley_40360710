@@ -775,11 +775,12 @@ public class GameManager : MonoBehaviour
     public void CheckBestTime() //handles checking for best time & saving best time
     {
 
-        // Checks/saves best time in playerprefs for level 1, if no previous time saved, will check against a default of 9999
+        // Checks/saves best time in playerprefs for level 1, if no previous time saved, will check against a default of 3599 i.e
+        // 59 mins 59 seconds
 
         if (currentLevel == 1)
         {
-            currentLevel1BestTime = (PlayerPrefs.GetFloat("Level1BestTime", 9999));
+            currentLevel1BestTime = (PlayerPrefs.GetFloat("Level1BestTime", 3599));
 
             if (timeElapsed < currentLevel1BestTime)
             {
@@ -791,11 +792,11 @@ public class GameManager : MonoBehaviour
 
         }
 
-        // Checks/saves best time in playerprefs for level 2, if no previous time saved, will check against a default of 9999
+        // Checks/saves best time in playerprefs for level 2, if no previous time saved, will check against a default of 3599
 
         if (currentLevel == 2)
         {
-            currentLevel2BestTime = (PlayerPrefs.GetFloat("Level2BestTime", 9999));
+            currentLevel2BestTime = (PlayerPrefs.GetFloat("Level2BestTime", 3599));
 
             if (timeElapsed < currentLevel2BestTime)
             {
@@ -807,11 +808,11 @@ public class GameManager : MonoBehaviour
 
         }
 
-        // Checks/saves best time in playerprefs for level 3, if no previous time saved, will check against a default of 9999
+        // Checks/saves best time in playerprefs for level 3, if no previous time saved, will check against a default of 3599
 
         if (currentLevel == 3)
         {
-            currentLevel3BestTime = (PlayerPrefs.GetFloat("Level3BestTime", 9999));
+            currentLevel3BestTime = (PlayerPrefs.GetFloat("Level3BestTime", 3599));
 
             if (timeElapsed < currentLevel3BestTime)
             {
@@ -823,11 +824,11 @@ public class GameManager : MonoBehaviour
 
         }
 
-        // Checks/saves best time in playerprefs for level 4, if no previous time saved, will check against a default of 9999
+        // Checks/saves best time in playerprefs for level 4, if no previous time saved, will check against a default of 3599
 
         if (currentLevel == 4)
         {
-            currentLevel4BestTime = (PlayerPrefs.GetFloat("Level4BestTime", 9999));
+            currentLevel4BestTime = (PlayerPrefs.GetFloat("Level4BestTime", 3599));
 
             if (timeElapsed < currentLevel4BestTime)
             {
@@ -839,11 +840,11 @@ public class GameManager : MonoBehaviour
 
         }
 
-        // Checks/saves best time in playerprefs for level 5, if no previous time saved, will check against a default of 9999
+        // Checks/saves best time in playerprefs for level 5, if no previous time saved, will check against a default of 3599 
 
         if (currentLevel == 5)
         {
-            currentLevel5BestTime = (PlayerPrefs.GetFloat("Level5BestTime", 9999));
+            currentLevel5BestTime = (PlayerPrefs.GetFloat("Level5BestTime", 3599));
 
             if (timeElapsed < currentLevel5BestTime)
             {
@@ -990,39 +991,40 @@ public class GameManager : MonoBehaviour
         UpdateHighScoreDisplay();
     }
 
-    //Clears all best times & player names when GUI button pressed
+    //Clears all best times & player names when GUI button pressed, returns times to 59:59 and names to A Biotic
     public void ClearBestTImes()
     {
 
-        PlayerPrefs.SetFloat("Level1BestTime", 9999);
+        PlayerPrefs.SetFloat("Level1BestTime", 3599);
         PlayerPrefs.SetString("Level1Playername", "A Biotic");
-        PlayerPrefs.SetFloat("Level2BestTime", 9999);
+        PlayerPrefs.SetFloat("Level2BestTime", 3599);
         PlayerPrefs.SetString("Level2Playername", "A Biotic");
-        PlayerPrefs.SetFloat("Level3BestTime", 9999);
+        PlayerPrefs.SetFloat("Level3BestTime", 3599);
         PlayerPrefs.SetString("Level3Playername", "A Biotic");
-        PlayerPrefs.SetFloat("Level4BestTime", 9999);
+        PlayerPrefs.SetFloat("Level4BestTime", 3599);
         PlayerPrefs.SetString("Level4Playername", "A Biotic");
-        PlayerPrefs.SetFloat("Level5BestTime", 9999);
+        PlayerPrefs.SetFloat("Level5BestTime", 3599);
         PlayerPrefs.SetString("Level5Playername", "A Biotic");
 
     }
 
+    //Method to check if pause has been activated
     public void CheckForPause() 
     {
-        if (!paused)
+        if (!paused) //if not paused & pause is then activated
         {
-            paused = true;
-            pauseScreen.SetActive(true);
-            AudioListener.pause = true;
-            Time.timeScale = 0;
+            paused = true; //sets pause bool true
+            pauseScreen.SetActive(true); // sets pause screen active
+            AudioListener.pause = true; //pauses audio
+            Time.timeScale = 0; //sets timescale to 0
         }
 
-        else
+        else // in other words if the game is already paused & pause is activated
         {
-            paused = false;
-            pauseScreen.SetActive(false);
-            AudioListener.pause = false;
-            Time.timeScale = 1;
+            paused = false; // sets pause bool false
+            pauseScreen.SetActive(false); //switches off pause screen
+            AudioListener.pause = false; // resumes audio
+            Time.timeScale = 1; // sets timescale to 1
         }
 
 
