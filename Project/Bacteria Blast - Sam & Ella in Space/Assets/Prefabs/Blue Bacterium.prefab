@@ -518,6 +518,7 @@ GameObject:
   - component: {fileID: 4523395042893373191}
   - component: {fileID: -6675355656549753948}
   - component: {fileID: 2596849331792733136}
+  - component: {fileID: 4986339939769282641}
   m_Layer: 0
   m_Name: Blue Bacterium
   m_TagString: Blue Bacterium
@@ -603,6 +604,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf94e6303a0de574199215624cce26b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4986339939769282641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524411113276028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff23e943f8c7f34bb0411f356a82478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Blue Bacterium
 --- !u!1 &1532652994627396
 GameObject:
   m_ObjectHideFlags: 0

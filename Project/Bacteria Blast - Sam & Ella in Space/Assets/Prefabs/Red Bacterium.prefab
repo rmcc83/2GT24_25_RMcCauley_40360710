@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: 73832861592365762}
   - component: {fileID: 1298203122280899684}
   - component: {fileID: -833588374219852349}
+  - component: {fileID: 7318178480169968018}
   m_Layer: 0
   m_Name: Red Bacterium
   m_TagString: Red Bacterium
@@ -512,3 +513,16 @@ MonoBehaviour:
   bacteriaAudio: {fileID: 0}
   pointValue: 5
   bacteriaType: 0
+--- !u!114 &7318178480169968018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931298151966786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff23e943f8c7f34bb0411f356a82478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Red bacterium

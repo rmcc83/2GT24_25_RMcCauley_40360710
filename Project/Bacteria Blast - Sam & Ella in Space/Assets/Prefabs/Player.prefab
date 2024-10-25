@@ -745,6 +745,7 @@ GameObject:
   - component: {fileID: 442905906997949100}
   - component: {fileID: 8938893781213921714}
   - component: {fileID: 3350526276723818789}
+  - component: {fileID: 7742897418654145254}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -897,7 +898,6 @@ MonoBehaviour:
   fuelFill: {fileID: 8300000, guid: 67619dd90da6eae4f9f388930175a79c, type: 3}
   weaponArm: {fileID: 8300000, guid: 2394992f915069f4b85d41950e405289, type: 3}
   playerController: {fileID: 8938893781213921714}
-  skinEquipped: 0
 --- !u!82 &3350526276723818789
 AudioSource:
   m_ObjectHideFlags: 0
@@ -994,6 +994,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7742897418654145254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8710912715523060701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff23e943f8c7f34bb0411f356a82478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: This is you
 --- !u!1001 &674686532761444585
 PrefabInstance:
   m_ObjectHideFlags: 0

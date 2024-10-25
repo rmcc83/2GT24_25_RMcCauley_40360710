@@ -96,6 +96,11 @@ public class GameManager : MonoBehaviour
     public float currentLevel3BestTime;
     public float currentLevel4BestTime;
     public float currentLevel5BestTime;
+    public int playerSkinEquipped;
+    public GameObject spaceship1;
+    public GameObject spaceship2;
+    public GameObject spaceship3;
+    public GameObject spaceship4;
 
     // Start is called before the first frame update
     void Start()
@@ -129,7 +134,7 @@ public class GameManager : MonoBehaviour
 
         }
 
-        playerController.LoadSkin();
+        LoadSkin();
 
 
     }
@@ -162,15 +167,16 @@ public class GameManager : MonoBehaviour
 
     {
 
+        redRemaining = (level * 2);
+        blueRemaining = (level * 2); 
+        purpleRemaining = (level * 2); 
+
         if (level == 1)
         {
             currentLevel = 1;
             lives = 6;
             fuel = 100;
-            redRemaining = 1;
-            blueRemaining = 0;
-            purpleRemaining = 0;
-
+           
         }
 
         if (level == 2)
@@ -178,10 +184,7 @@ public class GameManager : MonoBehaviour
             currentLevel = 2;
             lives = 5;
             fuel = 100;
-            redRemaining = 5;
-            blueRemaining = 5;
-            purpleRemaining = 5;
-
+        
         }
 
         if (level == 3)
@@ -189,10 +192,7 @@ public class GameManager : MonoBehaviour
             currentLevel = 3;
             lives = 4;
             fuel = 100;
-            redRemaining = 7;
-            blueRemaining = 7;
-            purpleRemaining = 7;
-
+         
         }
 
         if (level == 4)
@@ -200,10 +200,7 @@ public class GameManager : MonoBehaviour
             currentLevel = 4;
             lives = 3;
             fuel = 100;
-            redRemaining = 9;
-            blueRemaining = 9;
-            purpleRemaining = 9;
-
+          
         }
 
         if (level == 5)
@@ -211,10 +208,7 @@ public class GameManager : MonoBehaviour
             currentLevel = 5;
             lives = 3;
             fuel = 75;
-            redRemaining = 10;
-            blueRemaining = 10;
-            purpleRemaining = 10;
-
+         
         }
 
         // The below happens for all the levels which call this method
@@ -1026,6 +1020,101 @@ public class GameManager : MonoBehaviour
             AudioListener.pause = false; // resumes audio
             Time.timeScale = 1; // sets timescale to 1
         }
+
+
+    }
+
+    public void SetPlayerSkinEquipped(int value)
+    {
+        playerSkinEquipped = value;
+
+    }
+
+    public void SaveSkin()
+    {
+        if (player1 == true)
+        {
+            PlayerPrefs.SetInt("SkinEquipped1", playerSkinEquipped);
+            PlayerPrefs.Save();
+        }
+
+        if (player2 == true)
+        {
+            PlayerPrefs.SetInt("SkinEquipped2", playerSkinEquipped);
+            PlayerPrefs.Save();
+        }
+
+        if (player3 == true)
+        {
+            PlayerPrefs.SetInt("SkinEquipped3", playerSkinEquipped);
+            PlayerPrefs.Save();
+        }
+
+    }
+
+    public void LoadSkin()
+    {
+        if (player1 == true)
+        {
+            playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped1");
+
+        }
+
+        if (player2 == true)
+        {
+            playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped2");
+
+        }
+
+        if (player3 == true)
+        {
+            playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped3");
+
+        }
+
+
+
+        if (playerSkinEquipped == 0)
+        {
+            spaceship1.SetActive(true);
+            spaceship2.SetActive(false);
+            spaceship3.SetActive(false);
+            spaceship4.SetActive(false);
+        }
+
+
+        if (playerSkinEquipped == 1)
+        {
+            spaceship1.SetActive(true);
+            spaceship2.SetActive(false);
+            spaceship3.SetActive(false);
+            spaceship4.SetActive(false);
+        }
+
+        if (playerSkinEquipped == 2)
+        {
+            spaceship1.SetActive(false);
+            spaceship2.SetActive(true);
+            spaceship3.SetActive(false);
+            spaceship4.SetActive(false);
+        }
+
+        if (playerSkinEquipped == 3)
+        {
+            spaceship1.SetActive(false);
+            spaceship2.SetActive(false);
+            spaceship3.SetActive(true);
+            spaceship4.SetActive(false);
+        }
+
+        if (playerSkinEquipped == 4)
+        {
+            spaceship1.SetActive(false);
+            spaceship2.SetActive(false);
+            spaceship3.SetActive(false);
+            spaceship4.SetActive(true);
+        }
+
 
 
     }

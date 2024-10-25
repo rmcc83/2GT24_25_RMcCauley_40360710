@@ -91,6 +91,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6915512, y: 1.4042233, z: 0.80248934}
   m_Center: {x: -0.028377533, y: 0.5868203, z: -0.0037421286}
+--- !u!114 &6745515417412598192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8879776794162577969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff23e943f8c7f34bb0411f356a82478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Adds 50% fuel
 --- !u!114 &7781602867456751094
 MonoBehaviour:
   m_ObjectHideFlags: 0

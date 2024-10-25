@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 23801425304933624}
   - component: {fileID: 7681139648156674338}
   - component: {fileID: 6536088783994274383}
+  - component: {fileID: 5632164645201655592}
   m_Layer: 0
   m_Name: Sonic Blaster PowerUp
   m_TagString: Sonic Blaster PowerUp
@@ -110,3 +111,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf94e6303a0de574199215624cce26b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5632164645201655592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355900084607990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff23e943f8c7f34bb0411f356a82478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Weapon powerup

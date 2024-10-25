@@ -41,11 +41,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip fuelFill;
     public AudioClip weaponArm;
     public PlayerController playerController;
-    public int skinEquipped;
-    public GameObject spaceship1;
-    public GameObject spaceship2;
-    public GameObject spaceship3;
-    public GameObject spaceship4;
+
 
 
 
@@ -235,101 +231,6 @@ public class PlayerController : MonoBehaviour
         unarmedText.gameObject.SetActive(true);
         armedTextEndless.gameObject.SetActive(false);
         unarmedTextEndless.gameObject.SetActive(true);
-
-
-    }
-
-    public void SetSkinEquipped(int value)
-    {
-        skinEquipped = value;
-
-    }
-
-    public void SaveSkin()
-    {
-        if (gameManager.player1 == true)
-        {
-            PlayerPrefs.SetInt("SkinEquipped1", skinEquipped);
-            PlayerPrefs.Save();
-        }
-
-        if (gameManager.player2 == true)
-        {
-            PlayerPrefs.SetInt("SkinEquipped2", skinEquipped);
-            PlayerPrefs.Save();
-        }
-
-        if (gameManager.player3 == true)
-        {
-            PlayerPrefs.SetInt("SkinEquipped3", skinEquipped);
-            PlayerPrefs.Save();
-        }
-
-    }
-
-    public void LoadSkin()
-    {
-        if (gameManager.player1 == true)
-        {
-            skinEquipped = PlayerPrefs.GetInt("SkinEquipped1");
-
-        }
-
-        if (gameManager.player2 == true)
-        {
-            skinEquipped = PlayerPrefs.GetInt("SkinEquipped2");
-
-        }
-
-        if (gameManager.player3 == true)
-        {
-            skinEquipped = PlayerPrefs.GetInt("SkinEquipped3");
-
-        }
-
-
-
-        if (skinEquipped == 0)
-        {
-            spaceship1.SetActive(true);
-            spaceship2.SetActive(false);
-            spaceship3.SetActive(false);
-            spaceship4.SetActive(false);
-        }
-
-
-        if (skinEquipped == 1)
-        {
-            spaceship1.SetActive(true);
-            spaceship2.SetActive(false);
-            spaceship3.SetActive(false);
-            spaceship4.SetActive(false);
-        }
-
-        if (skinEquipped == 2)
-        {
-            spaceship1.SetActive(false);
-            spaceship2.SetActive(true);
-            spaceship3.SetActive(false);
-            spaceship4.SetActive(false);
-        }
-
-        if (skinEquipped == 3)
-        {
-            spaceship1.SetActive(false);
-            spaceship2.SetActive(false);
-            spaceship3.SetActive(true);
-            spaceship4.SetActive(false);
-        }
-
-        if (skinEquipped == 4)
-        {
-            spaceship1.SetActive(false);
-            spaceship2.SetActive(false);
-            spaceship3.SetActive(false);
-            spaceship4.SetActive(true);
-        }
-
 
 
     }
