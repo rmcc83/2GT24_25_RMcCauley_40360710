@@ -27,7 +27,11 @@ public class MoveLeft : MonoBehaviour
             if (playerController.doubleSpeed)
 
             {
-                transform.Translate(Vector3.left * Time.deltaTime * (speed * 2));
+                if (gameObject.CompareTag("Sonic Blaster PowerUp") || gameObject.CompareTag("Fuel Large") || gameObject.CompareTag("Fuel Small") || gameObject.CompareTag("Asteroid") || gameObject.CompareTag("Background"))
+                {
+                    transform.Translate(Vector3.left * Time.deltaTime * (speed * 2));
+
+                }
 
                 // if gameobject is bacterium or virus, it gets moved to the right instead, due to its orientation
                 if (gameObject.CompareTag("Blue Bacterium") || gameObject.CompareTag("Red Bacterium") || gameObject.CompareTag("Purple Bacterium") || gameObject.CompareTag("Virus"))
@@ -51,13 +55,17 @@ public class MoveLeft : MonoBehaviour
             // otherwise, move everything at normal speed
             if (playerController.doubleSpeed == false)
             {
-                transform.Translate(Vector3.left * Time.deltaTime * speed);
+                if (gameObject.CompareTag("Sonic Blaster PowerUp") || gameObject.CompareTag("Fuel Large") || gameObject.CompareTag("Fuel Small") || gameObject.CompareTag("Asteroid") || gameObject.CompareTag("Background"))
+                {
+
+                    transform.Translate(Vector3.left * Time.deltaTime * speed);
+                }
 
                 // once again, bacteria & virus move to their right
                 if (gameObject.CompareTag("Blue Bacterium") || gameObject.CompareTag("Red Bacterium") || gameObject.CompareTag("Purple Bacterium") || gameObject.CompareTag("Virus"))
                 {
 
-                    transform.Translate(Vector3.right * Time.deltaTime * (speed * 2));
+                    transform.Translate(Vector3.right * Time.deltaTime * (speed));
 
 
                 }

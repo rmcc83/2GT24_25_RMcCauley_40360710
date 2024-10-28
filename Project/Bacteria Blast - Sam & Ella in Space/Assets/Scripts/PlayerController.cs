@@ -85,24 +85,23 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            // when left shift is pressed, double speed is activated
-            if (Input.GetKey(KeyCode.LeftShift))
+            // when left control is pressed, double speed is activated
+            if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 doubleSpeed = true;
 
             }
 
-            // otherwise, double speed is not activated
-            else if (doubleSpeed)
+            // when left control key is released double speed is deactivated
+            if (Input.GetKeyUp(KeyCode.LeftControl))
             {
-
                 doubleSpeed = false;
 
             }
 
-            // Fire a sonic blast from the player and play sound if game has started & is not over & player has powerup, and right shift is pressed
+            // Fire a sonic blast from the player and play sound if game has started & is not over & player has powerup, and left alt is pressed
 
-            if (gameManager.gameStarted == true && gameManager.gameOver == false && hasPowerup == true && Input.GetKeyDown(KeyCode.RightShift))
+            if (gameManager.gameStarted == true && gameManager.gameOver == false && hasPowerup == true && Input.GetKeyDown(KeyCode.LeftAlt))
 
             {
                 playerAudio.PlayOneShot(weaponSound);
