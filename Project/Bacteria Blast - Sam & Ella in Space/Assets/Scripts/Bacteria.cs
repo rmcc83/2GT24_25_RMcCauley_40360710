@@ -17,13 +17,16 @@ public class Bacteria : MonoBehaviour
     private GameManager gameManager;
     public AudioSource bacteriaAudio;
     public int pointValue;
-   
+    public PlayerController playerController;
+    public Color colour;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
 
     }
 
@@ -41,7 +44,7 @@ public class Bacteria : MonoBehaviour
 
     {
         // If player & bacteria collide, bacterium is destroyed, appropriate remaining count is decreased and appropriate collected couunt is increased.
-        // If playing an endless game, score is increased by appropriate point value
+        // If playing an endless game, score is increased by appropriate point value and that value is passed to player controller to display in floating text
 
         if (other.CompareTag("Player")) 
         {
@@ -53,9 +56,12 @@ public class Bacteria : MonoBehaviour
                 if (gameManager.gameEndless == true) 
                 {
                     gameManager.AddScore(pointValue);
+                    playerController.ShowFloatingText(pointValue);
+
+
 
                 }
-                
+
                 Destroy(gameObject);
             }
 
@@ -66,6 +72,7 @@ public class Bacteria : MonoBehaviour
                 if (gameManager.gameEndless == true)
                 {
                     gameManager.AddScore(pointValue);
+                    playerController.ShowFloatingText(pointValue);
 
                 }
                 Destroy(gameObject);
@@ -78,6 +85,8 @@ public class Bacteria : MonoBehaviour
                 if (gameManager.gameEndless == true)
                 {
                     gameManager.AddScore(pointValue);
+                    playerController.ShowFloatingText(pointValue);
+                   // playerController.textColour = Color.red;
 
                 }
                 Destroy(gameObject);

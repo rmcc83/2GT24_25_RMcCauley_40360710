@@ -11,7 +11,7 @@ public class Tooltip : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
-    private void OnMouseEnter()
+    private void OnMouseEnter() // Shows tooltip when mouse enters area
 
     {
         if (gameManager.gameStarted == true)
@@ -23,12 +23,12 @@ public class Tooltip : MonoBehaviour
 
     private void OnMouseExit()
     {
-        TooltipManager.instance.HideTooltip();
+        TooltipManager.instance.HideTooltip(); // Hides tooltip when mouse exits area
     }
 
     private void Update()
     {
-        if (gameManager.gameOver == true)
+        if (gameManager.gameOver == true) // Hides tooltip on game over
 
         {
             TooltipManager.instance.HideTooltip();

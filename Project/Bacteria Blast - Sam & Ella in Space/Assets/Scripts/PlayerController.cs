@@ -41,6 +41,10 @@ public class PlayerController : MonoBehaviour
     public AudioClip fuelFill;
     public AudioClip weaponArm;
     public PlayerController playerController;
+    public GameObject FloatingText;
+    public Color textColour;
+
+
 
 
 
@@ -53,6 +57,7 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+
     }
 
     void Update()
@@ -183,27 +188,35 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        // if player collides with blue bacterium, a scream is played
+        // if player collides with blue bacterium, a scream is played & floating text colour is set to blue
 
         if (other.CompareTag("Blue Bacterium")) 
         {
+
             playerAudio.PlayOneShot(scream1);
+            textColour = Color.blue;
+
 
         }
 
-        // if player collides with red bacterium, a second scream is played
+        // if player collides with red bacterium, a second scream is played & floating text colour is set to red
+
 
         if (other.CompareTag("Red Bacterium"))
         {
             playerAudio.PlayOneShot(scream2);
+            textColour = Color.red;
+
 
         }
 
-        // if player collides with red bacterium, a third scream is played
+        // if player collides with purple bacterium, a third scream is played & floating text colour is set to purple
+
 
         if (other.CompareTag("Purple Bacterium"))
         {
             playerAudio.PlayOneShot(scream3);
+            textColour = Color.magenta;
 
         }
 
@@ -212,6 +225,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Virus"))
         {
             playerAudio.PlayOneShot(laugh);
+            ShowFloatingText2();
 
         }
 
@@ -233,5 +247,24 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+    // Instantiates floating Text showing point value passed from bacteria script, in colour set earlier
+   public void ShowFloatingText(int pointValue)
+    {
+       
+        var go = Instantiate(FloatingText, transform.position, Quaternion.identity, transform);
+        go.GetComponent<TextMesh>().color = textColour;
+        go.GetComponent<TextMesh>().text = pointValue.ToString();
+
+    }
+
+    // Floating Text showing green X for virus collection
+   public void ShowFloatingText2()
+    {
+        var go = Instantiate(FloatingText, transform.position, Quaternion.identity, transform);
+        go.GetComponent<TextMesh>().color = Color.green;
+        go.GetComponent<TextMesh>().text = "X";
+    }
+
 
 }

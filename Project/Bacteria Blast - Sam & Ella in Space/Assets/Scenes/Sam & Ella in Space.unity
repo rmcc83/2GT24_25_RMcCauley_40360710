@@ -9857,6 +9857,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1245997987}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: bacteria1
+      value: 
+      objectReference: {fileID: -6675355656549753948, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: bacteria2
+      value: 
+      objectReference: {fileID: -833588374219852349, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: bacteria3
+      value: 
+      objectReference: {fileID: 3756047059584986633, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: loseScreen
       value: 
       objectReference: {fileID: 328090270}
@@ -9884,6 +9896,10 @@ PrefabInstance:
       propertyPath: unarmedText
       value: 
       objectReference: {fileID: 161801905}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: FloatingText
+      value: 
+      objectReference: {fileID: 8601865132431996700, guid: 6a9ff9d24656f954f9212b6867f14079, type: 3}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: spawnManager
       value: 
@@ -9931,7 +9947,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &407187670
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10138,7 +10154,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1008634463}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12184,7 +12200,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2071510805}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15863,6 +15879,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1245997987}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: bacteria1
+      value: 
+      objectReference: {fileID: -6675355656549753948, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: bacteria2
+      value: 
+      objectReference: {fileID: -833588374219852349, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: bacteria3
+      value: 
+      objectReference: {fileID: 3756047059584986633, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: loseScreen
       value: 
       objectReference: {fileID: 328090270}
@@ -15890,6 +15918,10 @@ PrefabInstance:
       propertyPath: unarmedText
       value: 
       objectReference: {fileID: 161801905}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: FloatingText
+      value: 
+      objectReference: {fileID: 8601865132431996700, guid: 6a9ff9d24656f954f9212b6867f14079, type: 3}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: spawnManager
       value: 
@@ -19110,6 +19142,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1245997987}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: bacteria1
+      value: 
+      objectReference: {fileID: -6675355656549753948, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: bacteria2
+      value: 
+      objectReference: {fileID: -833588374219852349, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: bacteria3
+      value: 
+      objectReference: {fileID: 3756047059584986633, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: loseScreen
       value: 
       objectReference: {fileID: 328090270}
@@ -19137,6 +19181,10 @@ PrefabInstance:
       propertyPath: unarmedText
       value: 
       objectReference: {fileID: 161801905}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: FloatingText
+      value: 
+      objectReference: {fileID: 8601865132431996700, guid: 6a9ff9d24656f954f9212b6867f14079, type: 3}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: spawnManager
       value: 
@@ -29888,6 +29936,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1245997987}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: bacteria1
+      value: 
+      objectReference: {fileID: -6675355656549753948, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: bacteria2
+      value: 
+      objectReference: {fileID: -833588374219852349, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: bacteria3
+      value: 
+      objectReference: {fileID: 3756047059584986633, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: spaceship1
       value: 
       objectReference: {fileID: 1384789895}
@@ -29912,9 +29972,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 161801905}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: FloatingText
+      value: 
+      objectReference: {fileID: 8601865132431996700, guid: 6a9ff9d24656f954f9212b6867f14079, type: 3}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: spawnManager
       value: 
       objectReference: {fileID: 1509233421}
+    - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
+      propertyPath: textColour.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: armedTextEndless
       value: 

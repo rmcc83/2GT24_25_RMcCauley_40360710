@@ -591,6 +591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bacteriaAudio: {fileID: 0}
   pointValue: 15
+  FloatingText: {fileID: 8601865132431996700, guid: 6a9ff9d24656f954f9212b6867f14079, type: 3}
   bacteriaType: 2
 --- !u!114 &2596849331792733136
 MonoBehaviour:
