@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     public int blueCollected;
     public int purpleCollected;
     public int music;
+    public Sprite[] lifeSprites;
+    public Image livesImage;
+    public Image livesImageEndless;
     public Slider fuelSlider;
     public Slider fuelSliderEndless;
     public TMP_InputField playerName;
@@ -90,6 +93,7 @@ public class GameManager : MonoBehaviour
     public Slider musicSlider;
     private AudioSource gameAudio;
     public AudioClip buttonSound;
+    public AudioClip lowFuelSound;
     public float timeElapsed = 0;
     public TextMeshProUGUI timerText; // endless levels
     public TextMeshProUGUI timerText2; // 'normal' levels
@@ -146,12 +150,14 @@ public class GameManager : MonoBehaviour
     {
 
         UpdateBacteriaBlasted(); // runs the bacteria blasted method
+        
 
         // Run the timer when the game starts in endless mode & stop it when game is over
         if (gameStarted == true && !gameOver)
         {
             RunTimer();
-
+            
+            
         }
 
         //Check if the user has pressed the P key - only works in main scene if game has started, so won't show pause screen when names being entered
@@ -214,7 +220,8 @@ public class GameManager : MonoBehaviour
         }
 
         // The below happens for all the levels which call this method
-        fuelSlider.value = fuel;
+        livesImage.sprite = lifeSprites[lives]; //sets lives display to starting amount
+        fuelSlider.value = fuel; // sets fuel bar to starting amount
         ResetGravity(); // run reset gravity method - necessary to ensure gravity does not increase each time game is played, as gravity modifier is being utilised
         gameScreen.SetActive(true); // sets gamescreen (with score, fuel etc) active
         gameScreenEndless.SetActive(false); // sets endless game screen inactive
@@ -224,10 +231,10 @@ public class GameManager : MonoBehaviour
         gameOver = false; // flags that game is not over
         gameWin = false; //sets game win flag flase
         gameLose = false; //sets game lose flag false
-        redRemainText.text = "RED:" + redRemaining; // displays red bacteria remaining
-        blueRemainText.text = "BLUE:" + blueRemaining; // displays blue bacteria remaining
-        purpleRemainText.text = "PURPLE:" + purpleRemaining; // displays purple bacteria remaining
-        livesText.text = "LIVES: " + lives; //displays lives remaining
+        redRemainText.text = "      " + redRemaining; // displays red bacteria remaining
+        blueRemainText.text = "    " + blueRemaining; // displays blue bacteria remaining
+        purpleRemainText.text = "      " + purpleRemaining; // displays purple bacteria remaining
+      //  livesText.text = "LIVES: " + lives; //displays lives remaining
       //  fuelText.text = "FUEL: " + fuel + "%"; //displays fuel remaining
         spawnManager.StartSpawn(); // runs start spawn method from spawnmanager
         SaveName(); // runs savename method
@@ -270,7 +277,8 @@ public class GameManager : MonoBehaviour
             endlessDifficultyText.text = "Difficulty: Hard";
         }
 
-        fuelSliderEndless.value = fuel;
+        livesImageEndless.sprite = lifeSprites[lives];  //sets lives display to starting amount
+        fuelSliderEndless.value = fuel; // sets fuel bar to starting amount
         gameEndless = true; // flags endless game is selected
         redCollected = 0; //sets red collected to 0
         blueCollected = 0; //sets blue collected to 0
@@ -285,10 +293,10 @@ public class GameManager : MonoBehaviour
         gameWin = false; //gamewin set to false
         gameLose = false; //gamelose set to false
         scoreText.text = playerName.text.ToUpper() + "'S SCORE : " + score; //displays score along with player name
-        redCollectText.text = "RED:" + redCollected; //displays red bacteria collected
-        blueCollectText.text = "BLUE:" + blueCollected; //displays blue bacteria collected
-        purpleCollectText.text = "PURPLE:" + purpleCollected; //displays purple bacteria collected
-        livesEndlessText.text = "LIVES: " + lives; //displays lives remaining
+        redCollectText.text = "      " + redCollected; //displays red bacteria collected
+        blueCollectText.text = "    " + blueCollected; //displays blue bacteria collected
+        purpleCollectText.text = "      " + purpleCollected; //displays purple bacteria collected
+      //  livesEndlessText.text = "LIVES: " + lives; //displays lives remaining
       //  fuelEndlessText.text = "FUEL: " + fuel + "%"; //displays fuel remaining
         spawnManager.StartSpawn(); //calls startspawn method from spawnmanager
         SaveName(); //runs savename method
@@ -314,6 +322,15 @@ public class GameManager : MonoBehaviour
         {
             fuelSlider.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(0.8f, 0.2f, 0.1f);
             fuelSliderEndless.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(0.8f, 0.2f, 0.1f);
+           
+
+        }
+
+        if (fuel == 25) 
+        {
+            
+                gameAudio.PlayOneShot(lowFuelSound, 1.0f);
+
         }
         
         if (fuel >= 30) 
@@ -335,12 +352,14 @@ public class GameManager : MonoBehaviour
     public void AddLives(int value)
     {
         lives += value;
+        livesImage.sprite = lifeSprites[lives];
+        livesImageEndless.sprite = lifeSprites[lives];
 
-        // When lives are 0, game is over, you lose.  MEthod called will depend on game mode currently being played
+        // When lives are 0, game is over, you lose.  Method called will depend on game mode currently being played
         if (lives <= 0)
         {
-            livesText.text = "LIVES: " + lives;
-            livesEndlessText.text = "LIVES: " + lives;
+         //   livesText.text = "LIVES: " + lives;
+          //  livesEndlessText.text = "LIVES: " + lives;
             lives = 0;
 
             if (gameEndless != true)
@@ -358,12 +377,12 @@ public class GameManager : MonoBehaviour
 
 
         }
-        else
-
-        {
-            livesText.text = "LIVES: " + lives;
-            livesEndlessText.text = "LIVES: " + lives;
-        }
+     //   else
+     
+     //   {
+       //     livesText.text = "LIVES: " + lives;
+         //   livesEndlessText.text = "LIVES: " + lives;
+       // }
     }
 
     // updates bacteria numbers display
@@ -372,9 +391,9 @@ public class GameManager : MonoBehaviour
 
         if (gameEndless != true)  //if endless game is not being played
         {
-            redRemainText.text = "RED:" + redRemaining; // display remaining red
-            blueRemainText.text = "BLUE:" + blueRemaining; //display remaining blue
-            purpleRemainText.text = "PURPLE:" + purpleRemaining; //display remaining purple
+            redRemainText.text = "      " + redRemaining; // display remaining red
+            blueRemainText.text = "    " + blueRemaining; //display remaining blue
+            purpleRemainText.text = "      " + purpleRemaining; //display remaining purple
 
             if (redRemaining <= 0) //ensures remaining red will not go below 0, so collecting more than required is no advantage
             {
@@ -407,9 +426,9 @@ public class GameManager : MonoBehaviour
 
         if (gameEndless == true) // if endless game is being played
         {
-            redCollectText.text = "RED:" + redCollected; // displays number of red bacteria collected
-            blueCollectText.text = "BLUE:" + blueCollected; // displays number of blue bacteria collected
-            purpleCollectText.text = "PURPLE:" + purpleCollected; // displays number of purple bacteria collected
+            redCollectText.text = "      " + redCollected; // displays number of red bacteria collected
+            blueCollectText.text = "    " + blueCollected; // displays number of blue bacteria collected
+            purpleCollectText.text = "      " + purpleCollected; // displays number of purple bacteria collected
 
         }
 

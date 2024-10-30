@@ -82,6 +82,8 @@ public class PlayerController : MonoBehaviour
 
             }
 
+            
+
 
             // Ensures player cannot go outside the top of the screen
             if (transform.position.y > topBound)
