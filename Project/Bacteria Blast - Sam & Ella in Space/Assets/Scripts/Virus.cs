@@ -32,6 +32,7 @@ public class Virus : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             gameManager.AddLives(-1);
+            gameManager.virusEncountered += 1;
             Destroy(gameObject);
         }
 

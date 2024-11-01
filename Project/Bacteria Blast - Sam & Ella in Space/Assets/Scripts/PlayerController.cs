@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public GameObject sonicBlastPrefab;
     public GameObject flamePrefab;
     public GameObject explosion;
+    public CumulativeStatsHandler cumulativeStatsHandler;
     public GameManager gameManager;
     public SpawnManager spawnManager;
     public AudioClip weaponSound;
@@ -57,6 +58,8 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        cumulativeStatsHandler = GameObject.Find("CumulativeStatsHandler").GetComponent<CumulativeStatsHandler>();
+
 
     }
 
@@ -120,6 +123,15 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+
+        if (gameManager.gameStarted == true && gameManager.gameOver == true && gameManager.gameWin == true) 
+        {
+
+            playerRb.constraints = RigidbodyConstraints.FreezeAll; // constrains player motion at game win, so player does not crash (and thus lose as well as win)
+
+        }
+
+
     }
 
     
@@ -131,6 +143,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Sonic Blaster PowerUp"))
         {
+            gameManager.weaponCollected += 1;
             hasPowerup = true;
             powerupIndicator.gameObject.SetActive(true);
             playerAudio.PlayOneShot(weaponArm);
@@ -165,17 +178,32 @@ public class PlayerController : MonoBehaviour
 
             }
 
+        }
 
+        if (other.CompareTag("Ground")) // updates ground crash stats if collision is with ground
+        {
 
+ 
+           cumulativeStatsHandler.GroundCrash();
 
         }
+
+        if (other.CompareTag("Asteroid")) // updates ground crash stats if collision is with asteroid
+        {
+
+            
+            cumulativeStatsHandler.AsteroidCrash();
+
+        }
+
+
 
         // if player collides with small fuel powerup, 20% is added to fuel amount & sound is played
 
         if (other.CompareTag("Fuel Small"))
         {
             Destroy(other.gameObject);
-
+            gameManager.smallFuelCollected += 1;
             gameManager.IncreaseFuel(20);
             playerAudio.PlayOneShot(fuelFill);
         }
@@ -185,6 +213,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Fuel Large"))
         {
             Destroy(other.gameObject);
+            gameManager.largeFuelCollected += 1;
             gameManager.IncreaseFuel(50);
             playerAudio.PlayOneShot(fuelFill);
 
@@ -267,6 +296,7 @@ public class PlayerController : MonoBehaviour
         go.GetComponent<TextMesh>().color = Color.green;
         go.GetComponent<TextMesh>().text = "X";
     }
+
 
 
 }

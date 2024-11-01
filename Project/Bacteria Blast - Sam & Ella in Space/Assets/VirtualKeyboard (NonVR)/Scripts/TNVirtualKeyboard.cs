@@ -14,6 +14,8 @@ public class TNVirtualKeyboard : MonoBehaviour
 	public GameObject vkCanvas;
 	
 	public TMP_InputField targetText;
+
+	public GameManager gameManager;
 	
 	
     // Start is called before the first frame update
@@ -28,7 +30,8 @@ public class TNVirtualKeyboard : MonoBehaviour
     void Update()
 
     {
-		// If virtual keyboard is visible, but enter is pressed on physical keyboard, virtual keyboard will switch off
+		// If virtual keyboard is visible, but enter is pressed on physical keyboard, virtual keyboard will switch off.  Also, a name change check is run, and
+		// if name is changed, confirmation screen will be displayed - if accepted, stats will be reset.
         if (vkCanvas != null && Input.GetKeyDown(KeyCode.Return))
         {
             HideVirtualKeyboard();
@@ -52,7 +55,9 @@ public class TNVirtualKeyboard : MonoBehaviour
 		vkCanvas.SetActive(true);
 	}
 	
-	public void HideVirtualKeyboard(){
+	public void HideVirtualKeyboard()
+	{
+		gameManager.CheckNameChange();
 		vkCanvas.SetActive(false);
 	}
 

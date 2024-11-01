@@ -21,8 +21,13 @@ public class GameManager : MonoBehaviour
     public int redCollected;
     public int blueCollected;
     public int purpleCollected;
+    public int virusEncountered;
+    public int asteroidsBlasted;
+    public int smallFuelCollected;
+    public int largeFuelCollected;
+    public int weaponCollected;
     public int music;
-    public Sprite[] lifeSprites;
+    public Sprite[] lifeSprites;//array of sprites for each number of lives
     public Image livesImage;
     public Image livesImageEndless;
     public Slider fuelSlider;
@@ -38,6 +43,8 @@ public class GameManager : MonoBehaviour
     public GameObject highscoreScreen;
     public GameObject timesScreen;
     public GameObject helpScreen;
+    public GameObject statsScreen;
+    public GameObject confirmNameReset;
     public TextMeshProUGUI highscoreCongratsText;
     public TextMeshProUGUI bestTimeCongratsText;
     public TextMeshProUGUI winText;
@@ -107,6 +114,7 @@ public class GameManager : MonoBehaviour
     public GameObject spaceship2;
     public GameObject spaceship3;
     public GameObject spaceship4;
+    public CumulativeStatsHandler cumulativeStatsHandler;
 
     // Start is called before the first frame update
     void Start()
@@ -147,17 +155,16 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {       
 
-        UpdateBacteriaBlasted(); // runs the bacteria blasted method
-        
 
-        // Run the timer when the game starts in endless mode & stop it when game is over
+        // Run the timer & check for nummber of bacteria blasted when the game starts & stop when game is over
         if (gameStarted == true && !gameOver)
         {
             RunTimer();
-            
-            
+            UpdateBacteriaBlasted();
+
+
         }
 
         //Check if the user has pressed the P key - only works in main scene if game has started, so won't show pause screen when names being entered
@@ -176,15 +183,15 @@ public class GameManager : MonoBehaviour
     {
 
         redRemaining = (level * 2);
-        blueRemaining = (level * 2); 
-        purpleRemaining = (level * 2); 
+        blueRemaining = (level * 2);
+        purpleRemaining = (level * 2);
 
         if (level == 1)
         {
             currentLevel = 1;
             lives = 6;
             fuel = 100;
-           
+
         }
 
         if (level == 2)
@@ -192,7 +199,7 @@ public class GameManager : MonoBehaviour
             currentLevel = 2;
             lives = 5;
             fuel = 100;
-        
+
         }
 
         if (level == 3)
@@ -200,7 +207,7 @@ public class GameManager : MonoBehaviour
             currentLevel = 3;
             lives = 4;
             fuel = 100;
-         
+
         }
 
         if (level == 4)
@@ -208,7 +215,7 @@ public class GameManager : MonoBehaviour
             currentLevel = 4;
             lives = 3;
             fuel = 100;
-          
+
         }
 
         if (level == 5)
@@ -216,7 +223,7 @@ public class GameManager : MonoBehaviour
             currentLevel = 5;
             lives = 3;
             fuel = 75;
-         
+
         }
 
         // The below happens for all the levels which call this method
@@ -234,8 +241,8 @@ public class GameManager : MonoBehaviour
         redRemainText.text = "      " + redRemaining; // displays red bacteria remaining
         blueRemainText.text = "    " + blueRemaining; // displays blue bacteria remaining
         purpleRemainText.text = "      " + purpleRemaining; // displays purple bacteria remaining
-      //  livesText.text = "LIVES: " + lives; //displays lives remaining
-      //  fuelText.text = "FUEL: " + fuel + "%"; //displays fuel remaining
+                                                            //  livesText.text = "LIVES: " + lives; //displays lives remaining
+                                                            //  fuelText.text = "FUEL: " + fuel + "%"; //displays fuel remaining
         spawnManager.StartSpawn(); // runs start spawn method from spawnmanager
         SaveName(); // runs savename method
 
@@ -296,8 +303,8 @@ public class GameManager : MonoBehaviour
         redCollectText.text = "      " + redCollected; //displays red bacteria collected
         blueCollectText.text = "    " + blueCollected; //displays blue bacteria collected
         purpleCollectText.text = "      " + purpleCollected; //displays purple bacteria collected
-      //  livesEndlessText.text = "LIVES: " + lives; //displays lives remaining
-      //  fuelEndlessText.text = "FUEL: " + fuel + "%"; //displays fuel remaining
+                                                             //  livesEndlessText.text = "LIVES: " + lives; //displays lives remaining
+                                                             //  fuelEndlessText.text = "FUEL: " + fuel + "%"; //displays fuel remaining
         spawnManager.StartSpawn(); //calls startspawn method from spawnmanager
         SaveName(); //runs savename method
 
@@ -306,34 +313,43 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // increases fuel by appropriate amount when powerup is collected, and displays it.  Fuel cannot go above 100%.
+      
+    // Changes 
     public void IncreaseFuel(int value)
     {
-        
-        fuel += value;
 
-        if (fuel > 100)
+        fuel += value; // Increases fuel by appropriate amount when powerup is collected.
+
+        if (fuel > 100) //  Fuel cannot go above 100%.
         {
             fuel = 100;
 
         }
 
-        if (fuel < 30)
+        if (fuel < 30)  // colours fuel bar red when fuel below 30%
         {
             fuelSlider.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(0.8f, 0.2f, 0.1f);
             fuelSliderEndless.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(0.8f, 0.2f, 0.1f);
-           
 
         }
 
-        if (fuel == 25) 
+
+        if (fuel >= 30 && fuel <= 60)  // colours fuel bar orange when fuel between 30 & 60 %
         {
-            
-                gameAudio.PlayOneShot(lowFuelSound, 1.0f);
+            fuelSlider.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1f, 0.6f, 0f);
+            fuelSliderEndless.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1f, 0.6f, 0f);
+
 
         }
-        
-        if (fuel >= 30) 
+
+        if (fuel == 25) // plays low fuel alarm sound when fuel is 25%
+        {
+
+            gameAudio.PlayOneShot(lowFuelSound, 1.0f);
+
+        }
+
+        if (fuel > 60) // ensures bar is green when fuel is more than 60%
         {
             fuelSlider.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(0.2f, 0.7f, 0.3f);
             fuelSliderEndless.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(0.2f, 0.7f, 0.3f);
@@ -341,11 +357,9 @@ public class GameManager : MonoBehaviour
         }
 
 
-            fuelSlider.value = fuel;
-            fuelSliderEndless.value = fuel;
-        // fuelText.text = "FUEL:" + fuel + "%";
-        //  fuelEndlessText.text = "FUEL:" + fuel + "%";
-
+        fuelSlider.value = fuel;        //Sets fuel indicator bar according to amount of fuel available (timed mode).
+        fuelSliderEndless.value = fuel; // Sets fuel bar in endless mode
+        
     }
 
     // Adjusts lives & displays current amount
@@ -358,8 +372,7 @@ public class GameManager : MonoBehaviour
         // When lives are 0, game is over, you lose.  Method called will depend on game mode currently being played
         if (lives <= 0)
         {
-         //   livesText.text = "LIVES: " + lives;
-          //  livesEndlessText.text = "LIVES: " + lives;
+            
             lives = 0;
 
             if (gameEndless != true)
@@ -374,15 +387,8 @@ public class GameManager : MonoBehaviour
                 GameOverLives();
 
             }
-
-
         }
-     //   else
-     
-     //   {
-       //     livesText.text = "LIVES: " + lives;
-         //   livesEndlessText.text = "LIVES: " + lives;
-       // }
+       
     }
 
     // updates bacteria numbers display
@@ -415,11 +421,11 @@ public class GameManager : MonoBehaviour
 
             // if game has started and all remaining bacteria is 0, game is over, game is won, and gamewin method is run
             if (gameStarted == true && redRemaining == 0 && blueRemaining == 0 && purpleRemaining == 0)
-            {
-                gameOver = true;
+            {               
                 gameWin = true;
                 GameWin();
             }
+        
 
         }
 
@@ -434,20 +440,23 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void GameWin() // at gamewin, music stops, win screen is displayed, player object motion is fully constrained so it freezes in place,
+    public void GameWin() // at gamewin, music stops, win screen is displayed, stats are updated
                           // & a personalised message is displayed
     {
         StopMusic();
+        gameOver = true;
+        gameWin = true;
         winScreen.gameObject.SetActive(true);
         winText.SetText("CONGRATULATIONS, " + playerName.text.ToUpper() + " - YOU HAVE COLLECTED ALL THE REQUIRED BACTERIAL SAMPLES!!!"); // player name is included in message, & forced to upper case
-        playerRb.constraints = RigidbodyConstraints.FreezeAll;
         CheckBestTime(); // check if time is a new best for that level
         pauseButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
-
+        UpdateTimedGamesPlayed();
+        UpdateTimedGamesWon();
+        UpdateCumulativeStats();
     }
 
-    public void GameLose() // at game lose, music stops, game is over, game is lost, lose screen is displayed, personalised message is displayed
+    public void GameLose() // at game lose, music stops, game is over, game is lost, lose screen is displayed, personalised message is displayed, stats updated
     {
         StopMusic();
         gameOver = true;
@@ -456,10 +465,13 @@ public class GameManager : MonoBehaviour
         loseText.SetText("SORRY," + playerName.text.ToUpper() + " - THIS TIME YOU DIDN'T COLLECT ENOUGH BACTERIAL SAMPLES."); // player name is included in message, & forced to upper case
         pauseButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
+        UpdateTimedGamesPlayed();
+        UpdateTimedGamesLost();
+        UpdateCumulativeStats();
     }
 
     public void GameOverCrash() // method used in endless game when player crashes.  Music stops, gameover screen is displayed, personalised message is displayed,
-                                // score is checked against saved highscore, score is saved as last score, highscore & last score displays are updated
+                                // score is checked against saved highscore, score is saved as last score, highscore & last score displays are updated, stats are updated
     {
         StopMusic();
         gameOver = true;
@@ -471,11 +483,14 @@ public class GameManager : MonoBehaviour
         SaveLastScore();
         UpdateHighScoreDisplay();
         UpdateLastScoreDisplay();
+        UpdateEndlessGamesPlayed();
+        UpdateEndlessGamesCrash();
+        UpdateCumulativeStats();
     }
 
     public void GameOverLives() // method used in endless game when player runs out of lives.  Music stops, gameover screen is displayed, personalised message is displayed,
                                 // player object motion is fully constrained so it freezes in place, score is checked against saved highscore, score is saved as last score,
-                                // highscore & last score displays are updated
+                                // highscore & last score displays are updated, stats are updated
     {
 
         StopMusic();
@@ -489,6 +504,9 @@ public class GameManager : MonoBehaviour
         SaveLastScore();
         UpdateHighScoreDisplay();
         UpdateLastScoreDisplay();
+        UpdateEndlessGamesPlayed();
+        UpdateEndlessGamesLives();
+        UpdateCumulativeStats();
     }
 
 
@@ -978,13 +996,29 @@ public class GameManager : MonoBehaviour
         lastscoreText.gameObject.SetActive(true);
     }
 
+    public void StatsOn() //displays stats screen & ensures overall highscore & last game score are hidden
+    {
+        statsScreen.gameObject.SetActive(true);
+        highscoreText.gameObject.SetActive(false);
+        lastscoreText.gameObject.SetActive(false);
+    }
+
+    public void StatsOff() //hides stats screen & ensures overall highscore & last game score are visible again
+    {
+        statsScreen.gameObject.SetActive(false);
+        highscoreText.gameObject.SetActive(true);
+        lastscoreText.gameObject.SetActive(true);
+    }
+
+
+
     // To play button click sounds
     public void ButtonSound()
     {
         gameAudio.PlayOneShot(buttonSound, 1.0f);
     }
 
-    void RunTimer()
+    void RunTimer() //runs timer & formats time display
     {
         timeElapsed += Time.deltaTime;
         var timeSpan = TimeSpan.FromSeconds(timeElapsed);
@@ -1042,7 +1076,7 @@ public class GameManager : MonoBehaviour
     }
 
     //Method to check if pause has been activated
-    public void CheckForPause() 
+    public void CheckForPause()
     {
         if (!paused) //if not paused & pause is then activated
         {
@@ -1069,7 +1103,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void SaveSkin()
+    public void SaveSkin() // saves selected spaceship skin to player prefs
     {
         if (player1 == true)
         {
@@ -1091,7 +1125,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void LoadSkin()
+    public void LoadSkin() //loads saved spaceship skin for that player profile from playerprefs
     {
         if (player1 == true)
         {
@@ -1110,7 +1144,6 @@ public class GameManager : MonoBehaviour
             playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped3");
 
         }
-
 
 
         if (playerSkinEquipped == 0)
@@ -1154,7 +1187,212 @@ public class GameManager : MonoBehaviour
             spaceship4.SetActive(true);
         }
 
+    }
+
+    public void UpdateTimedGamesPlayed() // updates games played stat
+    {
+        if (currentLevel == 1)
+        {
+            cumulativeStatsHandler.Level1Played();
+        }
+
+        if (currentLevel == 2)
+        {
+            cumulativeStatsHandler.Level2Played();
+        }
+
+        if (currentLevel == 3)
+        {
+            cumulativeStatsHandler.Level3Played();
+        }
+
+        if (currentLevel == 4)
+        {
+            cumulativeStatsHandler.Level4Played();
+        }
+
+        if (currentLevel == 5)
+        {
+            cumulativeStatsHandler.Level5Played();
+        }
+
+        cumulativeStatsHandler.TotalTimedPlayed();
 
 
     }
+
+    public void UpdateEndlessGamesPlayed() // updates games played stat
+    {
+        if (currentLevel == 99)
+        {
+            cumulativeStatsHandler.EasyEndlessPlayed();
+        }
+
+        if (currentLevel == 98)
+        {
+            cumulativeStatsHandler.MediumEndlessPlayed();
+        }
+
+        if (currentLevel == 97)
+        {
+            cumulativeStatsHandler.HardEndlessPlayed();
+        }
+
+        cumulativeStatsHandler.TotalEndlessPlayed();
+
+    }
+
+    public void UpdateTimedGamesWon() //updates timed games won stat
+    {
+        if (currentLevel == 1)
+        {
+            cumulativeStatsHandler.Level1Won();
+        }
+
+        if (currentLevel == 2)
+        {
+            cumulativeStatsHandler.Level2Won();
+        }
+
+        if (currentLevel == 3)
+        {
+            cumulativeStatsHandler.Level3Won();
+        }
+
+        if (currentLevel == 4)
+        {
+            cumulativeStatsHandler.Level4Won();
+        }
+
+        if (currentLevel == 5)
+        {
+            cumulativeStatsHandler.Level5Won();
+        }
+
+        cumulativeStatsHandler.TotalTimedWon();
+
+    }
+
+    public void UpdateEndlessGamesLives() //updates end method for endless game mode stat
+    {
+        if (currentLevel == 99)
+        {
+            cumulativeStatsHandler.EasyEndlessLives();
+        }
+
+        if (currentLevel == 98)
+        {
+            cumulativeStatsHandler.MediumEndlessLives();
+        }
+
+        if (currentLevel == 97)
+        {
+            cumulativeStatsHandler.HardEndlessLives();
+        }
+
+        cumulativeStatsHandler.TotalEndlessLives();
+
+    }
+
+    public void UpdateTimedGamesLost() //updates timed games lost stat
+    {
+        if (currentLevel == 1)
+        {
+            cumulativeStatsHandler.Level1Lost();
+        }
+
+        if (currentLevel == 2)
+        {
+            cumulativeStatsHandler.Level2Lost();
+        }
+
+        if (currentLevel == 3)
+        {
+            cumulativeStatsHandler.Level3Lost();
+        }
+
+        if (currentLevel == 4)
+        {
+            cumulativeStatsHandler.Level4Lost();
+        }
+
+        if (currentLevel == 5)
+        {
+            cumulativeStatsHandler.Level5Lost();
+        }
+
+        cumulativeStatsHandler.TotalTimedLost();
+
+
+
+    }
+
+    public void UpdateEndlessGamesCrash() //updates number of endless games which finished with a crash
+    {
+        if (currentLevel == 99)
+        {
+            cumulativeStatsHandler.EasyEndlessCrash();
+        }
+
+        if (currentLevel == 98)
+        {
+            cumulativeStatsHandler.MediumEndlessCrash();
+        }
+
+        if (currentLevel == 97)
+        {
+            cumulativeStatsHandler.HardEndlessCrash();
+        }
+
+        cumulativeStatsHandler.TotalEndlessCrash();
+
+    }
+
+
+    public void UpdateCumulativeStats() //updates cumulative stats
+    {
+
+        cumulativeStatsHandler.RunAll();
+    }
+
+    public void CheckNameChange() // if name being saved does not equal that saved in player prefs, confirm name reset screen is displayed
+                                    // If player proceeds, player stats will be reset
+    { 
+        if (player1 == true)
+        {
+            if (playerName.text != PlayerPrefs.GetString("Player1Name"))
+            {
+
+                confirmNameReset.SetActive(true);
+
+            }
+
+        }
+
+        if (player2 == true)
+        {
+            if (playerName.text != PlayerPrefs.GetString("Player2Name"))
+            {
+
+                confirmNameReset.SetActive(true);
+
+            }
+
+        }
+
+        if (player3 == true)
+        {
+            if (playerName.text != PlayerPrefs.GetString("Player3Name"))
+            {
+                confirmNameReset.SetActive(true);
+
+            }
+        }
+    }
+
+
+
+
+
+
 }

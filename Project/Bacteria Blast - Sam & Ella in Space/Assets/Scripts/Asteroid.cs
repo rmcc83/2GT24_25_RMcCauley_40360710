@@ -7,11 +7,13 @@ public class Asteroid : MonoBehaviour
 {
 
     public GameObject fractured; // for the fractured parts of the asteroids
+    private GameManager gameManager;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -43,6 +45,7 @@ public class Asteroid : MonoBehaviour
         {
             FractureObject();
             Destroy(other.gameObject);
+            gameManager.asteroidsBlasted += 1;
 
         }
 
