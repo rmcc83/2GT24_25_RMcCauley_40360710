@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float boostMax;
     public float topBound;
     public bool doubleSpeed = false;
+    public bool fuelAnim = false;
     public Transform projectileSpawnPoint1;
     public Transform projectileSpawnPoint2;
     public Transform projectileSpawnPoint3;
@@ -198,7 +199,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-        // if player collides with small fuel powerup, 20% is added to fuel amount & sound is played
+        // if player collides with small fuel powerup, 20% is added to fuel amount, sound is played, indicator animates briefly (then bool is reset)
 
         if (other.CompareTag("Fuel Small"))
         {
@@ -206,9 +207,11 @@ public class PlayerController : MonoBehaviour
             gameManager.smallFuelCollected += 1;
             gameManager.IncreaseFuel(20);
             playerAudio.PlayOneShot(fuelFill);
+            fuelAnim = true;
+            StartCoroutine(FuelAnimationCountdownRoutine());
         }
 
-        // if player collides with large fuel powerup, 50 % is added to fuel amount & sound is played
+        // if player collides with large fuel powerup, 50 % is added to fuel amount, sound is played, indicator animates briefly (then bool is reset)
 
         if (other.CompareTag("Fuel Large"))
         {
@@ -216,6 +219,8 @@ public class PlayerController : MonoBehaviour
             gameManager.largeFuelCollected += 1;
             gameManager.IncreaseFuel(50);
             playerAudio.PlayOneShot(fuelFill);
+            fuelAnim = true;
+            StartCoroutine(FuelAnimationCountdownRoutine());
 
         }
 
@@ -297,6 +302,12 @@ public class PlayerController : MonoBehaviour
         go.GetComponent<TextMesh>().text = "X";
     }
 
+    // Animates fuel indicator when fuel powerup is collected
+    IEnumerator FuelAnimationCountdownRoutine() 
+    {
+        yield return new WaitForSeconds(2);
+        fuelAnim = false;
 
+    }
 
 }

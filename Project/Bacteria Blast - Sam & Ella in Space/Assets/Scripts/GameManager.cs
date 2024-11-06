@@ -241,8 +241,6 @@ public class GameManager : MonoBehaviour
         redRemainText.text = "      " + redRemaining; // displays red bacteria remaining
         blueRemainText.text = "    " + blueRemaining; // displays blue bacteria remaining
         purpleRemainText.text = "      " + purpleRemaining; // displays purple bacteria remaining
-                                                            //  livesText.text = "LIVES: " + lives; //displays lives remaining
-                                                            //  fuelText.text = "FUEL: " + fuel + "%"; //displays fuel remaining
         spawnManager.StartSpawn(); // runs start spawn method from spawnmanager
         SaveName(); // runs savename method
 
@@ -303,8 +301,6 @@ public class GameManager : MonoBehaviour
         redCollectText.text = "      " + redCollected; //displays red bacteria collected
         blueCollectText.text = "    " + blueCollected; //displays blue bacteria collected
         purpleCollectText.text = "      " + purpleCollected; //displays purple bacteria collected
-                                                             //  livesEndlessText.text = "LIVES: " + lives; //displays lives remaining
-                                                             //  fuelEndlessText.text = "FUEL: " + fuel + "%"; //displays fuel remaining
         spawnManager.StartSpawn(); //calls startspawn method from spawnmanager
         SaveName(); //runs savename method
 
