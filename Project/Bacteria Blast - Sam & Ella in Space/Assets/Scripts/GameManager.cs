@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     public GameObject timesScreen;
     public GameObject helpScreen;
     public GameObject statsScreen;
+    public GameObject characterScreen;
     public GameObject confirmNameReset;
     public TextMeshProUGUI highscoreCongratsText;
     public TextMeshProUGUI bestTimeCongratsText;
@@ -155,7 +156,7 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {       
+    {
 
 
         // Run the timer & check for nummber of bacteria blasted when the game starts & stop when game is over
@@ -309,7 +310,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-      
+
     // Changes 
     public void IncreaseFuel(int value)
     {
@@ -355,7 +356,7 @@ public class GameManager : MonoBehaviour
 
         fuelSlider.value = fuel;        //Sets fuel indicator bar according to amount of fuel available (timed mode).
         fuelSliderEndless.value = fuel; // Sets fuel bar in endless mode
-        
+
     }
 
     // Adjusts lives & displays current amount
@@ -368,7 +369,7 @@ public class GameManager : MonoBehaviour
         // When lives are 0, game is over, you lose.  Method called will depend on game mode currently being played
         if (lives <= 0)
         {
-            
+
             lives = 0;
 
             if (gameEndless != true)
@@ -384,7 +385,7 @@ public class GameManager : MonoBehaviour
 
             }
         }
-       
+
     }
 
     // updates bacteria numbers display
@@ -417,11 +418,11 @@ public class GameManager : MonoBehaviour
 
             // if game has started and all remaining bacteria is 0, game is over, game is won, and gamewin method is run
             if (gameStarted == true && redRemaining == 0 && blueRemaining == 0 && purpleRemaining == 0)
-            {               
+            {
                 gameWin = true;
                 GameWin();
             }
-        
+
 
         }
 
@@ -1352,8 +1353,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void CheckNameChange() // if name being saved does not equal that saved in player prefs, confirm name reset screen is displayed
-                                    // If player proceeds, player stats will be reset
-    { 
+                                  // If player proceeds, player stats will be reset
+    {
         if (player1 == true)
         {
             if (playerName.text != PlayerPrefs.GetString("Player1Name"))
@@ -1386,9 +1387,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // For showing character screen
+    public void CharacterOn()
+    {
+        characterScreen.gameObject.SetActive(true);
+        titleScreen.gameObject.SetActive(false);
+        highscoreDisplay.gameObject.SetActive(false);
+        lastscoreDisplay.gameObject.SetActive(false);
+    }
+
+    //For hiding character screen
+    public void CharacterOff()
+    {
+        characterScreen.gameObject.SetActive(false);
+        titleScreen.gameObject.SetActive(true);
+        highscoreDisplay.gameObject.SetActive(true);
+        lastscoreDisplay.gameObject.SetActive(true);
 
 
 
 
 
+
+    }
 }
