@@ -1391,7 +1391,6 @@ public class GameManager : MonoBehaviour
     public void CharacterOn()
     {
         characterScreen.gameObject.SetActive(true);
-        titleScreen.gameObject.SetActive(false);
         highscoreDisplay.gameObject.SetActive(false);
         lastscoreDisplay.gameObject.SetActive(false);
     }
@@ -1400,7 +1399,6 @@ public class GameManager : MonoBehaviour
     public void CharacterOff()
     {
         characterScreen.gameObject.SetActive(false);
-        titleScreen.gameObject.SetActive(true);
         highscoreDisplay.gameObject.SetActive(true);
         lastscoreDisplay.gameObject.SetActive(true);
 
