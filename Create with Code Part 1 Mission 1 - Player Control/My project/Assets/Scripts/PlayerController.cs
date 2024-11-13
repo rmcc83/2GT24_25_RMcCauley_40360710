@@ -5,10 +5,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-   [SerializeField] float speed = 15.0f;
+   [SerializeField] float horsePower;
    [SerializeField] float turnSpeed = 45.0f;
+   [SerializeField] GameObject centerOfMass;
     private float horizontalInput;
     private float forwardInput;
+    private Rigidbody playerRb;
+
+    void Start()
+    {
+        playerRb = GetComponent<Rigidbody>();
+        playerRb.centerOfMass = centerOfMass.transform.position;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -16,7 +24,7 @@ public class PlayerController : MonoBehaviour
         // Move the vehicle forward when keys pressed
 
         forwardInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * speed);
+        playerRb.AddRelativeForce(Vector3.forward * forwardInput * horsePower);
 
         // Turn vehicle left & right when keys pressed
         horizontalInput = Input.GetAxis("Horizontal");
