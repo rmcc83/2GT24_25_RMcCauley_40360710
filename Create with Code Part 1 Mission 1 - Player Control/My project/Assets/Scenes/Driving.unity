@@ -1149,7 +1149,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1202305472}
   - component: {fileID: 1202305471}
-  - component: {fileID: 1202305470}
   - component: {fileID: 1202305469}
   m_Layer: 0
   m_Name: Secondary Camera
@@ -1172,14 +1171,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 814446965}
   offset: {x: 0, y: 2.5, z: 0.8}
---- !u!81 &1202305470
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1202305468}
-  m_Enabled: 1
 --- !u!20 &1202305471
 Camera:
   m_ObjectHideFlags: 0

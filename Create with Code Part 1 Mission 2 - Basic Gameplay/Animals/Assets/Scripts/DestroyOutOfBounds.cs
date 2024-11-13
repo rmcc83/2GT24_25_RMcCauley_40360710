@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,23 +10,26 @@ public class DestroyOutOfBounds : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Remove projectiles when they go off screen at top
         if (transform.position.z > topBound)
         {
+            // Instead of destroying the projectile when it leaves the screen
+            //Destroy(gameObject);
+
+            // Just deactivate it
+            gameObject.SetActive(false);
+
+        }
+        else if (transform.position.z < lowerBound)
+        {
+            Debug.Log("Game Over!");
             Destroy(gameObject);
         }
 
-        // Remove animals when they go off screen at bottom & dsplay Game Over Message in Debug Log
-        else if (transform.position.z < lowerBound)
-        {
-            Destroy(gameObject);
-            Debug.Log("Game Over");
-        }
     }
 }
