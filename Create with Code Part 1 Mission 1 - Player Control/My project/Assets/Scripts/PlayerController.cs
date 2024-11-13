@@ -6,7 +6,7 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField] float horsePower;
+    [SerializeField] private float horsePower;
     [SerializeField] float turnSpeed;
     [SerializeField] float speed;
     [SerializeField] float rpm;
@@ -14,9 +14,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject centerOfMass;
     [SerializeField] TextMeshProUGUI speedometerText;
     [SerializeField] TextMeshProUGUI rpmText;
+
     private float horizontalInput;
     private float forwardInput;
     private Rigidbody playerRb;
+
+    [SerializeField] List<WheelCollider> allWheels;
+    [SerializeField] int wheelsOnGround;
 
     void Start()
     {
@@ -27,22 +31,60 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // Move the vehicle forward when keys pressed
+        // Get input from player
 
-        forwardInput = Input.GetAxis("Vertical");
-        playerRb.AddRelativeForce(Vector3.forward * forwardInput * horsePower);
-
-        // Turn vehicle left & right when keys pressed
+        forwardInput = Input.GetAxis("Vertical");       
         horizontalInput = Input.GetAxis("Horizontal");
-        transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
+
+
+        
+        if (IsOnGround()) 
+        {
+            //Move vehicle forward
+            playerRb.AddRelativeForce(Vector3.forward * forwardInput * horsePower);
+
+            // Turn vehicle 
+            transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
+
+            //print speed
+            speed = Mathf.Round(playerRb.velocity.magnitude * 2.237f);
+            speedometerText.SetText("Speed: " + speed + "mph");
+
+            //print rpm
+            rpm = Mathf.Round((speed % 30) * 40);
+            rpmText.SetText("RPM: " + rpm);
+        }
+
+        
     }
 
-    private void Update()
+    bool IsOnGround() 
+    
     {
-        speed = Mathf.Round(playerRb.velocity.magnitude * 2.237f);
-        speedometerText.SetText("Speed: " + speed + "mph");
+        wheelsOnGround = 0;
+        foreach (WheelCollider wheel in allWheels) 
+        {
+            if (wheel.isGrounded) 
+            {
+                wheelsOnGround++;
+            
+            }
+        
+        
+        }
 
-        rpm = Mathf.Round((speed % 30) * 40);
-        rpmText.SetText("RPM: " + rpm);
+        if (wheelsOnGround == 4)
+        {
+            return true;
+
+        }
+        else 
+        {
+            return false;
+        }
+    
+    
     }
+
+    
 }
