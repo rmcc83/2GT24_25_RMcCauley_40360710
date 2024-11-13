@@ -6,12 +6,14 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
 
-   [SerializeField] float horsePower;
-   [SerializeField] float turnSpeed;
+    [SerializeField] float horsePower;
+    [SerializeField] float turnSpeed;
     [SerializeField] float speed;
+    [SerializeField] float rpm;
 
     [SerializeField] GameObject centerOfMass;
     [SerializeField] TextMeshProUGUI speedometerText;
+    [SerializeField] TextMeshProUGUI rpmText;
     private float horizontalInput;
     private float forwardInput;
     private Rigidbody playerRb;
@@ -39,5 +41,8 @@ public class PlayerController : MonoBehaviour
     {
         speed = Mathf.Round(playerRb.velocity.magnitude * 2.237f);
         speedometerText.SetText("Speed: " + speed + "mph");
+
+        rpm = Mathf.Round((speed % 30) * 40);
+        rpmText.SetText("RPM: " + rpm);
     }
 }
