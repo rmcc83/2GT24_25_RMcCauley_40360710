@@ -1405,4 +1405,12 @@ public class GameManager : MonoBehaviour
 
 
     }
+
+    // To play epilogue scene
+
+    public void Epilogue() 
+    {
+        SceneManager.LoadScene("Epilogue");
+
+    }
 }
