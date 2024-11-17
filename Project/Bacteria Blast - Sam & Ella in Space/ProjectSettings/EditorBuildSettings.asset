@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Intro.unity
     guid: 27e648cd0e39bcc42be26b56670f4dbb
   - enabled: 1
+    path: Assets/Scenes/Background story.unity
+    guid: 833f5d54ca2a266418fe68c3592189ae
+  - enabled: 1
     path: Assets/Scenes/Sam & Ella in Space.unity
     guid: 23be8ad06a1ea6b478c2987646f6799b
   - enabled: 1

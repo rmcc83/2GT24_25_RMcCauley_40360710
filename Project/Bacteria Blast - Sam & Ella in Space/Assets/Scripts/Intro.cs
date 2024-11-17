@@ -21,7 +21,7 @@ public class Intro : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) // If escape is pressed, skip & load main game scene
         {
 
-            SceneManager.LoadScene("Sam & Ella in Space");
+            SceneManager.LoadScene("Background story");
 
         }
     }

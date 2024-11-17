@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Epilogue : MonoBehaviour
+public class IntroShip : MonoBehaviour
 {
     public AudioSource storyAudio;
-    public AudioClip crashSound;
     public AudioClip buttonSound;
     public GameObject speedPanel;
 
@@ -55,7 +54,7 @@ public class Epilogue : MonoBehaviour
     {
 
         
-            speedPanel.GetComponent<Animator>().SetTrigger("Pop");
+        speedPanel.GetComponent<Animator>().SetTrigger("Pop");
         
     }
 

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+public class SceneLoaderBackground : MonoBehaviour
 {
     // When this part of the timeline is hit, the main game scene loads
     public void OnEnable()
     {
-        SceneManager.LoadScene("Background story");
+        SceneManager.LoadScene("Sam & Ella in Space");
         Time.timeScale = 1.0f;
     }
 

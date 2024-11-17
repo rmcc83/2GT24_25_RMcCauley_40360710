@@ -1413,4 +1413,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Epilogue");
 
     }
+
+    // To play intro scene
+    public void Intro() 
+    {
+        SceneManager.LoadScene("Intro");
+
+    }
 }
