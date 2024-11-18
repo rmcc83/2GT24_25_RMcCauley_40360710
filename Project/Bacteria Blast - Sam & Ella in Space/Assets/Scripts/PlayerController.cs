@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private AudioSource playerAudio;
     private Rigidbody playerRb;
     public float boostForce;
-    public float boostMax;
+    private float fuelDrain = 10;
     public float topBound;
     public bool doubleSpeed = false;
     public bool fuelAnim = false;
@@ -70,24 +70,36 @@ public class PlayerController : MonoBehaviour
         //If game has started & is not over
         if (gameManager.gameStarted == true && gameManager.gameOver == false)
         {
-            // If spacebar is pressed and player is below the maximum boost height and fuel is available,
+            // If spacebar is pressed and fuel is available,
             // constraint on player's Y position is removed, an upward force is applied to the player,
-            // & fuel reduces by 5%.  Flame prefabs are also instantiated from bottom of spaceship & appropriate
-            // sound is played
-            if (Input.GetKeyDown(KeyCode.Space) && transform.position.y < boostMax && gameManager.fuel >= 5)
+            // & fuel reduces by the amount set by fuelDrain each second.  Flame prefabs are also instantiated from bottom of spaceship
+            if (Input.GetKey(KeyCode.Space) && gameManager.fuel > 0)
             {
 
                 playerRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
-                playerRb.AddForce(Vector3.up * boostForce, ForceMode.Impulse);
-                gameManager.IncreaseFuel(-5);
+                playerRb.AddForce(Vector3.up * boostForce);
+                gameManager.fuel -= fuelDrain * Time.deltaTime;
                 Instantiate(flamePrefab, thrustPosition1.position, flamePrefab.transform.rotation);
                 Instantiate(flamePrefab, thrustPosition2.position, flamePrefab.transform.rotation);
-                playerAudio.PlayOneShot(boostSound);
+                
 
             }
 
+            // spaceship engine sound is played when spacebar is pressed down, having it playing continuously sounds unpleasant
+            
+            if (Input.GetKeyDown(KeyCode.Space) && gameManager.fuel > 0) 
+            {
+
+                playerAudio.PlayOneShot(boostSound);
+            }
             
 
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                playerRb.velocity = Vector3.zero;
+
+
+            }
 
             // Ensures player cannot go outside the top of the screen
             if (transform.position.y > topBound)
@@ -96,11 +108,11 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            // when left control is pressed, double speed is activated
+            // when left control is pressed, double speed is activated, which doubles fuelDrain
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 doubleSpeed = true;
-
+                fuelDrain *= 2;
             }
 
             // when left control key is released double speed is deactivated

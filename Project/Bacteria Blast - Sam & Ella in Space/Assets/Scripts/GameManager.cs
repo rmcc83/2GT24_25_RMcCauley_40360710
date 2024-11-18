@@ -7,13 +7,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
-
-
+using JetBrains.Annotations;
 
 public class GameManager : MonoBehaviour
 {
     public int score;
-    public int fuel;
+    public float fuel;
     public int lives;
     public int redRemaining;
     public int blueRemaining;
@@ -164,7 +163,7 @@ public class GameManager : MonoBehaviour
         {
             RunTimer();
             UpdateBacteriaBlasted();
-
+            FuelGauge();
 
         }
 
@@ -311,7 +310,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    // Changes 
     public void IncreaseFuel(int value)
     {
 
@@ -323,6 +321,11 @@ public class GameManager : MonoBehaviour
 
         }
 
+        FuelGauge();
+    }
+        
+    public void FuelGauge()
+    { 
         if (fuel < 30)  // colours fuel bar red when fuel below 30%
         {
             fuelSlider.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(0.8f, 0.2f, 0.1f);
@@ -358,6 +361,7 @@ public class GameManager : MonoBehaviour
         fuelSliderEndless.value = fuel; // Sets fuel bar in endless mode
 
     }
+
 
     // Adjusts lives & displays current amount
     public void AddLives(int value)
