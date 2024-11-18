@@ -14987,7 +14987,7 @@ PrefabInstance:
       objectReference: {fileID: 3756047059584986633, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: boostForce
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: loseScreen
@@ -15270,7 +15270,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1008634463}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -19278,7 +19278,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2071510805}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -24954,7 +24954,7 @@ PrefabInstance:
       objectReference: {fileID: 3756047059584986633, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: boostForce
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: loseScreen
@@ -30792,7 +30792,7 @@ PrefabInstance:
       objectReference: {fileID: 3756047059584986633, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: boostForce
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: loseScreen
@@ -32139,7 +32139,7 @@ MonoBehaviour:
   paused: 0
   currentLevel: 0
   playerController: {fileID: 1384789897}
-  gravityModifier: 1.5
+  gravityModifier: 1
   musicSlider: {fileID: 225673980}
   buttonSound: {fileID: 8300000, guid: d43122089bf826d49bcca8c15cc95aad, type: 3}
   lowFuelSound: {fileID: 8300000, guid: 56c4322b70e1a6546970dc0ee73da557, type: 3}
@@ -49680,7 +49680,7 @@ PrefabInstance:
       objectReference: {fileID: 3756047059584986633, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: boostForce
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: spaceship1
