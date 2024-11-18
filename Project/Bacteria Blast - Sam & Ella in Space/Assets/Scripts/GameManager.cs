@@ -186,45 +186,39 @@ public class GameManager : MonoBehaviour
         blueRemaining = (level * 2);
         purpleRemaining = (level * 2);
 
-        if (level == 1)
+        switch (level)
         {
-            currentLevel = 1;
-            lives = 6;
-            fuel = 100;
+            case 1:
+                currentLevel = 1;
+                lives = 6;
+                fuel = 100;
+                break;
 
-        }
+            case 2:
+                currentLevel = 1;
+                lives = 6;
+                fuel = 100;
+                break;
 
-        if (level == 2)
-        {
-            currentLevel = 2;
-            lives = 5;
-            fuel = 100;
+            case 3:
+                currentLevel = 3;
+                lives = 4;
+                fuel = 100;
+                break;
 
-        }
+            case 4:
+                currentLevel = 4;
+                lives = 4;
+                fuel = 100;
+                break;
 
-        if (level == 3)
-        {
-            currentLevel = 3;
-            lives = 4;
-            fuel = 100;
+            case 5:
+                currentLevel = 5;
+                lives = 3;
+                fuel = 75;
+                break;
+        }    
 
-        }
-
-        if (level == 4)
-        {
-            currentLevel = 4;
-            lives = 3;
-            fuel = 100;
-
-        }
-
-        if (level == 5)
-        {
-            currentLevel = 5;
-            lives = 3;
-            fuel = 75;
-
-        }
 
         // The below happens for all the levels which call this method
         livesImage.sprite = lifeSprites[lives]; //sets lives display to starting amount
@@ -257,29 +251,28 @@ public class GameManager : MonoBehaviour
     public void StartGameEndless(int level) // level number is passed in from level select button.  Starting lives,
                                             // starting fuel, difficulty in words is set depending on (endless) level selected.
     {
-
-        if (level == 99)
+        switch (level)
         {
-            currentLevel = 99;
-            lives = 6;
-            fuel = 100;
-            endlessDifficultyText.text = "Difficulty: Easy";
-        }
+            case 99:
+                currentLevel = 99;
+                lives = 6;
+                fuel = 100;
+                endlessDifficultyText.text = "Difficulty: Easy";
+                break;
 
-        if (level == 98)
-        {
-            currentLevel = 98;
-            lives = 4;
-            fuel = 80;
-            endlessDifficultyText.text = "Difficulty: Medium";
-        }
+            case 98:
+                currentLevel = 98;
+                lives = 4;
+                fuel = 80;
+                endlessDifficultyText.text = "Difficulty: Medium";
+                break;
 
-        if (level == 97)
-        {
-            currentLevel = 97;
-            lives = 2;
-            fuel = 50;
-            endlessDifficultyText.text = "Difficulty: Hard";
+            case 97:
+                currentLevel = 97;
+                lives = 2;
+                fuel = 50;
+                endlessDifficultyText.text = "Difficulty: Hard";
+                break;
         }
 
         livesImageEndless.sprite = lifeSprites[lives];  //sets lives display to starting amount
@@ -303,9 +296,6 @@ public class GameManager : MonoBehaviour
         purpleCollectText.text = "      " + purpleCollected; //displays purple bacteria collected
         spawnManager.StartSpawn(); //calls startspawn method from spawnmanager
         SaveName(); //runs savename method
-
-
-
 
     }
 
@@ -683,68 +673,65 @@ public class GameManager : MonoBehaviour
             music = PlayerPrefs.GetInt("Music3");
         }
 
-        if (music == 0)
-        {
-            track1.Play();
-            track2.Stop();
-            track3.Stop();
-            track4.Stop();
-            screen1.gameObject.SetActive(true);
-            screen2.gameObject.SetActive(false);
-            screen3.gameObject.SetActive(false);
-            screen4.gameObject.SetActive(false);
+        switch (music) 
+        { 
+            case 0:
+                track1.Play();
+                track2.Stop();
+                track3.Stop();
+                track4.Stop();
+                screen1.gameObject.SetActive(true);
+                screen2.gameObject.SetActive(false);
+                screen3.gameObject.SetActive(false);
+                screen4.gameObject.SetActive(false);
+                break;
+
+            case 1:
+                track1.Play();
+                track2.Stop();
+                track3.Stop();
+                track4.Stop();
+                screen1.gameObject.SetActive(true);
+                screen2.gameObject.SetActive(false);
+                screen3.gameObject.SetActive(false);
+                screen4.gameObject.SetActive(false);
+                break;
+
+            case 2:
+                track1.Stop();
+                track2.Play();
+                track3.Stop();
+                track4.Stop();
+                screen1.gameObject.SetActive(false);
+                screen2.gameObject.SetActive(true);
+                screen3.gameObject.SetActive(false);
+                screen4.gameObject.SetActive(false);
+                break;
+
+            case 3:
+                track1.Stop();
+                track2.Stop();
+                track3.Play();
+                track4.Stop();
+                screen1.gameObject.SetActive(false);
+                screen2.gameObject.SetActive(false);
+                screen3.gameObject.SetActive(true);
+                screen4.gameObject.SetActive(false);
+                break;
+
+            case 4:
+                track1.Stop();
+                track2.Stop();
+                track3.Stop();
+                track4.Play();
+                screen1.gameObject.SetActive(false);
+                screen2.gameObject.SetActive(false);
+                screen3.gameObject.SetActive(false);
+                screen4.gameObject.SetActive(true);
+                break;
+
         }
-
-
-        if (music == 1)
-        {
-            track1.Play();
-            track2.Stop();
-            track3.Stop();
-            track4.Stop();
-            screen1.gameObject.SetActive(true);
-            screen2.gameObject.SetActive(false);
-            screen3.gameObject.SetActive(false);
-            screen4.gameObject.SetActive(false);
-        }
-
-        if (music == 2)
-        {
-            track1.Stop();
-            track2.Play();
-            track3.Stop();
-            track4.Stop();
-            screen1.gameObject.SetActive(false);
-            screen2.gameObject.SetActive(true);
-            screen3.gameObject.SetActive(false);
-            screen4.gameObject.SetActive(false);
-        }
-
-
-        if (music == 3)
-        {
-            track1.Stop();
-            track2.Stop();
-            track3.Play();
-            track4.Stop();
-            screen1.gameObject.SetActive(false);
-            screen2.gameObject.SetActive(false);
-            screen3.gameObject.SetActive(true);
-            screen4.gameObject.SetActive(false);
-        }
-
-        if (music == 4)
-        {
-            track1.Stop();
-            track2.Stop();
-            track3.Stop();
-            track4.Play();
-            screen1.gameObject.SetActive(false);
-            screen2.gameObject.SetActive(false);
-            screen3.gameObject.SetActive(false);
-            screen4.gameObject.SetActive(true);
-        }
-
+            
     }
 
     public void CheckHighScore() //handles checking for highscore & saving highscores
@@ -766,147 +753,125 @@ public class GameManager : MonoBehaviour
 
         // Checks/saves highscore in playerprefs for easy level
 
-        if (currentLevel == 99)
+        switch (currentLevel) 
         {
-            if (score > PlayerPrefs.GetInt("EasyHighscore"))
-            {
-                newHighscore = true;
-                DisplayHighScoreNotification();
-                PlayerPrefs.SetInt("EasyHighscore", score);
-                PlayerPrefs.SetString("EasyPlayername", playerName.text.ToUpper());
-                PlayerPrefs.SetInt("EasyRed", redCollected);
-                PlayerPrefs.SetInt("EasyBlue", blueCollected);
-                PlayerPrefs.SetInt("EasyPurple", purpleCollected);
-                PlayerPrefs.SetString("EasyDifficulty", endlessDifficultyText.text);
-                PlayerPrefs.SetString("EasyTime", timerText.text);
-            }
+            case 99:
+                if (score > PlayerPrefs.GetInt("EasyHighscore"))
+                {
+                    newHighscore = true;
+                    DisplayHighScoreNotification();
+                    PlayerPrefs.SetInt("EasyHighscore", score);
+                    PlayerPrefs.SetString("EasyPlayername", playerName.text.ToUpper());
+                    PlayerPrefs.SetInt("EasyRed", redCollected);
+                    PlayerPrefs.SetInt("EasyBlue", blueCollected);
+                    PlayerPrefs.SetInt("EasyPurple", purpleCollected);
+                    PlayerPrefs.SetString("EasyDifficulty", endlessDifficultyText.text);
+                    PlayerPrefs.SetString("EasyTime", timerText.text);
+                }
+                break;
+
+            case 98:
+                if (score > PlayerPrefs.GetInt("MediumHighscore"))
+                {
+                    newHighscore = true;
+                    DisplayHighScoreNotification();
+                    PlayerPrefs.SetInt("MediumHighscore", score);
+                    PlayerPrefs.SetString("MediumPlayername", playerName.text.ToUpper());
+                    PlayerPrefs.SetInt("MediumRed", redCollected);
+                    PlayerPrefs.SetInt("MediumBlue", blueCollected);
+                    PlayerPrefs.SetInt("MediumPurple", purpleCollected);
+                    PlayerPrefs.SetString("MediumDifficulty", endlessDifficultyText.text);
+                    PlayerPrefs.SetString("MediumTime", timerText.text);
+
+                }
+                break;
+
+            case 97:
+                if (score > PlayerPrefs.GetInt("HardHighscore"))
+                {
+                    newHighscore = true;
+                    DisplayHighScoreNotification();
+                    PlayerPrefs.SetInt("HardHighscore", score);
+                    PlayerPrefs.SetString("HardPlayername", playerName.text.ToUpper());
+                    PlayerPrefs.SetInt("HardRed", redCollected);
+                    PlayerPrefs.SetInt("HardBlue", blueCollected);
+                    PlayerPrefs.SetInt("HardPurple", purpleCollected);
+                    PlayerPrefs.SetString("HardDifficulty", endlessDifficultyText.text);
+                    PlayerPrefs.SetString("HardTime", timerText.text);
+                }
+                break;
 
         }
-
-        // Checks/saves highscore in playerprefs for medium level
-
-        if (currentLevel == 98)
-        {
-            if (score > PlayerPrefs.GetInt("MediumHighscore"))
-            {
-                newHighscore = true;
-                DisplayHighScoreNotification();
-                PlayerPrefs.SetInt("MediumHighscore", score);
-                PlayerPrefs.SetString("MediumPlayername", playerName.text.ToUpper());
-                PlayerPrefs.SetInt("MediumRed", redCollected);
-                PlayerPrefs.SetInt("MediumBlue", blueCollected);
-                PlayerPrefs.SetInt("MediumPurple", purpleCollected);
-                PlayerPrefs.SetString("MediumDifficulty", endlessDifficultyText.text);
-                PlayerPrefs.SetString("MediumTime", timerText.text);
-
-            }
-
-        }
-
-        // Checks/saves highscore in playerprefs for hard level
-
-        if (currentLevel == 97)
-        {
-            if (score > PlayerPrefs.GetInt("HardHighscore"))
-            {
-                newHighscore = true;
-                DisplayHighScoreNotification();
-                PlayerPrefs.SetInt("HardHighscore", score);
-                PlayerPrefs.SetString("HardPlayername", playerName.text.ToUpper());
-                PlayerPrefs.SetInt("HardRed", redCollected);
-                PlayerPrefs.SetInt("HardBlue", blueCollected);
-                PlayerPrefs.SetInt("HardPurple", purpleCollected);
-                PlayerPrefs.SetString("HardDifficulty", endlessDifficultyText.text);
-                PlayerPrefs.SetString("HardTime", timerText.text);
-            }
-
-
-        }
+        
     }
 
-    public void CheckBestTime() //handles checking for best time & saving best time
+    public void CheckBestTime() //handles checking for best time & saving best time.  Checks/saves best time in playerprefs for each level,
+                                //if no previous time saved, will check against a default of 3599 i.e. 59 mins 59 seconds
     {
 
-        // Checks/saves best time in playerprefs for level 1, if no previous time saved, will check against a default of 3599 i.e
-        // 59 mins 59 seconds
-
-        if (currentLevel == 1)
+        switch (currentLevel) 
         {
-            currentLevel1BestTime = (PlayerPrefs.GetFloat("Level1BestTime", 3599));
+            case 1:                      
+                currentLevel1BestTime = (PlayerPrefs.GetFloat("Level1BestTime", 3599));
 
-            if (timeElapsed < currentLevel1BestTime)
-            {
-                newBestTime = true;
-                DisplayBestTimeNotification();
-                PlayerPrefs.SetString("Level1Playername", playerName.text.ToUpper()); ;
-                PlayerPrefs.SetFloat("Level1BestTime", timeElapsed);
-            }
+                if (timeElapsed < currentLevel1BestTime)
+                {
+                    newBestTime = true;
+                    DisplayBestTimeNotification();
+                    PlayerPrefs.SetString("Level1Playername", playerName.text.ToUpper()); ;
+                    PlayerPrefs.SetFloat("Level1BestTime", timeElapsed);
+                }
+                break;
 
+            case 2:
+                currentLevel2BestTime = (PlayerPrefs.GetFloat("Level2BestTime", 3599));
+
+                if (timeElapsed < currentLevel2BestTime)
+                {
+                    newBestTime = true;
+                    DisplayBestTimeNotification();
+                    PlayerPrefs.SetString("Level2Playername", playerName.text.ToUpper()); ;
+                    PlayerPrefs.SetFloat("Level2BestTime", timeElapsed);
+                }
+                break;
+
+            case 3:
+                currentLevel3BestTime = (PlayerPrefs.GetFloat("Level3BestTime", 3599));
+
+                if (timeElapsed < currentLevel3BestTime)
+                {
+                    newBestTime = true;
+                    DisplayBestTimeNotification();
+                    PlayerPrefs.SetString("Level3Playername", playerName.text.ToUpper()); ;
+                    PlayerPrefs.SetFloat("Level3BestTime", timeElapsed);
+                }
+                break;
+
+            case 4:
+                currentLevel4BestTime = (PlayerPrefs.GetFloat("Level4BestTime", 3599));
+
+                if (timeElapsed < currentLevel4BestTime)
+                {
+                    newBestTime = true;
+                    DisplayBestTimeNotification();
+                    PlayerPrefs.SetString("Level4Playername", playerName.text.ToUpper()); ;
+                    PlayerPrefs.SetFloat("Level4BestTime", timeElapsed);
+                }
+                break;
+                
+            case 5:
+                currentLevel5BestTime = (PlayerPrefs.GetFloat("Level5BestTime", 3599));
+
+                if (timeElapsed < currentLevel5BestTime)
+                {
+                    newBestTime = true;
+                    DisplayBestTimeNotification();
+                    PlayerPrefs.SetString("Level5Playername", playerName.text.ToUpper()); ;
+                    PlayerPrefs.SetFloat("Level5BestTime", timeElapsed);
+                }
+                break;
         }
 
-        // Checks/saves best time in playerprefs for level 2, if no previous time saved, will check against a default of 3599
-
-        if (currentLevel == 2)
-        {
-            currentLevel2BestTime = (PlayerPrefs.GetFloat("Level2BestTime", 3599));
-
-            if (timeElapsed < currentLevel2BestTime)
-            {
-                newBestTime = true;
-                DisplayBestTimeNotification();
-                PlayerPrefs.SetString("Level2Playername", playerName.text.ToUpper()); ;
-                PlayerPrefs.SetFloat("Level2BestTime", timeElapsed);
-            }
-
-        }
-
-        // Checks/saves best time in playerprefs for level 3, if no previous time saved, will check against a default of 3599
-
-        if (currentLevel == 3)
-        {
-            currentLevel3BestTime = (PlayerPrefs.GetFloat("Level3BestTime", 3599));
-
-            if (timeElapsed < currentLevel3BestTime)
-            {
-                newBestTime = true;
-                DisplayBestTimeNotification();
-                PlayerPrefs.SetString("Level3Playername", playerName.text.ToUpper()); ;
-                PlayerPrefs.SetFloat("Level3BestTime", timeElapsed);
-            }
-
-        }
-
-        // Checks/saves best time in playerprefs for level 4, if no previous time saved, will check against a default of 3599
-
-        if (currentLevel == 4)
-        {
-            currentLevel4BestTime = (PlayerPrefs.GetFloat("Level4BestTime", 3599));
-
-            if (timeElapsed < currentLevel4BestTime)
-            {
-                newBestTime = true;
-                DisplayBestTimeNotification();
-                PlayerPrefs.SetString("Level4Playername", playerName.text.ToUpper()); ;
-                PlayerPrefs.SetFloat("Level4BestTime", timeElapsed);
-            }
-
-        }
-
-        // Checks/saves best time in playerprefs for level 5, if no previous time saved, will check against a default of 3599 
-
-        if (currentLevel == 5)
-        {
-            currentLevel5BestTime = (PlayerPrefs.GetFloat("Level5BestTime", 3599));
-
-            if (timeElapsed < currentLevel5BestTime)
-            {
-                newBestTime = true;
-                DisplayBestTimeNotification();
-                PlayerPrefs.SetString("Level5Playername", playerName.text.ToUpper()); ;
-                PlayerPrefs.SetFloat("Level5BestTime", timeElapsed);
-            }
-
-        }
     }
 
     // saves score/player/bacteria collected/difficulty for current game in player prefs
@@ -1146,205 +1111,174 @@ public class GameManager : MonoBehaviour
 
         }
 
-
-        if (playerSkinEquipped == 0)
+        switch (playerSkinEquipped) 
         {
-            spaceship1.SetActive(true);
-            spaceship2.SetActive(false);
-            spaceship3.SetActive(false);
-            spaceship4.SetActive(false);
-        }
+            case 0:
+                spaceship1.SetActive(true);
+                spaceship2.SetActive(false);
+                spaceship3.SetActive(false);
+                spaceship4.SetActive(false);
+                break;
 
+            case 1:
+                spaceship1.SetActive(true);
+                spaceship2.SetActive(false);
+                spaceship3.SetActive(false);
+                spaceship4.SetActive(false);
+                break;
 
-        if (playerSkinEquipped == 1)
-        {
-            spaceship1.SetActive(true);
-            spaceship2.SetActive(false);
-            spaceship3.SetActive(false);
-            spaceship4.SetActive(false);
-        }
+            case 2:
+                spaceship1.SetActive(false);
+                spaceship2.SetActive(true);
+                spaceship3.SetActive(false);
+                spaceship4.SetActive(false);
+                break;
 
-        if (playerSkinEquipped == 2)
-        {
-            spaceship1.SetActive(false);
-            spaceship2.SetActive(true);
-            spaceship3.SetActive(false);
-            spaceship4.SetActive(false);
-        }
+            case 3:
+                spaceship1.SetActive(false);
+                spaceship2.SetActive(false);
+                spaceship3.SetActive(true);
+                spaceship4.SetActive(false);
+                break;
 
-        if (playerSkinEquipped == 3)
-        {
-            spaceship1.SetActive(false);
-            spaceship2.SetActive(false);
-            spaceship3.SetActive(true);
-            spaceship4.SetActive(false);
-        }
-
-        if (playerSkinEquipped == 4)
-        {
-            spaceship1.SetActive(false);
-            spaceship2.SetActive(false);
-            spaceship3.SetActive(false);
-            spaceship4.SetActive(true);
-        }
+            case 4:
+                spaceship1.SetActive(false);
+                spaceship2.SetActive(false);
+                spaceship3.SetActive(false);
+                spaceship4.SetActive(true);
+                break;
+        }       
 
     }
 
     public void UpdateTimedGamesPlayed() // updates games played stat
     {
-        if (currentLevel == 1)
+        switch (currentLevel) 
         {
-            cumulativeStatsHandler.Level1Played();
-        }
-
-        if (currentLevel == 2)
-        {
-            cumulativeStatsHandler.Level2Played();
-        }
-
-        if (currentLevel == 3)
-        {
-            cumulativeStatsHandler.Level3Played();
-        }
-
-        if (currentLevel == 4)
-        {
-            cumulativeStatsHandler.Level4Played();
-        }
-
-        if (currentLevel == 5)
-        {
-            cumulativeStatsHandler.Level5Played();
+            case 1:
+                cumulativeStatsHandler.Level1Played();
+                break;
+            case 2:
+                cumulativeStatsHandler.Level2Played();
+                break;
+            case 3:
+                cumulativeStatsHandler.Level3Played();
+                break; 
+            case 4:
+                cumulativeStatsHandler.Level4Played();
+                break;
+            case 5:
+                cumulativeStatsHandler.Level5Played();
+                break;
         }
 
         cumulativeStatsHandler.TotalTimedPlayed();
-
 
     }
 
     public void UpdateEndlessGamesPlayed() // updates games played stat
     {
-        if (currentLevel == 99)
-        {
-            cumulativeStatsHandler.EasyEndlessPlayed();
-        }
 
-        if (currentLevel == 98)
+        switch (currentLevel)
         {
-            cumulativeStatsHandler.MediumEndlessPlayed();
-        }
-
-        if (currentLevel == 97)
-        {
-            cumulativeStatsHandler.HardEndlessPlayed();
+            case 99:
+                cumulativeStatsHandler.EasyEndlessPlayed();
+                break;
+            case 98:
+                cumulativeStatsHandler.MediumEndlessPlayed();
+                break;
+            case 97:
+                cumulativeStatsHandler.HardEndlessPlayed();
+                break;
         }
 
         cumulativeStatsHandler.TotalEndlessPlayed();
-
     }
+        
 
     public void UpdateTimedGamesWon() //updates timed games won stat
     {
-        if (currentLevel == 1)
-        {
-            cumulativeStatsHandler.Level1Won();
-        }
 
-        if (currentLevel == 2)
+        switch (currentLevel) 
         {
-            cumulativeStatsHandler.Level2Won();
-        }
-
-        if (currentLevel == 3)
-        {
-            cumulativeStatsHandler.Level3Won();
-        }
-
-        if (currentLevel == 4)
-        {
-            cumulativeStatsHandler.Level4Won();
-        }
-
-        if (currentLevel == 5)
-        {
-            cumulativeStatsHandler.Level5Won();
+            case 1:
+                cumulativeStatsHandler.Level1Won();
+                break; 
+            case 2:
+                cumulativeStatsHandler.Level2Won();
+                break;
+            case 3:
+                cumulativeStatsHandler.Level3Won();
+                break;
+            case 4:
+                cumulativeStatsHandler.Level4Won();
+                break;
+            case 5:
+                cumulativeStatsHandler.Level5Won();
+                break;
         }
 
         cumulativeStatsHandler.TotalTimedWon();
-
     }
 
     public void UpdateEndlessGamesLives() //updates end method for endless game mode stat
     {
-        if (currentLevel == 99)
-        {
-            cumulativeStatsHandler.EasyEndlessLives();
+        switch (currentLevel) 
+        { 
+            case 99:
+                cumulativeStatsHandler.EasyEndlessLives();
+                break;
+            case 98:
+                cumulativeStatsHandler.MediumEndlessLives();
+                break;
+            case 97:
+                cumulativeStatsHandler.HardEndlessLives();
+                break; 
         }
-
-        if (currentLevel == 98)
-        {
-            cumulativeStatsHandler.MediumEndlessLives();
-        }
-
-        if (currentLevel == 97)
-        {
-            cumulativeStatsHandler.HardEndlessLives();
-        }
-
+        
         cumulativeStatsHandler.TotalEndlessLives();
 
     }
 
     public void UpdateTimedGamesLost() //updates timed games lost stat
     {
-        if (currentLevel == 1)
+        switch (currentLevel) 
         {
-            cumulativeStatsHandler.Level1Lost();
-        }
-
-        if (currentLevel == 2)
-        {
-            cumulativeStatsHandler.Level2Lost();
-        }
-
-        if (currentLevel == 3)
-        {
-            cumulativeStatsHandler.Level3Lost();
-        }
-
-        if (currentLevel == 4)
-        {
-            cumulativeStatsHandler.Level4Lost();
-        }
-
-        if (currentLevel == 5)
-        {
-            cumulativeStatsHandler.Level5Lost();
-        }
-
+            case 1:
+                cumulativeStatsHandler.Level1Lost();
+                break;
+            case 2:
+                cumulativeStatsHandler.Level2Lost();
+                break;
+            case 3:
+                cumulativeStatsHandler.Level3Lost();
+                break;
+            case 4:
+                cumulativeStatsHandler.Level4Lost();
+                break;
+            case 5: 
+                cumulativeStatsHandler.Level5Lost();
+                break;
+               
+        }        
         cumulativeStatsHandler.TotalTimedLost();
-
-
-
     }
 
     public void UpdateEndlessGamesCrash() //updates number of endless games which finished with a crash
     {
-        if (currentLevel == 99)
+        switch (currentLevel) 
         {
-            cumulativeStatsHandler.EasyEndlessCrash();
+            case 99:
+                cumulativeStatsHandler.EasyEndlessCrash();
+                break;
+            case 98:
+                cumulativeStatsHandler.MediumEndlessCrash();
+                break;
+            case 97:
+                cumulativeStatsHandler.HardEndlessCrash();
+                break;
         }
-
-        if (currentLevel == 98)
-        {
-            cumulativeStatsHandler.MediumEndlessCrash();
-        }
-
-        if (currentLevel == 97)
-        {
-            cumulativeStatsHandler.HardEndlessCrash();
-        }
-
+        
         cumulativeStatsHandler.TotalEndlessCrash();
 
     }

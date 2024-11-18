@@ -19,8 +19,7 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Rotates asteroid slowly
-      // transform.Rotate(10 * Time.deltaTime, 0, 0, Space.Self);
+        
     }
 
     public void OnCollisionEnter(Collision collision) 

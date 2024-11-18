@@ -21,10 +21,8 @@ public class IntroShip : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-
             SceneManager.LoadScene("Sam & Ella in Space");
             Time.timeScale = 1.0f;
-
         }
     }
 
@@ -51,11 +49,9 @@ public class IntroShip : MonoBehaviour
     }
 
     public void TextPanel() 
-    {
-
-        
+    {       
         speedPanel.GetComponent<Animator>().SetTrigger("Pop");
-        
+       
     }
 
 

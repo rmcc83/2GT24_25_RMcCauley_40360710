@@ -48,50 +48,48 @@ public class Bacteria : MonoBehaviour
 
         if (other.CompareTag("Player")) 
         {
-            if (bacteriaType == BacteriaType.Blue)
+
+            switch (bacteriaType)
             {
-                gameManager.blueRemaining -= 1;
-                gameManager.blueCollected += 1;
+                case BacteriaType.Red:
+                    gameManager.redRemaining -= 1;
+                    gameManager.redCollected += 1;
+                    if (gameManager.gameEndless == true)
+                    {
+                        gameManager.AddScore(pointValue);
+                        playerController.ShowFloatingText(pointValue);
 
-                if (gameManager.gameEndless == true) 
-                {
-                    gameManager.AddScore(pointValue);
-                    playerController.ShowFloatingText(pointValue);
+                    }
+                    Destroy(gameObject);
+                    break;
 
+                case BacteriaType.Purple:
+                    gameManager.purpleRemaining -= 1;
+                    gameManager.purpleCollected += 1;
+                    if (gameManager.gameEndless == true)
+                    {
+                        gameManager.AddScore(pointValue);
+                        playerController.ShowFloatingText(pointValue);
 
+                    }
+                    Destroy(gameObject);
+                    break;
 
-                }
+                case BacteriaType.Blue:
+                    gameManager.blueRemaining -= 1;
+                    gameManager.blueCollected += 1;
 
-                Destroy(gameObject);
+                    if (gameManager.gameEndless == true)
+                    {
+                        gameManager.AddScore(pointValue);
+                        playerController.ShowFloatingText(pointValue);
+
+                    }
+
+                    Destroy(gameObject);
+                    break;               
             }
-
-            if (bacteriaType == BacteriaType.Purple)
-            {
-                gameManager.purpleRemaining -= 1;
-                gameManager.purpleCollected += 1;
-                if (gameManager.gameEndless == true)
-                {
-                    gameManager.AddScore(pointValue);
-                    playerController.ShowFloatingText(pointValue);
-
-                }
-                Destroy(gameObject);
-            }
-
-            if (bacteriaType == BacteriaType.Red)
-            {
-                gameManager.redRemaining -= 1;
-                gameManager.redCollected += 1;
-                if (gameManager.gameEndless == true)
-                {
-                    gameManager.AddScore(pointValue);
-                    playerController.ShowFloatingText(pointValue);
-                   // playerController.textColour = Color.red;
-
-                }
-                Destroy(gameObject);
-            }
-
+     
         }
 
         // If bacteria & powerup or virus spawn together, powerup or virus is destroyed
@@ -100,9 +98,7 @@ public class Bacteria : MonoBehaviour
         {
             Destroy(other.gameObject);
 
-
         }
-
 
 
     }

@@ -50,7 +50,6 @@ public class MoveLeft : MonoBehaviour
                 }
 
                 
-
             }
 
 
@@ -105,12 +104,6 @@ public class MoveLeft : MonoBehaviour
             }
 
         }
-
-
-
-
-
-
 
     }
 

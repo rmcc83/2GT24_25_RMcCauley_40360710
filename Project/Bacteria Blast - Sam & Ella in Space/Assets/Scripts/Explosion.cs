@@ -17,6 +17,7 @@ public class Explosion : MonoBehaviour
     }
     public IEnumerator SelfDestruct() 
     {
+
         if (gameObject.CompareTag("Explosion")) // if the script is on the explosion object, destroy it after 2 seconds
         {
             yield return new WaitForSeconds(2);
