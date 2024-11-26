@@ -25,7 +25,7 @@ public class ButtonNames : MonoBehaviour
         
     }
 
-    private void Buttons()
+    private void Buttons() // shows saved player name on appropriate button
     {
         player1Name.text = PlayerPrefs.GetString("Player1Name", "Player 1");
         player2Name.text = PlayerPrefs.GetString("Player2Name", "Player 2");

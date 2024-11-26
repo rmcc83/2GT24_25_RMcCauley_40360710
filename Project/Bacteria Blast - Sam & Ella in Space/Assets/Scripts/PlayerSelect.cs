@@ -20,7 +20,7 @@ public class PlayerSelect : MonoBehaviour
 
     }
 
-    public void SetProfile() 
+    public void SetProfile() // loads player profile info depending on what button was selected
     {
         switch (profile) 
         {
