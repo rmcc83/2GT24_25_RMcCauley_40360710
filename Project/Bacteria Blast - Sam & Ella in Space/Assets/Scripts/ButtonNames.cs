@@ -17,6 +17,7 @@ public class ButtonNames : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Buttons();
+
     }
 
     // Update is called once per frame
@@ -27,6 +28,7 @@ public class ButtonNames : MonoBehaviour
 
     private void Buttons() // shows saved player name on appropriate button
     {
+       
         player1Name.text = PlayerPrefs.GetString("Player1Name", "Player 1");
         player2Name.text = PlayerPrefs.GetString("Player2Name", "Player 2");
         player3Name.text = PlayerPrefs.GetString("Player3Name", "Player 3");
