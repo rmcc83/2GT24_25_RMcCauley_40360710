@@ -14978,7 +14978,7 @@ PrefabInstance:
       objectReference: {fileID: 3756047059584986633, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: boostForce
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: loseScreen
@@ -24946,7 +24946,7 @@ PrefabInstance:
       objectReference: {fileID: 3756047059584986633, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: boostForce
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: loseScreen
@@ -30784,7 +30784,7 @@ PrefabInstance:
       objectReference: {fileID: 3756047059584986633, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: boostForce
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: loseScreen
@@ -49914,7 +49914,7 @@ PrefabInstance:
       objectReference: {fileID: 3756047059584986633, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: boostForce
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8938893781213921714, guid: 1b070722b48cb8940aa1e9ddab3b1862, type: 3}
       propertyPath: spaceship1
