@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
         CheckHighScore(); // run check highscore method
         UpdateHighScoreDisplay(); // run update highscore display method
         UpdateLastScoreDisplay(); // run update last score display method
-        LoadVolume(); // run load voulme method
+        LoadVolume(); // run load volume method
         LoadName(); // run load name method
 
         // if main scene, music load method is run
@@ -173,6 +173,11 @@ public class GameManager : MonoBehaviour
             CheckForPause();
         }
 
+        if (gameOver == true)
+        {
+            spawnManager.StopSpawn();
+
+        }
 
     }
 
@@ -217,27 +222,21 @@ public class GameManager : MonoBehaviour
                 lives = 3;
                 fuel = 75;
                 break;
-        }    
+        }
 
 
         // The below happens for all the levels which call this method
+
+
         livesImage.sprite = lifeSprites[lives]; //sets lives display to starting amount
         fuelSlider.value = fuel; // sets fuel bar to starting amount
         ResetGravity(); // run reset gravity method - necessary to ensure gravity does not increase each time game is played, as gravity modifier is being utilised
         gameScreen.SetActive(true); // sets gamescreen (with score, fuel etc) active
-        gameScreenEndless.SetActive(false); // sets endless game screen inactive
-        highscoreDisplay.SetActive(false); // sets highscore display inactive
-        lastscoreDisplay.SetActive(false); // sets last score display inactive
-        gameStarted = true; // flags that game has started
-        gameOver = false; // flags that game is not over
-        gameWin = false; //sets game win flag flase
-        gameLose = false; //sets game lose flag false
+        gameScreenEndless.SetActive(false); // sets endless game screen inactive        
         redRemainText.text = "      " + redRemaining; // displays red bacteria remaining
         blueRemainText.text = "    " + blueRemaining; // displays blue bacteria remaining
         purpleRemainText.text = "      " + purpleRemaining; // displays purple bacteria remaining
-        spawnManager.StartSpawn(); // runs start spawn method from spawnmanager
-        SaveName(); // runs savename method
-
+        CommonGameStart();
     }
 
     // Adds appropriate value to score when bacteria collected, and updates score display
@@ -275,6 +274,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
+        score = 0;
         livesImageEndless.sprite = lifeSprites[lives];  //sets lives display to starting amount
         fuelSliderEndless.value = fuel; // sets fuel bar to starting amount
         gameEndless = true; // flags endless game is selected
@@ -284,18 +284,24 @@ public class GameManager : MonoBehaviour
         ResetGravity(); // run reset gravity method - necessary to ensure gravity does not increase each time game is played, as gravity modifier is being utilised
         gameScreen.SetActive(false); // sets normal game screen off
         gameScreenEndless.SetActive(true); // sets endless game screen on
-        highscoreDisplay.SetActive(false); // turns highscore display off
-        lastscoreDisplay.SetActive(false); //turns lastscore display off
-        gameStarted = true; //flags game started
-        gameOver = false; //game over set to false
-        gameWin = false; //gamewin set to false
-        gameLose = false; //gamelose set to false
         scoreText.text = playerName.text.ToUpper() + "'S SCORE : " + score; //displays score along with player name
         redCollectText.text = "      " + redCollected; //displays red bacteria collected
         blueCollectText.text = "    " + blueCollected; //displays blue bacteria collected
         purpleCollectText.text = "      " + purpleCollected; //displays purple bacteria collected
-        spawnManager.StartSpawn(); //calls startspawn method from spawnmanager
-        SaveName(); //runs savename method
+        CommonGameStart();
+    }
+
+    // These are common to all modes & levels
+    public void CommonGameStart()
+    {
+        highscoreDisplay.SetActive(false); // sets highscore display inactive
+        lastscoreDisplay.SetActive(false); // sets last score display inactive
+        gameStarted = true; // flags that game has started
+        gameOver = false; // flags that game is not over
+        gameWin = false; //sets game win flag flase
+        gameLose = false; //sets game lose flag false
+        spawnManager.StartSpawn(); // runs start spawn method from spawnmanager
+        SaveName(); // runs savename method
 
     }
 
@@ -991,8 +997,8 @@ public class GameManager : MonoBehaviour
         timerText.text = "" + string.Format(" {0:00}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
         timerText2.text = "" + string.Format(" {0:00}:{1:00}", timeSpan.Minutes, timeSpan.Seconds);
 
-
     }
+
     //Clears all high scores & player names when GUI button pressed
     public void ClearHighScore()
     {
@@ -1093,6 +1099,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadSkin() //loads saved spaceship skin for that player profile from playerprefs
     {
+
         if (player1 == true)
         {
             playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped1");
@@ -1356,6 +1363,79 @@ public class GameManager : MonoBehaviour
     public void Intro() 
     {
         SceneManager.LoadScene("Intro");
+
+    }
+
+    public void RestartLevel() 
+    {
+
+        gameOverScreen.SetActive(false);
+        loseScreen.SetActive(false);
+        playerController.hasPowerup = false;
+        playerController.armedText.gameObject.SetActive(false);
+        playerController.unarmedText.gameObject.SetActive(true);
+        playerController.armedTextEndless.gameObject.SetActive(false);
+        playerController.unarmedTextEndless.gameObject.SetActive(true);
+
+        foreach (var gameObj in GameObject.FindGameObjectsWithTag("Blue Bacterium"))
+        {
+            Destroy(gameObj);
+        }
+
+        foreach (var gameObj in GameObject.FindGameObjectsWithTag("Red Bacterium"))
+        {
+            Destroy(gameObj);
+        }
+
+        foreach (var gameObj in GameObject.FindGameObjectsWithTag("Purple Bacterium"))
+        {
+            Destroy(gameObj);
+        }
+
+        foreach (var gameObj in GameObject.FindGameObjectsWithTag("Virus"))
+        {
+            Destroy(gameObj);
+
+        }
+
+        foreach (var gameObj in GameObject.FindGameObjectsWithTag("Asteroid"))
+        {
+            Destroy(gameObj);
+
+        }
+
+        foreach (var gameObj in GameObject.FindGameObjectsWithTag("Sonic Blaster PowerUp"))
+        {
+            Destroy(gameObj);
+
+        }
+
+        foreach (var gameObj in GameObject.FindGameObjectsWithTag("Fuel Large"))
+        {
+            Destroy(gameObj);
+
+        }
+
+        foreach (var gameObj in GameObject.FindGameObjectsWithTag("Fuel Small"))
+        {
+            Destroy(gameObj);
+
+        }
+
+
+        if (gameEndless == true)
+        {
+            timeElapsed = 0;
+            StartGameEndless(currentLevel); 
+        
+        }
+
+        if (gameEndless == false)
+        {
+            timeElapsed = 0;
+            StartGame(currentLevel);
+
+        }
 
     }
 }

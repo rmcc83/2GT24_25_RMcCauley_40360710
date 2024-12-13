@@ -10,8 +10,10 @@ public class PlayerController : MonoBehaviour
     private AudioSource groundAudio;
     private AudioSource playerAudio;
     private Rigidbody playerRb;
+    private Vector3 initialPosition;
     public float boostForce;
     private float fuelDrain = 10;
+    public bool fastFuelDrain = false;
     public float topBound;
     public bool doubleSpeed = false;
     public bool fuelAnim = false;
@@ -47,10 +49,6 @@ public class PlayerController : MonoBehaviour
     public Color textColour;
 
 
-
-
-
-
     void Start()
     {
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
@@ -60,7 +58,7 @@ public class PlayerController : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         cumulativeStatsHandler = GameObject.Find("CumulativeStatsHandler").GetComponent<CumulativeStatsHandler>();
-
+        initialPosition = new Vector3(-68.3f, 1.28f, -1f);
 
     }
 
@@ -79,6 +77,10 @@ public class PlayerController : MonoBehaviour
                 playerRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
                 playerRb.AddForce(Vector3.up * boostForce);
                 gameManager.fuel -= fuelDrain * Time.deltaTime;
+                if (fastFuelDrain == true)
+                {
+                    gameManager.fuel -= (2 * fuelDrain) * Time.deltaTime;
+                }
                 Instantiate(flamePrefab, thrustPosition1.position, flamePrefab.transform.rotation);
                 Instantiate(flamePrefab, thrustPosition2.position, flamePrefab.transform.rotation);
                 
@@ -112,14 +114,14 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 doubleSpeed = true;
-                fuelDrain *= 2;
+                fastFuelDrain = true;
             }
 
             // when left control key is released double speed is deactivated
             if (Input.GetKeyUp(KeyCode.LeftControl))
             {
                 doubleSpeed = false;
-
+                fastFuelDrain = false;
             }
 
             // Fire a sonic blast from the player and play sound if game has started & is not over & player has powerup, and left alt is pressed
@@ -177,7 +179,7 @@ public class PlayerController : MonoBehaviour
             Vector3 expSpawnpos = new(transform.position.x, transform.position.y, transform.position.z);
             Instantiate(explosion, expSpawnpos, explosion.transform.rotation);
             groundAudio.PlayOneShot(crashSound);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
 
             if (gameManager.gameEndless != true) 
             {
@@ -320,6 +322,18 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2);
         fuelAnim = false;
 
+    }
+
+    public void ResetPosition() 
+    {
+        spawnManager.StopSpawn();
+        gameObject.SetActive(true);
+        powerupIndicator.gameObject.SetActive(false);
+        transform.position = initialPosition;
+        playerRb.velocity = Vector3.zero;
+        playerRb.constraints = RigidbodyConstraints.FreezeAll;
+        gameManager.LoadSkin();
+        gameManager.RestartLevel();
     }
 
 }

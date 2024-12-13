@@ -114,11 +114,19 @@ public class SpawnManager : MonoBehaviour
     public void StartSpawn()
 
     {
-                
+        if (gameManager.gameOver == false && gameManager.gameStarted == true)
+        {
             InvokeRepeating("SpawnBacteria", bacteriaStartDelay, bacteriaSpawnInterval);
             InvokeRepeating("SpawnAsteroids", asteroidStartDelay, asteroidSpawnInterval);
             InvokeRepeating("SpawnPowerUps", powerUpStartDelay, powerUpSpawnInterval);
-            InvokeRepeating("SpawnVirus", virusStartDelay, virusSpawnInterval);        
+            InvokeRepeating("SpawnVirus", virusStartDelay, virusSpawnInterval);
+        }    
+    }
+
+    public void StopSpawn() 
+    {
+        CancelInvoke();
+    
     }
 
  
