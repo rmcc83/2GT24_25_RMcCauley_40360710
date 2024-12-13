@@ -81,7 +81,9 @@ public class GameManager : MonoBehaviour
     public GameObject screen2;
     public GameObject screen3;
     public GameObject screen4;
-    public int currentProfile;
+    public bool player1;
+    public bool player2;
+    public bool player3;
     public bool gameStarted;
     public bool gameOver;
     public bool gameWin;
@@ -523,89 +525,105 @@ public class GameManager : MonoBehaviour
 
     public void SaveName() // saves entered player name against particular key in playerprefs
     {
-
-        switch (currentProfile)
+        if (player1 == true)
         {
-            case 1:
-                PlayerPrefs.SetString("Player1Name", playerName.text);
-                break;
-            case 2:
-                PlayerPrefs.SetString("Player2Name", playerName.text);
-                break;
-            case 3:
-                PlayerPrefs.SetString("Player3Name", playerName.text);
-                break;
+            PlayerPrefs.SetString("Player1Name", playerName.text);
+
         }
 
+        if (player2 == true)
+        {
+            PlayerPrefs.SetString("Player2Name", playerName.text);
+
+        }
+
+        if (player3 == true)
+        {
+            PlayerPrefs.SetString("Player3Name", playerName.text);
+
+        }
     }
 
     public void LoadName() // allows previously saved player name in particular slot to be loaded from playerprefs
     {
 
-        switch (currentProfile)
+        if (player1 == true)
         {
-            case 1:
-                playerName.text = PlayerPrefs.GetString("Player1Name", "A Biotic");
-                break;
-            case 2:
-                playerName.text = PlayerPrefs.GetString("Player2Name", "A Biotic");
-                break;
-            case 3:
-                playerName.text = PlayerPrefs.GetString("Player3Name", "A Biotic");
-                break;
+            playerName.text = PlayerPrefs.GetString("Player1Name", "A Biotic");
+
+        }
+
+        if (player2 == true)
+        {
+            playerName.text = PlayerPrefs.GetString("Player2Name", "A Biotic");
+
+        }
+
+        if (player3 == true)
+        {
+            playerName.text = PlayerPrefs.GetString("Player3Name", "A Biotic");
+
         }
 
     }
 
     public void SaveVolume() // saves current volume setting in player prefs for particular player profile
     {
-        switch (currentProfile)
+        if (player1 == true)
         {
-            case 1:
-                PlayerPrefs.SetFloat("MusicVolume1", musicSlider.value);
-                PlayerPrefs.Save();
-                break;
-            case 2:
-                PlayerPrefs.SetFloat("MusicVolume2", musicSlider.value);
-                PlayerPrefs.Save();
-                break;
-            case 3:
-                PlayerPrefs.SetFloat("MusicVolume3", musicSlider.value);
-                PlayerPrefs.Save();
-                break;
+            PlayerPrefs.SetFloat("MusicVolume1", musicSlider.value);
+            PlayerPrefs.Save();
+        }
+
+        if (player2 == true)
+        {
+            PlayerPrefs.SetFloat("MusicVolume2", musicSlider.value);
+            PlayerPrefs.Save();
+        }
+
+        if (player3 == true)
+        {
+            PlayerPrefs.SetFloat("MusicVolume3", musicSlider.value);
+            PlayerPrefs.Save();
         }
 
     }
 
     public void LoadVolume() //loads previously saved volume setting for that player profile from playerprefs.  If no saved value, defaults to 50%
     {
-        switch (currentProfile)
+        if (player1 == true)
         {
-            case 1:
-                if (PlayerPrefs.HasKey("MusicVolume1"))
-                {
-                    musicSlider.value = PlayerPrefs.GetFloat("MusicVolume1");
-                }
+            if (PlayerPrefs.HasKey("MusicVolume1"))
+            {
+                musicSlider.value = PlayerPrefs.GetFloat("MusicVolume1");
+            }
 
-                else musicSlider.value = 0.5f;
-                break;
-            case 2:
-                if (PlayerPrefs.HasKey("MusicVolume2"))
-                {
-                    musicSlider.value = PlayerPrefs.GetFloat("MusicVolume2");
-                }
+            else musicSlider.value = 0.5f;
 
-                else musicSlider.value = 0.5f;
-                break;
-            case 3:
-                if (PlayerPrefs.HasKey("MusicVolume3"))
-                {
-                    musicSlider.value = PlayerPrefs.GetFloat("MusicVolume3");
-                }
-
-                else musicSlider.value = 0.5f;
-                break;
         }
+
+        if (player2 == true)
+        {
+            if (PlayerPrefs.HasKey("MusicVolume2"))
+            {
+                musicSlider.value = PlayerPrefs.GetFloat("MusicVolume2");
+            }
+
+            else musicSlider.value = 0.5f;
+
+        }
+
+        if (player3 == true)
+        {
+            if (PlayerPrefs.HasKey("MusicVolume3"))
+            {
+                musicSlider.value = PlayerPrefs.GetFloat("MusicVolume3");
+            }
+
+            else musicSlider.value = 0.5f;
+
+        }
+
     }
 
     public void SetMusic(int value) // sets music to particular track
@@ -617,37 +635,42 @@ public class GameManager : MonoBehaviour
 
     public void SaveMusic() //saves set music track against current player profile in playerprefs
     {
-        switch (currentProfile)
+        if (player1 == true)
         {
-            case 1:
-                PlayerPrefs.SetInt("Music1", music);
-                PlayerPrefs.Save();
-                break;
-            case 2:
-                PlayerPrefs.SetInt("Music2", music);
-                PlayerPrefs.Save();
-                break;
-            case 3:
-                PlayerPrefs.SetInt("Music3", music);
-                PlayerPrefs.Save();
-                break;
+            PlayerPrefs.SetInt("Music1", music);
+            PlayerPrefs.Save();
+        }
+
+        if (player2 == true)
+        {
+            PlayerPrefs.SetInt("Music2", music);
+            PlayerPrefs.Save();
+        }
+
+        if (player3 == true)
+        {
+            PlayerPrefs.SetInt("Music3", music);
+            PlayerPrefs.Save();
         }
 
     }
 
     public void LoadMusic() //loads music setting for current player from playerprefs, and then plays appropriate tune & sets appropriate 'radio' screen to match
     {
-        switch (currentProfile)
+
+        if (player1 == true)
         {
-            case 1:
-                music = PlayerPrefs.GetInt("Music1");
-                break;
-            case 2:
-                music = PlayerPrefs.GetInt("Music2");
-                break;
-            case 3:
-                music = PlayerPrefs.GetInt("Music3");
-                break;
+            music = PlayerPrefs.GetInt("Music1");
+        }
+
+        if (player2 == true)
+        {
+            music = PlayerPrefs.GetInt("Music2");
+        }
+
+        if (player3 == true)
+        {
+            music = PlayerPrefs.GetInt("Music3");
         }
 
         switch (music) 
@@ -1048,37 +1071,44 @@ public class GameManager : MonoBehaviour
 
     public void SaveSkin() // saves selected spaceship skin to player prefs
     {
-        switch (currentProfile)
+        if (player1 == true)
         {
-            case 1:
-                PlayerPrefs.SetInt("SkinEquipped1", playerSkinEquipped);
-                PlayerPrefs.Save();
-                break;
-            case 2:
-                PlayerPrefs.SetInt("SkinEquipped2", playerSkinEquipped);
-                PlayerPrefs.Save();
-                break;
-            case 3:
-                PlayerPrefs.SetInt("SkinEquipped3", playerSkinEquipped);
-                PlayerPrefs.Save();
-                break;
+            PlayerPrefs.SetInt("SkinEquipped1", playerSkinEquipped);
+            PlayerPrefs.Save();
+        }
+
+        if (player2 == true)
+        {
+            PlayerPrefs.SetInt("SkinEquipped2", playerSkinEquipped);
+            PlayerPrefs.Save();
+        }
+
+        if (player3 == true)
+        {
+            PlayerPrefs.SetInt("SkinEquipped3", playerSkinEquipped);
+            PlayerPrefs.Save();
         }
 
     }
 
     public void LoadSkin() //loads saved spaceship skin for that player profile from playerprefs
     {
-        switch (currentProfile)
+        if (player1 == true)
         {
-            case 1:
-                playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped1");
-                break;
-            case 2:
-                playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped2");
-                break;
-            case 3:
-                playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped3");
-                break;
+            playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped1");
+
+        }
+
+        if (player2 == true)
+        {
+            playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped2");
+
+        }
+
+        if (player3 == true)
+        {
+            playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped3");
+
         }
 
         switch (playerSkinEquipped) 
@@ -1263,33 +1293,36 @@ public class GameManager : MonoBehaviour
     public void CheckNameChange() // if name being saved does not equal that saved in player prefs, confirm name reset screen is displayed
                                   // If player proceeds, player stats will be reset
     {
-        switch (currentProfile)
+        if (player1 == true)
         {
-            case 1:
-                if (playerName.text != PlayerPrefs.GetString("Player1Name"))
-                {
+            if (playerName.text != PlayerPrefs.GetString("Player1Name"))
+            {
 
-                    confirmNameReset.SetActive(true);
+                confirmNameReset.SetActive(true);
 
-                }
-                break;
-            case 2:
-                if (playerName.text != PlayerPrefs.GetString("Player2Name"))
-                {
+            }
 
-                    confirmNameReset.SetActive(true);
-
-                }
-                break;
-            case 3:
-                if (playerName.text != PlayerPrefs.GetString("Player3Name"))
-                {
-                    confirmNameReset.SetActive(true);
-
-                }
-                break;
         }
 
+        if (player2 == true)
+        {
+            if (playerName.text != PlayerPrefs.GetString("Player2Name"))
+            {
+
+                confirmNameReset.SetActive(true);
+
+            }
+
+        }
+
+        if (player3 == true)
+        {
+            if (playerName.text != PlayerPrefs.GetString("Player3Name"))
+            {
+                confirmNameReset.SetActive(true);
+
+            }
+        }
     }
 
     // For showing character screen

@@ -13,10 +13,11 @@ public class PlayerSelect : MonoBehaviour
 
     void Start()
     {
-  
+        // At start, method is run to retrieve names from player prefs & display them on the buttons
         button = GetComponent<Button>();
         button.onClick.AddListener(SetProfile);
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
     }
 
     public void SetProfile() // loads player profile info depending on what button was selected
@@ -25,17 +26,23 @@ public class PlayerSelect : MonoBehaviour
         {
             case 1:
                 PlayerPrefs.SetInt("CurrentProfile", 1);
-                gameManager.currentProfile = 1;
+                gameManager.player1 = true;
+                gameManager.player2 = false;
+                gameManager.player3 = false;
                 gameManager.Load();
                 break;
             case 2:
-                PlayerPrefs.SetInt("CurrentProfile", 2);
-                gameManager.currentProfile = 2;
+                PlayerPrefs.SetInt("CurrentProfile", 3);
+                gameManager.player1 = false;
+                gameManager.player2 = true;
+                gameManager.player3 = false;
                 gameManager.Load();
                 break;
             case 3: 
                 PlayerPrefs.SetInt("CurrentProfile", 3);
-                gameManager.currentProfile = 3;
+                gameManager.player1 = false;
+                gameManager.player2 = false;
+                gameManager.player3 = true;
                 gameManager.Load();
                 break;
         }
