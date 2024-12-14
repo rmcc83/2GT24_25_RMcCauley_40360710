@@ -15,9 +15,9 @@ public class Bacteria : MonoBehaviour
 
 {
     private GameManager gameManager;
+    public PlayerController playerController;
     public AudioSource bacteriaAudio;
     public int pointValue;
-    public PlayerController playerController;
     public Color colour;
 
 
@@ -26,7 +26,7 @@ public class Bacteria : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
 
     }
 

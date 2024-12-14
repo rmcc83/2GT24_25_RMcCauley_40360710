@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class SceneLoaderBackground : MonoBehaviour
 {
+    // Loading bar
     public GameObject loadingScreen;
     AsyncOperation loadingOperation;
     public Slider progressBar;

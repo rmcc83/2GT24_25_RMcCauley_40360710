@@ -7,9 +7,11 @@ using UnityEngine.UI;
 
 public class Intro : MonoBehaviour
 {
-
+    // Sound
     public AudioSource introAudio;
     public AudioClip buttonSound;
+
+    // Loading
     public GameObject loadingScreen;
     AsyncOperation loadingOperation;
     public Slider progressBar;

@@ -4,26 +4,38 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    //Prefab arrays
     public GameObject[] bacteriaPrefabs; // array of bacteria prefabs
     public GameObject[] bacteriaPrefabsEndless; // array of bacteria prefabs used for endless game
     public GameObject[] asteroidPrefabs; //array of asteroid prefabs
     public GameObject[] powerUpPrefabs; //array of powerup prefabs
     public GameObject[] virusPrefabs; //array of virus prefabs
-    public GameObject player;
+
+    // Spawn positions
     private float spawnRangeY = 8; // items spawn +8/-8 in Y direction
     private float spawnPosX = -35; // items spawn at -35 on x-axis
     private float bactSpawnPosZ = -2; // bacteria spawn at -2 on z-axis
     private float virusSpawnZ = -0.5f; // viruses spawn at -0.5 on z-axis
     private float powerSpawnZ = -0.5f; // powerups spawn at -0.5 on z-axis
-    private GameManager gameManager;
+
+    // Bacteria spawn numbers
     private float bacteriaStartDelay = 1; // delay before bacteria start to spawn is 1 sec
-    private float asteroidStartDelay = 2; // delay before asteroids start to spawn is 2 sec
-    private float powerUpStartDelay = 4; // delay before powerups start to spawn is 4 sec
-    private float virusStartDelay = 3; // delay before viruses start to spawn is 3 sec
     private float bacteriaSpawnInterval = 1; // bacteria spawn every 1 second
+
+    // Asteroid spawn numbers
+    private float asteroidStartDelay = 2; // delay before asteroids start to spawn is 2 sec
     private float asteroidSpawnInterval = 1; // asteroids spawn every 1 second
+
+    // Powerup spawn numbers
+    private float powerUpStartDelay = 4; // delay before powerups start to spawn is 4 sec
     private float powerUpSpawnInterval = 2; // bacteria spawn every 2 seconds
+
+    // Virus spawn numbers
+    private float virusStartDelay = 3; // delay before viruses start to spawn is 3 sec  
     private float virusSpawnInterval = 2; // bacteria spawn every 2 seconds
+
+    public GameObject player;
+    private GameManager gameManager;
 
 
     // Start is called before the first frame update

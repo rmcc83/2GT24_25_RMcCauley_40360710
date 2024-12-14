@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class Virus : MonoBehaviour
 {
-    // Start is called before the first frame update
 
     private GameManager gameManager;
   
-
-
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
      
-
-
     }
 
     // Update is called once per frame
@@ -35,7 +30,6 @@ public class Virus : MonoBehaviour
             gameManager.virusEncountered += 1;
             Destroy(gameObject);
         }
-
 
     }
 }

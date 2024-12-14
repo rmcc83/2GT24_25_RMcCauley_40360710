@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class InGameOptions : MonoBehaviour
 {
+    // Screen & panel
     public GameObject optionsScreen;
     public GameObject optionsPanel;
     public GameObject background;
-    public GameObject playerName;
+
+    // Buttons
     public GameObject clearTimesButton;
     public GameObject clearScoresButton;
-    public GameObject characterSelect;
-    public GameObject radio;
     public GameObject back;
+
+    // Confirmation prompts
     public GameObject confirmScores;
     public GameObject confirmTimes;
+
+
+    public GameObject characterSelect;
+    public GameObject radio;
+    public GameObject playerName;
 
     public void InGame() 
     {
@@ -24,12 +31,12 @@ public class InGameOptions : MonoBehaviour
         playerName.SetActive(false);
         clearTimesButton.SetActive(false);
         clearScoresButton.SetActive(false);
-        characterSelect.SetActive(true);
+        characterSelect.SetActive(false);
         radio.SetActive(true);
         back.SetActive(false);
         confirmScores.SetActive(false);
         confirmTimes.SetActive(false);
-        AudioListener.pause = false;
+        AudioListener.pause = false; // re-enables the audio listener which is stopped on pause, so players can hear music they are selecting
 
     }
 

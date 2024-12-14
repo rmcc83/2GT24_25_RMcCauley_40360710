@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
+    // Panels
     public GameObject levelPanel; // pop up panel for levels 1-5
     public GameObject endlessPanel; // pop up panel for endless levels
     public GameObject recordsPanel; // pop up panel for records
     public GameObject helpPanel; // pop up panel for help
+
+    //Buttons
     public GameObject helpButton; // Button which displays help screen
     public GameObject highscoreButton; // Button which displays highscore screen
     public GameObject level1Button; // Button which starts level 1

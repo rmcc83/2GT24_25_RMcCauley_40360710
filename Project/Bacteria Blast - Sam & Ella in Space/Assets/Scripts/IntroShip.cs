@@ -7,9 +7,13 @@ using UnityEngine.UI;
 
 public class IntroShip : MonoBehaviour
 {
+    // Sounds
     public AudioSource storyAudio;
     public AudioClip buttonSound;
+
     public GameObject speedPanel;
+
+    //Loading
     public GameObject loadingScreen;
     AsyncOperation loadingOperation;
     public Slider progressBar;

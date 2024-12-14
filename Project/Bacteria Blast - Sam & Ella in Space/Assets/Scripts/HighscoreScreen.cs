@@ -5,19 +5,23 @@ using UnityEngine;
 
 public class HighscoreScreen: MonoBehaviour
 { 
-
+    //Easy level
     public TextMeshProUGUI easyScore; // highscore on easy level
     public TextMeshProUGUI easyRed; // red collected on highscoring run of easy level
     public TextMeshProUGUI easyBlue; // blue collected on highscoring run of easy level
     public TextMeshProUGUI easyPurple; // purple collected on highscoring run on easy level
     public TextMeshProUGUI easyName; // player who acheived easy highscore
     public TextMeshProUGUI easyTime; // time in which easy highscore was achieved
+
+    //Medium level
     public TextMeshProUGUI mediumScore; // highscore on easy level
     public TextMeshProUGUI mediumRed; // red collected on highscoring run of medium level
     public TextMeshProUGUI mediumBlue; // blue collected on highscoring run of medium level
     public TextMeshProUGUI mediumPurple; // purple collected on highscoring run on medium level
     public TextMeshProUGUI mediumName; // player who acheived medium highscore
     public TextMeshProUGUI mediumTime; // time in which medium highscore was achieved
+
+    //Hard level
     public TextMeshProUGUI hardScore; // highscore on hard level
     public TextMeshProUGUI hardRed; // red collected on highscoring run of hard level
     public TextMeshProUGUI hardBlue; // blue collected on highscoring run of hard level

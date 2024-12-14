@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
-    private float speed = 20;
     private PlayerController playerController;
     private GameManager gameManager;
+    private float speed = 20;
     private float leftBound = -80;
     private float rightBound = -35;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 

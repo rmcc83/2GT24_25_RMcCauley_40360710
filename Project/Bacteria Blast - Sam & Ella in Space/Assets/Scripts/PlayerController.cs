@@ -7,34 +7,9 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    // Audio
     private AudioSource groundAudio;
     private AudioSource playerAudio;
-    private Rigidbody playerRb;
-    private Vector3 initialPosition;
-    public float boostForce;
-    private float fuelDrain = 10;
-    public bool fastFuelDrain = false;
-    public float topBound;
-    public bool doubleSpeed = false;
-    public bool fuelAnim = false;
-    public Transform projectileSpawnPoint1;
-    public Transform projectileSpawnPoint2;
-    public Transform projectileSpawnPoint3;
-    public Transform projectileSpawnPoint4;
-    public Transform thrustPosition1;
-    public Transform thrustPosition2;
-    public GameObject powerupIndicator;
-    public TextMeshProUGUI armedText;
-    public TextMeshProUGUI unarmedText;
-    public TextMeshProUGUI armedTextEndless;
-    public TextMeshProUGUI unarmedTextEndless;
-    public bool hasPowerup = true;
-    public GameObject sonicBlastPrefab;
-    public GameObject flamePrefab;
-    public GameObject explosion;
-    public CumulativeStatsHandler cumulativeStatsHandler;
-    public GameManager gameManager;
-    public SpawnManager spawnManager;
     public AudioClip weaponSound;
     public AudioClip boostSound;
     public AudioClip crashSound;
@@ -44,21 +19,62 @@ public class PlayerController : MonoBehaviour
     public AudioClip laugh;
     public AudioClip fuelFill;
     public AudioClip weaponArm;
-    public PlayerController playerController;
-    public GameObject FloatingText;
+
+    // Player-related
+    private Rigidbody playerRb;
+    public float boostForce;
+    private float fuelDrain = 10;
+    public GameObject powerupIndicator;
+
+    // Bools
+    public bool fastFuelDrain = false;
+    public bool doubleSpeed = false;
+    public bool fuelAnim = false;
+    public bool hasPowerup = true;
+
+    // Projectile spaawn locations
+    public Transform projectileSpawnPoint1;
+    public Transform projectileSpawnPoint2;
+    public Transform projectileSpawnPoint3;
+    public Transform projectileSpawnPoint4;
+
+    // Thruster positions
+    public Transform thrustPosition1;
+    public Transform thrustPosition2;
+
+
+    // Weapon Arm text indicators
+    public TextMeshProUGUI armedText;
+    public TextMeshProUGUI unarmedText;
+    public TextMeshProUGUI armedTextEndless;
+    public TextMeshProUGUI unarmedTextEndless;
+
+    // Prefabs
+    public GameObject sonicBlastPrefab;
+    public GameObject flamePrefab;
+    public GameObject explosion;
+
+    // Floating Text
     public Color textColour;
+    public GameObject FloatingText;
+
+    public CumulativeStatsHandler cumulativeStatsHandler;
+    public GameManager gameManager;
+    public SpawnManager spawnManager;   
+    public PlayerController playerController;
+    public float topBound;
+
 
 
     void Start()
     {
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         groundAudio = GameObject.Find("Ground").GetComponent<AudioSource>();
         playerAudio = GetComponent<AudioSource>();
         playerRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         cumulativeStatsHandler = GameObject.Find("CumulativeStatsHandler").GetComponent<CumulativeStatsHandler>();
-        initialPosition = new Vector3(-68.3f, 1.28f, -1f);
 
     }
 
@@ -180,6 +196,7 @@ public class PlayerController : MonoBehaviour
             Instantiate(explosion, expSpawnpos, explosion.transform.rotation);
             groundAudio.PlayOneShot(crashSound);
             gameObject.SetActive(false);
+            Destroy(gameObject);
 
             if (gameManager.gameEndless != true) 
             {
@@ -323,17 +340,4 @@ public class PlayerController : MonoBehaviour
         fuelAnim = false;
 
     }
-
-    public void ResetPosition() 
-    {
-        spawnManager.StopSpawn();
-        gameObject.SetActive(true);
-        powerupIndicator.gameObject.SetActive(false);
-        transform.position = initialPosition;
-        playerRb.velocity = Vector3.zero;
-        playerRb.constraints = RigidbodyConstraints.FreezeAll;
-        gameManager.LoadSkin();
-        gameManager.RestartLevel();
-    }
-
 }

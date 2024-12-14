@@ -5,89 +5,130 @@ using TMPro;
 
 public class CumulativeStatsHandler : MonoBehaviour
 {
+    //COUNTS
+
+    // Timed Levels Played
     public int level1Played;
     public int level2Played;
     public int level3Played;
     public int level4Played;
     public int level5Played;
     public int totalTimedPlayed;
+
+    // Endless Levels Played
     public int easyEndlessPlayed;
     public int mediumEndlessPlayed;
     public int hardEndlessPlayed;
     public int totalEndlessPlayed;
+
+    // Timed Levels Won
     public int level1Won;
     public int level2Won;
     public int level3Won;
     public int level4Won;
     public int level5Won;
     public int totalTimedWon;
-    public int easyEndlessLives;
-    public int mediumEndlessLives;
-    public int hardEndlessLives;
-    public int totalEndlessLives;
+
+    // Timed levels lost
     public int level1Lost;
     public int level2Lost;
     public int level3Lost;
     public int level4Lost;
     public int level5Lost;
     public int totalTimedLost;
+
+    // Endless games halted by running out of lives
+    public int easyEndlessLives;
+    public int mediumEndlessLives;
+    public int hardEndlessLives;
+    public int totalEndlessLives;
+
+    // Endless games halted by crash
     public int easyEndlessCrash;
     public int mediumEndlessCrash;
     public int hardEndlessCrash;
     public int totalEndlessCrash;
+
+    // Total bacteria collected
     public int totalRedCollected;
     public int totalBlueCollected;
     public int totalPurpleCollected;
+
+    // Crash counts
+    public int asteroidCrash;
+    public int groundCrash;
+
+    // Powerups collected, viruses caught, asteroid destroyed
     public int virusEncountered;
     public int asteroidsBlasted;
     public int weaponCollected;
     public int smallFuelCollected;
     public int largeFuelCollected;
-    public int asteroidCrash;
-    public int groundCrash;
+
+
+    // TEXT FIELDS
 
 
     public TextMeshProUGUI TitleText;
+
+    // Timed played text
     public TextMeshProUGUI level1PlayedText;
     public TextMeshProUGUI level2PlayedText;
     public TextMeshProUGUI level3PlayedText;
     public TextMeshProUGUI level4PlayedText;
     public TextMeshProUGUI level5PlayedText;
     public TextMeshProUGUI totalTimedPlayedText;
+
+    // Endless played text
     public TextMeshProUGUI easyEndlessPlayedText;
     public TextMeshProUGUI mediumEndlessPlayedText;
     public TextMeshProUGUI hardEndlessPlayedText;
     public TextMeshProUGUI totalEndlessPlayedText;
+
+    // Timed won text
     public TextMeshProUGUI level1WonText;
     public TextMeshProUGUI level2WonText;
     public TextMeshProUGUI level3WonText;
     public TextMeshProUGUI level4WonText;
     public TextMeshProUGUI level5WonText;
     public TextMeshProUGUI totalTimedWonText;
-    public TextMeshProUGUI easyEndlessCrashText;
-    public TextMeshProUGUI mediumEndlessCrashText;
-    public TextMeshProUGUI hardEndlessCrashText;
-    public TextMeshProUGUI totalEndlessCrashText;
+
+    // TImed lost text
     public TextMeshProUGUI level1LostText;
     public TextMeshProUGUI level2LostText;
     public TextMeshProUGUI level3LostText;
     public TextMeshProUGUI level4LostText;
     public TextMeshProUGUI level5LostText;
     public TextMeshProUGUI totalTimedLostText;
+
+    // Endless games halted by running out of lives text
     public TextMeshProUGUI easyEndlessLivesText;
     public TextMeshProUGUI mediumEndlessLivesText;
     public TextMeshProUGUI hardEndlessLivesText;
     public TextMeshProUGUI totalEndlessLivesText;
+
+
+    //Endless games halted by crash text
+    public TextMeshProUGUI easyEndlessCrashText;
+    public TextMeshProUGUI mediumEndlessCrashText;
+    public TextMeshProUGUI hardEndlessCrashText;
+    public TextMeshProUGUI totalEndlessCrashText;
+   
+    // Bacteria collected text
     public TextMeshProUGUI totalRedCollectedText;
     public TextMeshProUGUI totalBlueCollectedText;
     public TextMeshProUGUI totalPurpleCollectedText;
+
+    // Crash Counts text
+    public TextMeshProUGUI asteroidCrashText;
+    public TextMeshProUGUI groundCrashText;
+
+    // Powerups collected, viruses caught, asteroid destroyed text
     public TextMeshProUGUI virusEncounteredText;
     public TextMeshProUGUI asteroidsBlastedText;
     public TextMeshProUGUI weaponCollectedText;
     public TextMeshProUGUI smallFuelCollectedText;
     public TextMeshProUGUI largeFuelCollectedText;
-    public TextMeshProUGUI asteroidCrashText;
-    public TextMeshProUGUI groundCrashText;
 
 
     public GameManager gameManager;

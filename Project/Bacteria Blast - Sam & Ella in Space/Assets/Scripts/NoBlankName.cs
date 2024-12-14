@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class NoBlankName: MonoBehaviour
 {
-
     public TMP_InputField playerName;
+
     // Start is called before the first frame update
     void Start()
     {

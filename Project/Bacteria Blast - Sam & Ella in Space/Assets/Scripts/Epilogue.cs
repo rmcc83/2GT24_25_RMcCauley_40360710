@@ -8,11 +8,16 @@ using UnityEngine.UI;
 
 public class Epilogue : MonoBehaviour
 {
+    // Sounds
     public AudioSource storyAudio;
     public AudioClip crashSound;
     public AudioClip buttonSound;
+
+    // Screens & panels
     public GameObject speedPanel;
     public GameObject loadingScreen;
+
+    // Loading bar
     AsyncOperation loadingOperation;
     public Slider progressBar;
     public float progressValue;

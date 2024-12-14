@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public int largeFuelCollected;
     public int weaponCollected;
     public int music;
+    private Vector3 initialPosition;
     public Sprite[] lifeSprites;//array of sprites for each number of lives
     public Image livesImage;
     public Image livesImageEndless;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     public Slider fuelSliderEndless;
     public TMP_InputField playerName;
     public GameObject winScreen;
+    public GameObject nextLevelButton;
     public GameObject gameScreen;
     public GameObject gameScreenEndless;
     public GameObject highscoreCongrats;
@@ -114,6 +116,11 @@ public class GameManager : MonoBehaviour
     public GameObject spaceship2;
     public GameObject spaceship3;
     public GameObject spaceship4;
+    public GameObject spaceship1Prefab;
+    public GameObject spaceship2Prefab;
+    public GameObject spaceship3Prefab;
+    public GameObject spaceship4Prefab;
+
     public CumulativeStatsHandler cumulativeStatsHandler;
 
     // Start is called before the first frame update
@@ -121,10 +128,11 @@ public class GameManager : MonoBehaviour
     {
 
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
+        player = GameObject.Find("Player");
         gameAudio = GetComponent<AudioSource>();
-
+        initialPosition = new Vector3(-68.3f, 1.28f, -1f); // starting position of player object
 
     }
 
@@ -200,7 +208,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case 2:
-                currentLevel = 1;
+                currentLevel = 2;
                 lives = 6;
                 fuel = 100;
                 break;
@@ -236,7 +244,7 @@ public class GameManager : MonoBehaviour
         redRemainText.text = "      " + redRemaining; // displays red bacteria remaining
         blueRemainText.text = "    " + blueRemaining; // displays blue bacteria remaining
         purpleRemainText.text = "      " + purpleRemaining; // displays purple bacteria remaining
-        CommonGameStart();
+        CommonGameStart(); // runs the method which contains things common to all modes levels
     }
 
     // Adds appropriate value to score when bacteria collected, and updates score display
@@ -288,7 +296,7 @@ public class GameManager : MonoBehaviour
         redCollectText.text = "      " + redCollected; //displays red bacteria collected
         blueCollectText.text = "    " + blueCollected; //displays blue bacteria collected
         purpleCollectText.text = "      " + purpleCollected; //displays purple bacteria collected
-        CommonGameStart();
+        CommonGameStart();  // runs the method which contains things common to all modes levels
     }
 
     // These are common to all modes & levels
@@ -319,9 +327,9 @@ public class GameManager : MonoBehaviour
 
         FuelGauge();
     }
-        
+
     public void FuelGauge()
-    { 
+    {
         if (fuel < 30)  // colours fuel bar red when fuel below 30%
         {
             fuelSlider.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(0.8f, 0.2f, 0.1f);
@@ -451,6 +459,11 @@ public class GameManager : MonoBehaviour
         UpdateTimedGamesPlayed();
         UpdateTimedGamesWon();
         UpdateCumulativeStats();
+
+        if (currentLevel == 5)          // If level is 5, next level button is deactivated as there are no more levels
+        {
+            nextLevelButton.SetActive(false);
+        }
     }
 
     public void GameLose() // at game lose, music stops, game is over, game is lost, lose screen is displayed, personalised message is displayed, stats updated
@@ -679,8 +692,8 @@ public class GameManager : MonoBehaviour
             music = PlayerPrefs.GetInt("Music3");
         }
 
-        switch (music) 
-        { 
+        switch (music)
+        {
             case 0:
                 track1.Play();
                 track2.Stop();
@@ -737,7 +750,7 @@ public class GameManager : MonoBehaviour
                 break;
 
         }
-            
+
     }
 
     public void CheckHighScore() //handles checking for highscore & saving highscores
@@ -759,7 +772,7 @@ public class GameManager : MonoBehaviour
 
         // Checks/saves highscore in playerprefs for easy level
 
-        switch (currentLevel) 
+        switch (currentLevel)
         {
             case 99:
                 if (score > PlayerPrefs.GetInt("EasyHighscore"))
@@ -808,16 +821,16 @@ public class GameManager : MonoBehaviour
                 break;
 
         }
-        
+
     }
 
     public void CheckBestTime() //handles checking for best time & saving best time.  Checks/saves best time in playerprefs for each level,
                                 //if no previous time saved, will check against a default of 3599 i.e. 59 mins 59 seconds
     {
 
-        switch (currentLevel) 
+        switch (currentLevel)
         {
-            case 1:                      
+            case 1:
                 currentLevel1BestTime = (PlayerPrefs.GetFloat("Level1BestTime", 3599));
 
                 if (timeElapsed < currentLevel1BestTime)
@@ -864,7 +877,7 @@ public class GameManager : MonoBehaviour
                     PlayerPrefs.SetFloat("Level4BestTime", timeElapsed);
                 }
                 break;
-                
+
             case 5:
                 currentLevel5BestTime = (PlayerPrefs.GetFloat("Level5BestTime", 3599));
 
@@ -1118,9 +1131,11 @@ public class GameManager : MonoBehaviour
 
         }
 
-        switch (playerSkinEquipped) 
+
+        switch (playerSkinEquipped)
         {
             case 0:
+
                 spaceship1.SetActive(true);
                 spaceship2.SetActive(false);
                 spaceship3.SetActive(false);
@@ -1154,13 +1169,14 @@ public class GameManager : MonoBehaviour
                 spaceship3.SetActive(false);
                 spaceship4.SetActive(true);
                 break;
-        }       
+        }
+
 
     }
 
     public void UpdateTimedGamesPlayed() // updates games played stat
     {
-        switch (currentLevel) 
+        switch (currentLevel)
         {
             case 1:
                 cumulativeStatsHandler.Level1Played();
@@ -1170,7 +1186,7 @@ public class GameManager : MonoBehaviour
                 break;
             case 3:
                 cumulativeStatsHandler.Level3Played();
-                break; 
+                break;
             case 4:
                 cumulativeStatsHandler.Level4Played();
                 break;
@@ -1201,16 +1217,16 @@ public class GameManager : MonoBehaviour
 
         cumulativeStatsHandler.TotalEndlessPlayed();
     }
-        
+
 
     public void UpdateTimedGamesWon() //updates timed games won stat
     {
 
-        switch (currentLevel) 
+        switch (currentLevel)
         {
             case 1:
                 cumulativeStatsHandler.Level1Won();
-                break; 
+                break;
             case 2:
                 cumulativeStatsHandler.Level2Won();
                 break;
@@ -1230,8 +1246,8 @@ public class GameManager : MonoBehaviour
 
     public void UpdateEndlessGamesLives() //updates end method for endless game mode stat
     {
-        switch (currentLevel) 
-        { 
+        switch (currentLevel)
+        {
             case 99:
                 cumulativeStatsHandler.EasyEndlessLives();
                 break;
@@ -1240,16 +1256,16 @@ public class GameManager : MonoBehaviour
                 break;
             case 97:
                 cumulativeStatsHandler.HardEndlessLives();
-                break; 
+                break;
         }
-        
+
         cumulativeStatsHandler.TotalEndlessLives();
 
     }
 
     public void UpdateTimedGamesLost() //updates timed games lost stat
     {
-        switch (currentLevel) 
+        switch (currentLevel)
         {
             case 1:
                 cumulativeStatsHandler.Level1Lost();
@@ -1263,17 +1279,17 @@ public class GameManager : MonoBehaviour
             case 4:
                 cumulativeStatsHandler.Level4Lost();
                 break;
-            case 5: 
+            case 5:
                 cumulativeStatsHandler.Level5Lost();
                 break;
-               
-        }        
+
+        }
         cumulativeStatsHandler.TotalTimedLost();
     }
 
     public void UpdateEndlessGamesCrash() //updates number of endless games which finished with a crash
     {
-        switch (currentLevel) 
+        switch (currentLevel)
         {
             case 99:
                 cumulativeStatsHandler.EasyEndlessCrash();
@@ -1285,7 +1301,7 @@ public class GameManager : MonoBehaviour
                 cumulativeStatsHandler.HardEndlessCrash();
                 break;
         }
-        
+
         cumulativeStatsHandler.TotalEndlessCrash();
 
     }
@@ -1353,30 +1369,61 @@ public class GameManager : MonoBehaviour
 
     // To play epilogue scene
 
-    public void Epilogue() 
+    public void Epilogue()
     {
         SceneManager.LoadScene("Epilogue");
 
     }
 
     // To play intro scene
-    public void Intro() 
+    public void Intro()
     {
         SceneManager.LoadScene("Intro");
 
     }
 
-    public void RestartLevel() 
+    public void RestartLevel() // When you fail a level & press the restart button, this function is called.  Spawning stops, a new player object is instantiated
+                               // The game over or lose screen is switched off, elapsed time is set to 0, and the current level number is fed into the appropriate
+                               // start game function so the same level will restart
     {
-
+        spawnManager.StopSpawn();
+        CommonToResetAndNext();
+        InstantiateNewPlayerObject();
         gameOverScreen.SetActive(false);
         loseScreen.SetActive(false);
-        playerController.hasPowerup = false;
-        playerController.armedText.gameObject.SetActive(false);
-        playerController.unarmedText.gameObject.SetActive(true);
-        playerController.armedTextEndless.gameObject.SetActive(false);
-        playerController.unarmedTextEndless.gameObject.SetActive(true);
 
+
+        if (gameEndless == true)
+        {
+            timeElapsed = 0;
+            StartGameEndless(currentLevel);
+
+        }
+
+        if (gameEndless == false)
+        {
+            timeElapsed = 0;
+            score = 0;
+            StartGame(currentLevel);
+
+        }
+
+    }
+
+    public void NextLevel() // When you win a level in timed mode and press the next level button, this function runs.  Spawning stops, the win screen is switched off,
+                            // elapsed time is set to 0, and the current level number plus 1 is fed into the appropriate start game function so the next level will start
+    {
+        spawnManager.StopSpawn();
+        CommonToResetAndNext();
+        winScreen.SetActive(false);
+        timeElapsed = 0;
+        StartGame(currentLevel + 1);
+
+    }
+
+    public void CommonToResetAndNext() // This is used when level restart or next level button is pressed.  Remaining items on the screen are removed, pause & quit buttons are
+                                        // reactivated, weapon arm indicators are reset
+    {
         foreach (var gameObj in GameObject.FindGameObjectsWithTag("Blue Bacterium"))
         {
             Destroy(gameObj);
@@ -1421,21 +1468,60 @@ public class GameManager : MonoBehaviour
             Destroy(gameObj);
 
         }
-
-
-        if (gameEndless == true)
-        {
-            timeElapsed = 0;
-            StartGameEndless(currentLevel); 
-        
-        }
-
-        if (gameEndless == false)
-        {
-            timeElapsed = 0;
-            StartGame(currentLevel);
-
-        }
+        pauseButton.SetActive(true);
+        pauseButtonEndless.SetActive(true);
+        quitButtonEndless.SetActive(true);
+        quitButton.SetActive(true);
+        playerController.armedText.gameObject.SetActive(false);
+        playerController.unarmedText.gameObject.SetActive(true);
+        playerController.armedTextEndless.gameObject.SetActive(false);
+        playerController.unarmedTextEndless.gameObject.SetActive(true);
 
     }
+
+    void InstantiateNewPlayerObject() // Used to instantaite a new player object when level is restarted after failure.  First the selected type is read from player
+                                      // prefs, then the correct prefab is instantiated in the start position
+    {
+        if (player1 == true)
+        {
+            playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped1");
+
+        }
+
+        if (player2 == true)
+        {
+            playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped2");
+
+        }
+
+        if (player3 == true)
+        {
+            playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped3");
+
+        }
+
+
+        switch (playerSkinEquipped)
+        {
+            
+            case 1:
+                Instantiate(spaceship1Prefab, initialPosition, spaceship1.transform.rotation);
+                break;
+
+            case 2:
+                Instantiate(spaceship2Prefab, initialPosition, spaceship1.transform.rotation);
+                break;
+
+            case 3:
+                Instantiate(spaceship3Prefab, initialPosition, spaceship1.transform.rotation);
+                break;
+
+            case 4:
+                Instantiate(spaceship4Prefab, initialPosition, spaceship1.transform.rotation);
+                break;
+        }
+
+
+    }
+
 }
