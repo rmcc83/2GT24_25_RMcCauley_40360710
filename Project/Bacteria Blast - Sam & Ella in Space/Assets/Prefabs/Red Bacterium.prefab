@@ -484,8 +484,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0628679, y: 1.2512794, z: 1.1439942}
-  m_Center: {x: 0.04184532, y: 0.4600944, z: 0.030731043}
+  m_Size: {x: 1.276928, y: 1.2885833, z: 1.2818491}
+  m_Center: {x: 0.0012093385, y: 0.47874618, z: 0.005456726}
 --- !u!114 &1298203122280899684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,9 +510,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62a7dd29ab5af37468cc0fd33680556c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
   bacteriaAudio: {fileID: 0}
   pointValue: 5
-  FloatingText: {fileID: 8601865132431996700, guid: 6a9ff9d24656f954f9212b6867f14079, type: 3}
+  colour: {r: 0, g: 0, b: 0, a: 0}
   bacteriaType: 0
 --- !u!114 &7318178480169968018
 MonoBehaviour:

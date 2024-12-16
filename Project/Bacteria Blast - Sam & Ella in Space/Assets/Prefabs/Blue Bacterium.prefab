@@ -575,8 +575,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6275293
-  m_Center: {x: -0, y: 0.41765195, z: -0}
+  m_Radius: 1.1129011
+  m_Center: {x: 0, y: 0.41765183, z: 0.48537192}
 --- !u!114 &-6675355656549753948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,9 +589,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62a7dd29ab5af37468cc0fd33680556c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
   bacteriaAudio: {fileID: 0}
   pointValue: 15
-  FloatingText: {fileID: 8601865132431996700, guid: 6a9ff9d24656f954f9212b6867f14079, type: 3}
+  colour: {r: 0, g: 0, b: 0, a: 0}
   bacteriaType: 2
 --- !u!114 &2596849331792733136
 MonoBehaviour:

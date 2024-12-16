@@ -7,127 +7,173 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
-using JetBrains.Annotations;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
-    public int score;
-    public float fuel;
-    public int lives;
-    public int health;
-    public int redRemaining;
-    public int blueRemaining;
-    public int purpleRemaining;
-    public int redCollected;
-    public int blueCollected;
-    public int purpleCollected;
-    public int virusEncountered;
-    public int asteroidsBlasted;
-    public int smallAsteroidHit;
-    public int mediumAsteroidHit;
-    public int largeAsteroidHit;
-    public int smallFuelCollected;
-    public int largeFuelCollected;
-    public int weaponCollected;
-    public int music;
-    private Vector3 initialPosition;
-    public Sprite[] lifeSprites;//array of sprites for each number of lives
-    public Image livesImage;
-    public Image livesImageEndless;
+    // Counting numbers of collectables, items hit etc for use in cumulative stats screen  
+    public int virusEncountered; // amount of viruses collected 
+    public int asteroidsBlasted; // amount of asteroids destroyed with projectiles 
+    public int smallAsteroidHit; //amount of small asteroids hit
+    public int mediumAsteroidHit; //amount of medium asteroids hit
+    public int largeAsteroidHit; //amount of large asteroids hit
+    public int smallFuelCollected; //amount of small fuel powerups collected
+    public int largeFuelCollected; //amount of large fuel powerups collected
+    public int weaponCollected; //amount of weapon powerups collected
+
+    // Count & display bacteria remaining to collect in timed levels
+    public int redRemaining; // count amount of red bacteria 
+    public int blueRemaining;  // count amount of blue bacteria 
+    public int purpleRemaining; // count amount of purple bacteria 
+    public TextMeshProUGUI redRemainText; // display red remaining
+    public TextMeshProUGUI blueRemainText; // display blue remaining
+    public TextMeshProUGUI purpleRemainText; // display purple remaining
+
+    // Count & display bacteria collected in endless levels
+    public int redCollected;  // count amount of red bacteria 
+    public int blueCollected; // count amount of blue bacteria 
+    public int purpleCollected; // count amount of purple bacteria
+    public TextMeshProUGUI redCollectText; // display red
+    public TextMeshProUGUI blueCollectText; // display blue
+    public TextMeshProUGUI purpleCollectText; // display purple
+
+    // Sound effects
+    private AudioSource gameAudio;
+    public AudioClip buttonSound;
+    public AudioClip lowFuelSound;
+
+    // Radio station items on options screen
+    public GameObject screen1; // station 1 name display
+    public GameObject screen2; // station 2 name display
+    public GameObject screen3; // station 3 name display
+    public GameObject screen4; // station 4 name display
+    public int music; 
+    public Slider musicSlider; // music volume setting
+    public AudioSource track1; // station 1 audio
+    public AudioSource track2; // station 2 audio
+    public AudioSource track3; // station 3 audio
+    public AudioSource track4; // station 4 audio
+
+    //Fuel system
+    public TextMeshProUGUI fuelText; // Fuel bar text label in timed levels
+    public TextMeshProUGUI fuelEndlessText; // Fuel bar text label in endless levels
+    public float fuel; // amount of fuel remaining
+    public Slider fuelSlider; // fuel bar display - timed levels
+    public Slider fuelSliderEndless; // fuel bar display - endless levels
+
+    // Lives/Virus pods system
+    public int lives; // shown by virus sprites - this reduces when player hits viruses
+    public Sprite[] lifeSprites;//array of sprites for each number of lives/virus pods
+    public Image livesImage; // where the lives/virus pods display in a timed level
+    public Image livesImageEndless; //where the lives/virus pods display in an endless level
+
+    //Spaceship health system
+    public int health; // shown by spaceship sprites - this reduces when player hits asteroids
     public Sprite[] healthSprites;//array of sprites for spaceship health
-    public Image healthImage;
-    public Image healthImageEndless;
-    public Slider fuelSlider;
-    public Slider fuelSliderEndless;
-    public TMP_InputField playerName;
-    public GameObject winScreen;
-    public GameObject nextLevelButton;
-    public GameObject gameScreen;
-    public GameObject gameScreenEndless;
-    public GameObject highscoreCongrats;
-    public GameObject bestTimeCongrats;
-    public GameObject highscoreDisplay;
-    public GameObject lastscoreDisplay;
-    public GameObject highscoreScreen;
-    public GameObject timesScreen;
-    public GameObject helpScreen;
-    public GameObject statsScreen;
-    public GameObject characterScreen;
-    public GameObject confirmNameReset;
-    public TextMeshProUGUI highscoreCongratsText;
-    public TextMeshProUGUI bestTimeCongratsText;
-    public TextMeshProUGUI winText;
+    public Image healthImage; // where spaeship health displays in timed level
+    public Image healthImageEndless; // where spaeship health displays in endless level
+
+    // Score system
+    public int score; // keeps score
+    public TextMeshProUGUI scoreText; // Displays score on screen
+
+    // Timing system
+    public float timeElapsed = 0;
+    public TextMeshProUGUI timerText; // timer display - endless levels
+    public TextMeshProUGUI timerText2; // timer display - 'timed' levels
+
+    // Win System
+    public bool gameWin; // true when player succeeds in timed level 
+    public GameObject winScreen; // displays when player collects all required bacteria on timed level
+    public TextMeshProUGUI winText; // player name is inserted into this on game win
+    public GameObject nextLevelButton; // displayed on win screen but not level 5 win
+
+    // Lose system
+    public bool gameLose; // true when player fails timed level 
+    public GameObject loseScreen; // displays when player fails to collect all required bacteria on timed level
+    public TextMeshProUGUI loseText; // player name is inserted into this on game lose
+
+    // Game over system
+    public bool gameOver; // true when game over condition occurs
+    public GameObject gameOverScreen; // displays when endless level is terminated by any death (asteroid, ground, virus etc)
+    public TextMeshProUGUI gameOverText; // player name is inserted into game over message
+
+    // Various different screens in game
+    public GameObject gameScreen; // Contains all UI elements for timed level
+    public GameObject gameScreenEndless; // Contains all UI elements for endless level
+    public GameObject timesScreen; // best times screen
+    public GameObject highscoreScreen; // highscores screen
+    public GameObject helpScreen; // info & control screen
+    public GameObject statsScreen; // cumulative stats screen
+    public GameObject characterScreen; // character info screen (Sam, Ella, bacteria, etc)
+    public GameObject titleScreen; // Main menu screen
+    public GameObject pauseScreen; // pause screen
+
+    // Highscore system
+    public bool newHighscore; // true when new highscore achieved for current level
+    public GameObject highscoreCongrats; // displays at end of endless level when new high score is achieved
+    public TextMeshProUGUI highscoreCongratsText; // customised highscore congrats message inc player name
+    public GameObject highscoreDisplay; // Displays overall best score in endless level at top of main menu/title screen
+    public TextMeshProUGUI highscoreText; // Contains text of overall best score for display
+
+    // Last score system
+    public GameObject lastscoreDisplay; // Displays deails of last endless game at top of main menu/title screen
+    public TextMeshProUGUI lastscoreText; // contanis text of last game details
+
+    // Best time system
+    public bool newBestTime; // true when new best time achieved for current level
+    public GameObject bestTimeCongrats; // displays at end of timed level when new best time achieved
+    public TextMeshProUGUI bestTimeCongratsText; // best time congrats message inc player name
+    public float currentLevel1BestTime; // loads in saved best time for level 1 for current player from player prefs for comparison with latest time
+    public float currentLevel2BestTime; // loads in saved best time for level 2 for current player from player prefs for comparison with latest time
+    public float currentLevel3BestTime; // loads in saved best time for level 3 for current player from player prefs for comparison with latest time
+    public float currentLevel4BestTime; // loads in saved best time for level 4 for current player from player prefs for comparison with latest time
+    public float currentLevel5BestTime; // loads in saved best time for level 5 for current player from player prefs for comparison with latest time
+
+    // Player profiles
+    public bool player1; // true when player 1 profile loaded
+    public bool player2; // true when player 2 profile loaded
+    public bool player3; // true when player 3 profile loaded
+
+    // Player name
+    public TMP_InputField playerName; // Player name input field on options screen
+    public GameObject confirmNameReset; // Confirmation screen for player name change
+
+    // Spaceship selection
+    public int playerSkinEquipped; // loadssaved spaceship selection from player prefs
+    public GameObject spaceship1; 
+    public GameObject spaceship2;
+    public GameObject spaceship3;
+    public GameObject spaceship4;
+    public GameObject spaceship1Prefab; //for instantiating new spaceship 1
+    public GameObject spaceship2Prefab; //for instantiating new spaceship 2
+    public GameObject spaceship3Prefab; //for instantiating new spaceship 3
+    public GameObject spaceship4Prefab; //for instantiating new spaceship 4
+
+    // Player object
+    private Vector3 initialPosition; // starting position of spaceship
     public GameObject player;
-    public GameObject loseScreen;
-    public TextMeshProUGUI loseText;
-    public GameObject gameOverScreen;
-    public TextMeshProUGUI gameOverText;
-    public GameObject titleScreen;
-    public TextMeshProUGUI redRemainText;
-    public TextMeshProUGUI blueRemainText;
-    public TextMeshProUGUI purpleRemainText;
-    public TextMeshProUGUI fuelText;
-    public TextMeshProUGUI livesText;
-    public TextMeshProUGUI redCollectText;
-    public TextMeshProUGUI blueCollectText;
-    public TextMeshProUGUI purpleCollectText;
-    public TextMeshProUGUI fuelEndlessText;
-    public TextMeshProUGUI livesEndlessText;
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI endlessDifficultyText;
-    public TextMeshProUGUI highscoreText;
-    public TextMeshProUGUI lastscoreText;
+    private Rigidbody playerRb;
+
+    // Pause & Quit buttons on game screens
     public GameObject pauseButtonEndless;
     public GameObject pauseButton;
     public GameObject quitButtonEndless;
     public GameObject quitButton;
-    public GameObject pauseScreen;
-    public AudioSource track1;
-    public AudioSource track2;
-    public AudioSource track3;
-    public AudioSource track4;
-    public GameObject screen1;
-    public GameObject screen2;
-    public GameObject screen3;
-    public GameObject screen4;
-    public bool player1;
-    public bool player2;
-    public bool player3;
-    public bool gameStarted;
-    public bool gameOver;
-    public bool gameWin;
-    public bool gameLose;
-    public bool gameEndless;
-    public bool newHighscore;
-    public bool newBestTime;
-    public bool paused;
-    public int currentLevel;
+
+    // Game state flags
+
+    public bool gameStarted; // true when game has started
+    public bool gameEndless; // true when endless game is being played
+    public bool paused; // true when game is paused
+
+
+    public int currentLevel; // holds current level number
+    public float gravityModifier;
+    public TextMeshProUGUI endlessDifficultyText; // Difficulty text in words for endless level - not displayed but used in score displys etc
+  
     private SpawnManager spawnManager;
     public PlayerController playerController;
-    private Rigidbody playerRb;
-    public float gravityModifier;
-    public Slider musicSlider;
-    private AudioSource gameAudio;
-    public AudioClip buttonSound;
-    public AudioClip lowFuelSound;
-    public float timeElapsed = 0;
-    public TextMeshProUGUI timerText; // endless levels
-    public TextMeshProUGUI timerText2; // 'normal' levels
-    public float currentLevel1BestTime;
-    public float currentLevel2BestTime;
-    public float currentLevel3BestTime;
-    public float currentLevel4BestTime;
-    public float currentLevel5BestTime;
-    public int playerSkinEquipped;
-    public GameObject spaceship1;
-    public GameObject spaceship2;
-    public GameObject spaceship3;
-    public GameObject spaceship4;
-    public GameObject spaceship1Prefab;
-    public GameObject spaceship2Prefab;
-    public GameObject spaceship3Prefab;
-    public GameObject spaceship4Prefab;
-
     public CumulativeStatsHandler cumulativeStatsHandler;
 
     // Start is called before the first frame update

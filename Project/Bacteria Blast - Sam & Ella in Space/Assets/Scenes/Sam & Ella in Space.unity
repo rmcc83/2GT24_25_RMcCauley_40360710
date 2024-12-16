@@ -6328,7 +6328,8 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Endless Medium - 80% fuel, 4 lives
+            m_StringArgument: Endless Medium - 80% fuel, 4 virus pods, 3 spaceship
+              health
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -24558,8 +24559,8 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Timed level 3 - 100% fuel, 4 lives, Collect 6 of each
-              bacterium
+            m_StringArgument: Timed level 3 - 100% fuel, 4 virus pods, 3 spaceship
+              health, Collect 6 of each bacterium
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -25759,7 +25760,8 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Endless Easy - 100% fuel, 6 lives
+            m_StringArgument: Endless Easy - 100% fuel, 6 virus pods, 4 spaceship
+              health
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -32698,16 +32700,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad5861aed5b2fbe44a96e025a1e7d855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
-  fuel: 0
-  lives: 0
-  health: 0
-  redRemaining: 0
-  blueRemaining: 0
-  purpleRemaining: 0
-  redCollected: 0
-  blueCollected: 0
-  purpleCollected: 0
   virusEncountered: 0
   asteroidsBlasted: 0
   smallAsteroidHit: 0
@@ -32716,7 +32708,36 @@ MonoBehaviour:
   smallFuelCollected: 0
   largeFuelCollected: 0
   weaponCollected: 0
+  redRemaining: 0
+  blueRemaining: 0
+  purpleRemaining: 0
+  redRemainText: {fileID: 2129678905}
+  blueRemainText: {fileID: 621913763}
+  purpleRemainText: {fileID: 181158078}
+  redCollected: 0
+  blueCollected: 0
+  purpleCollected: 0
+  redCollectText: {fileID: 157278279}
+  blueCollectText: {fileID: 798720029}
+  purpleCollectText: {fileID: 108633081}
+  buttonSound: {fileID: 8300000, guid: d43122089bf826d49bcca8c15cc95aad, type: 3}
+  lowFuelSound: {fileID: 8300000, guid: 56c4322b70e1a6546970dc0ee73da557, type: 3}
+  screen1: {fileID: 1801584391}
+  screen2: {fileID: 684019271}
+  screen3: {fileID: 1101727472}
+  screen4: {fileID: 1056819456}
   music: 0
+  musicSlider: {fileID: 225673980}
+  track1: {fileID: 963194232}
+  track2: {fileID: 963194231}
+  track3: {fileID: 963194230}
+  track4: {fileID: 963194229}
+  fuelText: {fileID: 960088552}
+  fuelEndlessText: {fileID: 1498123247}
+  fuel: 0
+  fuelSlider: {fileID: 319728804}
+  fuelSliderEndless: {fileID: 1926163434}
+  lives: 0
   lifeSprites:
   - {fileID: 21300000, guid: ceb74cc7baf975f4f8e061be04157ffd, type: 3}
   - {fileID: 21300000, guid: f089dc5e808e83f449c6c7f53fec91a7, type: 3}
@@ -32727,6 +32748,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 98df223698a32024b80a0da36f3f5dbf, type: 3}
   livesImage: {fileID: 221487227}
   livesImageEndless: {fileID: 334815205}
+  health: 0
   healthSprites:
   - {fileID: 21300000, guid: fb79c03f10c8df344bc9d8e8f2dbaf84, type: 3}
   - {fileID: 21300000, guid: 38d690ad9b2e01f48b834bc5b79ca0ea, type: 3}
@@ -32735,84 +32757,50 @@ MonoBehaviour:
   - {fileID: 21300000, guid: aae9fdb65ed719f48864c4ae08dcfa2a, type: 3}
   healthImage: {fileID: 2083876501}
   healthImageEndless: {fileID: 2129657250}
-  fuelSlider: {fileID: 319728804}
-  fuelSliderEndless: {fileID: 1926163434}
-  playerName: {fileID: 374893452}
-  winScreen: {fileID: 381089833}
-  nextLevelButton: {fileID: 2018741803}
-  gameScreen: {fileID: 378861137}
-  gameScreenEndless: {fileID: 98920835}
-  highscoreCongrats: {fileID: 158860967}
-  bestTimeCongrats: {fileID: 1616792877}
-  highscoreDisplay: {fileID: 1238752072}
-  lastscoreDisplay: {fileID: 2100220033}
-  highscoreScreen: {fileID: 1630640093}
-  timesScreen: {fileID: 1670996069}
-  helpScreen: {fileID: 407187669}
-  statsScreen: {fileID: 725156542}
-  characterScreen: {fileID: 1142604755}
-  confirmNameReset: {fileID: 668909491}
-  highscoreCongratsText: {fileID: 809676578}
-  bestTimeCongratsText: {fileID: 1954005689}
-  winText: {fileID: 1509331374}
-  player: {fileID: 0}
-  loseScreen: {fileID: 328090270}
-  loseText: {fileID: 765757069}
-  gameOverScreen: {fileID: 523650193}
-  gameOverText: {fileID: 2108016794}
-  titleScreen: {fileID: 1364377606}
-  redRemainText: {fileID: 2129678905}
-  blueRemainText: {fileID: 621913763}
-  purpleRemainText: {fileID: 181158078}
-  fuelText: {fileID: 960088552}
-  livesText: {fileID: 0}
-  redCollectText: {fileID: 157278279}
-  blueCollectText: {fileID: 798720029}
-  purpleCollectText: {fileID: 108633081}
-  fuelEndlessText: {fileID: 1498123247}
-  livesEndlessText: {fileID: 0}
+  score: 0
   scoreText: {fileID: 60623134}
-  endlessDifficultyText: {fileID: 662309257}
-  highscoreText: {fileID: 1238752075}
-  lastscoreText: {fileID: 2100220036}
-  pauseButtonEndless: {fileID: 852456706}
-  pauseButton: {fileID: 2137882628}
-  quitButtonEndless: {fileID: 2133108508}
-  quitButton: {fileID: 1322334009}
-  pauseScreen: {fileID: 1112820505}
-  track1: {fileID: 963194232}
-  track2: {fileID: 963194231}
-  track3: {fileID: 963194230}
-  track4: {fileID: 963194229}
-  screen1: {fileID: 1801584391}
-  screen2: {fileID: 684019271}
-  screen3: {fileID: 1101727472}
-  screen4: {fileID: 1056819456}
-  player1: 0
-  player2: 0
-  player3: 0
-  gameStarted: 0
-  gameOver: 0
-  gameWin: 0
-  gameLose: 0
-  gameEndless: 0
-  newHighscore: 0
-  newBestTime: 0
-  paused: 0
-  currentLevel: 0
-  playerController: {fileID: 0}
-  gravityModifier: 1
-  musicSlider: {fileID: 225673980}
-  buttonSound: {fileID: 8300000, guid: d43122089bf826d49bcca8c15cc95aad, type: 3}
-  lowFuelSound: {fileID: 8300000, guid: 56c4322b70e1a6546970dc0ee73da557, type: 3}
   timeElapsed: 0
   timerText: {fileID: 1263727342}
   timerText2: {fileID: 2139801423}
+  gameWin: 0
+  winScreen: {fileID: 381089833}
+  winText: {fileID: 1509331374}
+  nextLevelButton: {fileID: 2018741803}
+  gameLose: 0
+  loseScreen: {fileID: 328090270}
+  loseText: {fileID: 765757069}
+  gameOver: 0
+  gameOverScreen: {fileID: 523650193}
+  gameOverText: {fileID: 2108016794}
+  gameScreen: {fileID: 378861137}
+  gameScreenEndless: {fileID: 98920835}
+  timesScreen: {fileID: 1670996069}
+  highscoreScreen: {fileID: 1630640093}
+  helpScreen: {fileID: 407187669}
+  statsScreen: {fileID: 725156542}
+  characterScreen: {fileID: 1142604755}
+  titleScreen: {fileID: 1364377606}
+  pauseScreen: {fileID: 1112820505}
+  newHighscore: 0
+  highscoreCongrats: {fileID: 158860967}
+  highscoreCongratsText: {fileID: 809676578}
+  highscoreDisplay: {fileID: 1238752072}
+  highscoreText: {fileID: 1238752075}
+  lastscoreDisplay: {fileID: 2100220033}
+  lastscoreText: {fileID: 2100220036}
+  newBestTime: 0
+  bestTimeCongrats: {fileID: 1616792877}
+  bestTimeCongratsText: {fileID: 1954005689}
   currentLevel1BestTime: 0
   currentLevel2BestTime: 0
   currentLevel3BestTime: 0
   currentLevel4BestTime: 0
   currentLevel5BestTime: 0
+  player1: 0
+  player2: 0
+  player3: 0
+  playerName: {fileID: 374893452}
+  confirmNameReset: {fileID: 668909491}
   playerSkinEquipped: 0
   spaceship1: {fileID: 8710912714160555935}
   spaceship2: {fileID: 8710912715867176392}
@@ -32822,6 +32810,18 @@ MonoBehaviour:
   spaceship2Prefab: {fileID: 5506160062516294320, guid: c81c1b720f8d4fb4f9430c0100747dce, type: 3}
   spaceship3Prefab: {fileID: 7715399516981956252, guid: c03e84675e4857d45aed27cf72298118, type: 3}
   spaceship4Prefab: {fileID: 7251533625818265344, guid: 88ad5f6daa6e75344b88aaa72d4de8e2, type: 3}
+  player: {fileID: 0}
+  pauseButtonEndless: {fileID: 852456706}
+  pauseButton: {fileID: 2137882628}
+  quitButtonEndless: {fileID: 2133108508}
+  quitButton: {fileID: 1322334009}
+  gameStarted: 0
+  gameEndless: 0
+  paused: 0
+  currentLevel: 0
+  gravityModifier: 1
+  endlessDifficultyText: {fileID: 662309257}
+  playerController: {fileID: 0}
   cumulativeStatsHandler: {fileID: 886066720}
 --- !u!82 &930227226
 AudioSource:
@@ -39294,8 +39294,8 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Timed level 4 - 100% fuel, 3 lives, Collect 8 of each
-              bacterium
+            m_StringArgument: Timed level 4 - 100% fuel, 3 virus pods, 3 spaceship
+              health, Collect 8 of each bacterium
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -42141,8 +42141,8 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Timed level 2 - 100% fuel, 5 lives, Collect 4 of each
-              bacterium
+            m_StringArgument: Timed level 2 - 100% fuel, 5 virus pods, 4 spaceship
+              health, Collect 4 of each bacterium
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -52389,8 +52389,8 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Timed level 1 - 100% fuel, 6 lives, Collect 2 of each
-              bacterium
+            m_StringArgument: Timed level 1 - 100% fuel, 6 virus pods, 4 spaceship
+              health, Collect 2 of each bacterium
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -60604,8 +60604,8 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Timed level 5 - 50% fuel, 3 lives, Collect 10 of each
-              bacterium
+            m_StringArgument: Timed level 5 - 50% fuel, 3 virus pods, 2 spaceship
+              health,, Collect 10 of each bacterium
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -62021,7 +62021,8 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Endless Hard - 50% fuel, 2 lives
+            m_StringArgument: Endless Hard - 50% fuel, 2 virus pods, 2 spaceship
+              health,
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
