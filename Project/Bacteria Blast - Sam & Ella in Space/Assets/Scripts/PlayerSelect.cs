@@ -26,23 +26,26 @@ public class PlayerSelect : MonoBehaviour
         {
             case 1:
                 PlayerPrefs.SetInt("CurrentProfile", 1);
-                gameManager.player1 = true;
-                gameManager.player2 = false;
-                gameManager.player3 = false;
+                gameManager.profileNumber = 1;
+                //gameManager.player1 = true;
+               // gameManager.player2 = false;
+              //  gameManager.player3 = false;
                 gameManager.Load();
                 break;
             case 2:
                 PlayerPrefs.SetInt("CurrentProfile", 3);
-                gameManager.player1 = false;
-                gameManager.player2 = true;
-                gameManager.player3 = false;
+                gameManager.profileNumber = 2;
+               // gameManager.player1 = false;
+              //  gameManager.player2 = true;
+              //  gameManager.player3 = false;
                 gameManager.Load();
                 break;
             case 3: 
                 PlayerPrefs.SetInt("CurrentProfile", 3);
-                gameManager.player1 = false;
-                gameManager.player2 = false;
-                gameManager.player3 = true;
+                gameManager.profileNumber = 3;
+               // gameManager.player1 = false;
+               // gameManager.player2 = false;
+              //  gameManager.player3 = true;
                 gameManager.Load();
                 break;
         }
