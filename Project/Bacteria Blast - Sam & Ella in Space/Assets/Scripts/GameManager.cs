@@ -198,9 +198,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void CheckHealth() 
+    public void CheckHealth()         // When ship health is 0, game is over, you lose.  Method called will depend on game mode currently being played
     {
-        if (health == 0)
+        if (gameStarted == true && health == 0)
         {
 
             if (gameEndless != true)
@@ -215,8 +215,8 @@ public class GameManager : MonoBehaviour
                 GameOverAsteroid();
 
             }
-        }
 
+        }
 
 
     }
@@ -439,15 +439,13 @@ public class GameManager : MonoBehaviour
 
 
 
-    // Adjusts damage from asteroids & displays current amount
+    // Adjusts damage from asteroids & displays current amount of health remaining via sprites
     public void DoDamage(int value)
     {
         health -= value;
-        health = Mathf.Clamp(health, 0, 4);
+        health = Mathf.Clamp(health, 0, 4); // ensures health will not go negative
         healthImage.sprite = healthSprites[health];
         healthImageEndless.sprite = healthSprites[health];
-
-        // When ship health is 0, game is over, you lose.  Method called will depend on game mode currently being played
         
 
     }

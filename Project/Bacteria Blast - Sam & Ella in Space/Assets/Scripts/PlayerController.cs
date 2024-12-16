@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Destroy player object & play explosion visuals & sound when health reaches 0
         if (gameManager.gameStarted == true && gameManager.health == 0)
         {
             SpaceshipExplode();
@@ -328,12 +329,11 @@ public class PlayerController : MonoBehaviour
 
     public void SpaceshipExplode() 
     {
-     //   playerRb.constraints = RigidbodyConstraints.FreezeAll;
-        Destroy(gameObject);
+        
         Vector3 expSpawnpos = new(transform.position.x, transform.position.y, transform.position.z);
         Instantiate(explosion, expSpawnpos, explosion.transform.rotation);
         groundAudio.PlayOneShot(crashSound);
-       
+        Destroy(gameObject);
 
     }
 }

@@ -7,16 +7,23 @@ public enum AsteroidType
 
 public class Asteroid : MonoBehaviour
 {
+    //Audio
+    private AudioSource playerAudio;
+    public AudioClip bumpSound;
+
 
     public GameObject fractured; // for the fractured parts of the asteroids
     private GameManager gameManager;
     public int damageAmount;
 
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerAudio = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -60,30 +67,29 @@ public class Asteroid : MonoBehaviour
         }
 
 
-        // If player collides with asteroid, asteroid is destroyed, player health is decreased by appropriate amount, and hit count is increased.
+        // If player collides with asteroid, sound is played, asteroid is destroyed, player health is decreased by appropriate amount,
+        // and appropriate hit count is increased.
         if (other.CompareTag("Player"))
         {
 
             switch (asteroidType)
             {   
-                case AsteroidType.Small:
-                    gameManager.DoDamage(damageAmount);
+                case AsteroidType.Small:                    
                     gameManager.smallAsteroidHit += 1;
-                    FractureObject();
                     break;
 
-                case AsteroidType.Medium:
-                    gameManager.DoDamage(damageAmount);
+                case AsteroidType.Medium:                  
                     gameManager.mediumAsteroidHit += 1;
-                    FractureObject();
                     break;
 
-                case AsteroidType.Large:
-                    gameManager.DoDamage(damageAmount);
+                case AsteroidType.Large:                  
                     gameManager.largeAsteroidHit += 1;
-                    FractureObject();
                     break;
             }
+
+            gameManager.DoDamage(damageAmount);
+            playerAudio.PlayOneShot(bumpSound);
+            FractureObject();
 
         }
     }
