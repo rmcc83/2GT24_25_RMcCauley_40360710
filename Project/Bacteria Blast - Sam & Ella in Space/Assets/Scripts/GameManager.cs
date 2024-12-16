@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public int score;
     public float fuel;
     public int lives;
+    public int health;
     public int redRemaining;
     public int blueRemaining;
     public int purpleRemaining;
@@ -22,6 +23,9 @@ public class GameManager : MonoBehaviour
     public int purpleCollected;
     public int virusEncountered;
     public int asteroidsBlasted;
+    public int smallAsteroidHit;
+    public int mediumAsteroidHit;
+    public int largeAsteroidHit;
     public int smallFuelCollected;
     public int largeFuelCollected;
     public int weaponCollected;
@@ -30,6 +34,9 @@ public class GameManager : MonoBehaviour
     public Sprite[] lifeSprites;//array of sprites for each number of lives
     public Image livesImage;
     public Image livesImageEndless;
+    public Sprite[] healthSprites;//array of sprites for spaceship health
+    public Image healthImage;
+    public Image healthImageEndless;
     public Slider fuelSlider;
     public Slider fuelSliderEndless;
     public TMP_InputField playerName;
@@ -128,9 +135,9 @@ public class GameManager : MonoBehaviour
     {
 
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
-        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
-        player = GameObject.Find("Player");
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        player = GameObject.FindGameObjectWithTag("Player");
         gameAudio = GetComponent<AudioSource>();
         initialPosition = new Vector3(-68.3f, 1.28f, -1f); // starting position of player object
 
@@ -172,7 +179,9 @@ public class GameManager : MonoBehaviour
             RunTimer();
             UpdateBacteriaBlasted();
             FuelGauge();
+            CheckHealth();
 
+            
         }
 
         //Check if the user has pressed the P key - only works in main scene if game has started, so won't show pause screen when names being entered
@@ -189,9 +198,32 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void CheckHealth() 
+    {
+        if (health == 0)
+        {
 
-    public void StartGame(int level) // level number is passed in from level select button.  Starting lives, starting fuel, amount of bacteria which
-                                     // must be collected to win are set depending on the level selected.
+            if (gameEndless != true)
+            {
+                GameLose();
+
+            }
+
+            if (gameEndless == true)
+            {
+
+                GameOverAsteroid();
+
+            }
+        }
+
+
+
+    }
+
+
+    public void StartGame(int level) // level number is passed in from level select button.  Starting lives, starting ship health, starting fuel,
+                                     // amount of bacteria which must be collected to win are set depending on the level selected.
 
     {
 
@@ -204,30 +236,35 @@ public class GameManager : MonoBehaviour
             case 1:
                 currentLevel = 1;
                 lives = 6;
+                health = 4;
                 fuel = 100;
                 break;
 
             case 2:
                 currentLevel = 2;
                 lives = 6;
+                health = 4;
                 fuel = 100;
                 break;
 
             case 3:
                 currentLevel = 3;
                 lives = 4;
+                health = 3;
                 fuel = 100;
                 break;
 
             case 4:
                 currentLevel = 4;
                 lives = 4;
+                health = 3;
                 fuel = 100;
                 break;
 
             case 5:
                 currentLevel = 5;
                 lives = 3;
+                health = 2;
                 fuel = 75;
                 break;
         }
@@ -237,6 +274,7 @@ public class GameManager : MonoBehaviour
 
 
         livesImage.sprite = lifeSprites[lives]; //sets lives display to starting amount
+        healthImage.sprite = healthSprites[health]; //sets health display to starting amount
         fuelSlider.value = fuel; // sets fuel bar to starting amount
         ResetGravity(); // run reset gravity method - necessary to ensure gravity does not increase each time game is played, as gravity modifier is being utilised
         gameScreen.SetActive(true); // sets gamescreen (with score, fuel etc) active
@@ -256,13 +294,14 @@ public class GameManager : MonoBehaviour
 
 
     public void StartGameEndless(int level) // level number is passed in from level select button.  Starting lives,
-                                            // starting fuel, difficulty in words is set depending on (endless) level selected.
+                                            // starting fuel, starting ship health, difficulty in words is set depending on (endless) level selected.
     {
         switch (level)
         {
             case 99:
                 currentLevel = 99;
                 lives = 6;
+                health = 4;
                 fuel = 100;
                 endlessDifficultyText.text = "Difficulty: Easy";
                 break;
@@ -270,6 +309,7 @@ public class GameManager : MonoBehaviour
             case 98:
                 currentLevel = 98;
                 lives = 4;
+                health = 3;
                 fuel = 80;
                 endlessDifficultyText.text = "Difficulty: Medium";
                 break;
@@ -277,6 +317,7 @@ public class GameManager : MonoBehaviour
             case 97:
                 currentLevel = 97;
                 lives = 2;
+                health = 2;
                 fuel = 50;
                 endlessDifficultyText.text = "Difficulty: Hard";
                 break;
@@ -284,6 +325,7 @@ public class GameManager : MonoBehaviour
 
         score = 0;
         livesImageEndless.sprite = lifeSprites[lives];  //sets lives display to starting amount
+        healthImageEndless.sprite = healthSprites[health]; //sets health display to starting amount
         fuelSliderEndless.value = fuel; // sets fuel bar to starting amount
         gameEndless = true; // flags endless game is selected
         redCollected = 0; //sets red collected to 0
@@ -393,6 +435,20 @@ public class GameManager : MonoBehaviour
 
             }
         }
+    }
+
+
+
+    // Adjusts damage from asteroids & displays current amount
+    public void DoDamage(int value)
+    {
+        health -= value;
+        health = Mathf.Clamp(health, 0, 4);
+        healthImage.sprite = healthSprites[health];
+        healthImageEndless.sprite = healthSprites[health];
+
+        // When ship health is 0, game is over, you lose.  Method called will depend on game mode currently being played
+        
 
     }
 
@@ -480,7 +536,7 @@ public class GameManager : MonoBehaviour
         UpdateCumulativeStats();
     }
 
-    public void GameOverCrash() // method used in endless game when player crashes.  Music stops, gameover screen is displayed, personalised message is displayed,
+    public void GameOverCrash() // method used in endless game when player crashes into the ground.  Music stops, gameover screen is displayed, personalised message is displayed,
                                 // score is checked against saved highscore, score is saved as last score, highscore & last score displays are updated, stats are updated
     {
         StopMusic();
@@ -495,6 +551,24 @@ public class GameManager : MonoBehaviour
         UpdateLastScoreDisplay();
         UpdateEndlessGamesPlayed();
         UpdateEndlessGamesCrash();
+        UpdateCumulativeStats();
+    }
+
+    public void GameOverAsteroid() // method used in endless game when player wrecks spaceship on asteroids.  Music stops, gameover screen is displayed, personalised message is displayed,
+                                // score is checked against saved highscore, score is saved as last score, highscore & last score displays are updated, stats are updated
+    {
+        StopMusic();
+        gameOver = true;
+        pauseButtonEndless.gameObject.SetActive(false);
+        quitButtonEndless.gameObject.SetActive(false);
+        gameOverScreen.gameObject.SetActive(true);
+        gameOverText.SetText("SORRY, " + playerName.text.ToUpper() + " - YOU WRECKED YOUR SHIP!  DON'T WORRY, RESCUE IS ON THE WAY!"); // player name is included in message, & forced to upper case
+        CheckHighScore();
+        SaveLastScore();
+        UpdateHighScoreDisplay();
+        UpdateLastScoreDisplay();
+        UpdateEndlessGamesPlayed();
+        UpdateEndlessGamesAsteroid();
         UpdateCumulativeStats();
     }
 
@@ -1260,6 +1334,25 @@ public class GameManager : MonoBehaviour
         }
 
         cumulativeStatsHandler.TotalEndlessLives();
+
+    }
+
+    public void UpdateEndlessGamesAsteroid() //updates end method for endless game mode stat
+    {
+        switch (currentLevel)
+        {
+            case 99:
+                cumulativeStatsHandler.EasyEndlessAsteroid();
+                break;
+            case 98:
+                cumulativeStatsHandler.MediumEndlessAsteroid();
+                break;
+            case 97:
+                cumulativeStatsHandler.HardEndlessAsteroid();
+                break;
+        }
+
+        cumulativeStatsHandler.TotalEndlessAsteroid();
 
     }
 

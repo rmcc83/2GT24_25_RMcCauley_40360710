@@ -114,6 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fractured: {fileID: 7273956540791742907, guid: 9cb5e7465eef1af4988889e41a071493, type: 3}
+  damageAmount: 3
+  asteroidType: 2
 --- !u!114 &5478596525404032108
 MonoBehaviour:
   m_ObjectHideFlags: 0

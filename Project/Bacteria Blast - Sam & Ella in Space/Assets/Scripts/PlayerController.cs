@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         groundAudio = GameObject.Find("Ground").GetComponent<AudioSource>();
         playerAudio = GetComponent<AudioSource>();
         playerRb = GetComponent<Rigidbody>();
@@ -80,6 +80,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (gameManager.gameStarted == true && gameManager.health == 0)
+        {
+            SpaceshipExplode();
+
+        }
 
         //If game has started & is not over
         if (gameManager.gameStarted == true && gameManager.gameOver == false)
@@ -186,18 +191,14 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(PowerupCountdownRoutine());
         }
 
-        // if player collides with ground or asteroid, player is destroyed, explosion visuals are instantiated at impact point,
+        // if player collides with ground, player is destroyed, explosion visuals are instantiated at impact point,
         // crash sound is played, and game is over.  What happens at this point (ie what gamemanger method is called) depends on 
         // whether an endless mode level is being played or not.
-        if (other.CompareTag("Ground") || other.CompareTag("Asteroid"))
+        if (other.CompareTag("Ground"))
         {
-
-            Vector3 expSpawnpos = new(transform.position.x, transform.position.y, transform.position.z);
-            Instantiate(explosion, expSpawnpos, explosion.transform.rotation);
-            groundAudio.PlayOneShot(crashSound);
-            gameObject.SetActive(false);
-            Destroy(gameObject);
-
+            SpaceshipExplode();
+            cumulativeStatsHandler.GroundCrash();
+        
             if (gameManager.gameEndless != true) 
             {
                 gameManager.GameLose();
@@ -212,23 +213,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (other.CompareTag("Ground")) // updates ground crash stats if collision is with ground
-        {
-
- 
-           cumulativeStatsHandler.GroundCrash();
-
-        }
-
-        if (other.CompareTag("Asteroid")) // updates ground crash stats if collision is with asteroid
-        {
-
-            
-            cumulativeStatsHandler.AsteroidCrash();
-
-        }
-
-
+        
 
         // if player collides with small fuel powerup, 20% is added to fuel amount, sound is played, indicator animates briefly (then bool is reset)
 
@@ -338,6 +323,17 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         fuelAnim = false;
+
+    }
+
+    public void SpaceshipExplode() 
+    {
+     //   playerRb.constraints = RigidbodyConstraints.FreezeAll;
+        Destroy(gameObject);
+        Vector3 expSpawnpos = new(transform.position.x, transform.position.y, transform.position.z);
+        Instantiate(explosion, expSpawnpos, explosion.transform.rotation);
+        groundAudio.PlayOneShot(crashSound);
+       
 
     }
 }

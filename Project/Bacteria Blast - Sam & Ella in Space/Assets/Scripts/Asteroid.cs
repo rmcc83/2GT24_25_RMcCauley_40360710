@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AsteroidType
+{ Small, Medium, Large }
 
 public class Asteroid : MonoBehaviour
 {
 
     public GameObject fractured; // for the fractured parts of the asteroids
     private GameManager gameManager;
+    public int damageAmount;
 
 
     // Start is called before the first frame update
@@ -21,6 +24,7 @@ public class Asteroid : MonoBehaviour
     {
         
     }
+    public AsteroidType asteroidType = AsteroidType.Small;
 
     public void OnCollisionEnter(Collision collision) 
     {
@@ -31,7 +35,6 @@ public class Asteroid : MonoBehaviour
             Destroy(gameObject);
            
         }
-
 
     }
 
@@ -56,6 +59,33 @@ public class Asteroid : MonoBehaviour
 
         }
 
+
+        // If player collides with asteroid, asteroid is destroyed, player health is decreased by appropriate amount, and hit count is increased.
+        if (other.CompareTag("Player"))
+        {
+
+            switch (asteroidType)
+            {   
+                case AsteroidType.Small:
+                    gameManager.DoDamage(damageAmount);
+                    gameManager.smallAsteroidHit += 1;
+                    FractureObject();
+                    break;
+
+                case AsteroidType.Medium:
+                    gameManager.DoDamage(damageAmount);
+                    gameManager.mediumAsteroidHit += 1;
+                    FractureObject();
+                    break;
+
+                case AsteroidType.Large:
+                    gameManager.DoDamage(damageAmount);
+                    gameManager.largeAsteroidHit += 1;
+                    FractureObject();
+                    break;
+            }
+
+        }
     }
 
     public void FractureObject()

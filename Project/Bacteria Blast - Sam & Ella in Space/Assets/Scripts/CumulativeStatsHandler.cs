@@ -43,7 +43,13 @@ public class CumulativeStatsHandler : MonoBehaviour
     public int hardEndlessLives;
     public int totalEndlessLives;
 
-    // Endless games halted by crash
+    // Endless games halted by wrecking on asteroids
+    public int easyEndlessAsteroid;
+    public int mediumEndlessAsteroid;
+    public int hardEndlessAsteroid;
+    public int totalEndlessAsteroid;
+
+    // Endless games halted by ground crash
     public int easyEndlessCrash;
     public int mediumEndlessCrash;
     public int hardEndlessCrash;
@@ -54,8 +60,12 @@ public class CumulativeStatsHandler : MonoBehaviour
     public int totalBlueCollected;
     public int totalPurpleCollected;
 
+    // Total asteroids hit
+    public int totalSmallHit;
+    public int totalMediumHit;
+    public int totalLargeHit;
+
     // Crash counts
-    public int asteroidCrash;
     public int groundCrash;
 
     // Powerups collected, viruses caught, asteroid destroyed
@@ -107,8 +117,14 @@ public class CumulativeStatsHandler : MonoBehaviour
     public TextMeshProUGUI hardEndlessLivesText;
     public TextMeshProUGUI totalEndlessLivesText;
 
+    // Endless games halted by running out of lives text
+    public TextMeshProUGUI easyEndlessAsteroidText;
+    public TextMeshProUGUI mediumEndlessAsteroidText;
+    public TextMeshProUGUI hardEndlessAsteroidText;
+    public TextMeshProUGUI totalEndlessAsteroidText;
 
-    //Endless games halted by crash text
+
+    //Endless games halted by ground crash text
     public TextMeshProUGUI easyEndlessCrashText;
     public TextMeshProUGUI mediumEndlessCrashText;
     public TextMeshProUGUI hardEndlessCrashText;
@@ -119,8 +135,13 @@ public class CumulativeStatsHandler : MonoBehaviour
     public TextMeshProUGUI totalBlueCollectedText;
     public TextMeshProUGUI totalPurpleCollectedText;
 
+    // Total asteroids hit text
+    public TextMeshProUGUI totalSmallHitText;
+    public TextMeshProUGUI totalMediumHitText;
+    public TextMeshProUGUI totalLargeHitText;
+
+
     // Crash Counts text
-    public TextMeshProUGUI asteroidCrashText;
     public TextMeshProUGUI groundCrashText;
 
     // Powerups collected, viruses caught, asteroid destroyed text
@@ -901,6 +922,106 @@ public class CumulativeStatsHandler : MonoBehaviour
 
     }
 
+    public void EasyEndlessAsteroid()
+    {
+        if (gameManager.player1 == true)
+        {
+            easyEndlessAsteroid = PlayerPrefs.GetInt("EasyEndlessAsteroid1") + 1;
+            PlayerPrefs.SetInt("EasyEndlessAsteroid1", easyEndlessAsteroid);
+            easyEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("EasyEndlessAsteroid1")}";
+        }
+
+        if (gameManager.player2 == true)
+        {
+            easyEndlessAsteroid = PlayerPrefs.GetInt("EasyEndlessAsteroid2") + 1;
+            PlayerPrefs.SetInt("EasyEndlessAsteroid2", easyEndlessAsteroid);
+            easyEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("EasyEndlessAsteroid2")}";
+        }
+
+        if (gameManager.player3 == true)
+        {
+            easyEndlessAsteroid = PlayerPrefs.GetInt("EasyEndlessAsteroid3") + 1;
+            PlayerPrefs.SetInt("EasyEndlessAsteroid3", easyEndlessAsteroid);
+            easyEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("EasyEndlessAsteroid3")}";
+        }
+
+    }
+
+    public void MediumEndlessAsteroid()
+    {
+        if (gameManager.player1 == true)
+        {
+            mediumEndlessAsteroid = PlayerPrefs.GetInt("MediumEndlessAsteroid1") + 1;
+            PlayerPrefs.SetInt("MediumEndlessAsteroid1", mediumEndlessAsteroid);
+            mediumEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("MediumEndlessAsteroid1")}";
+        }
+
+        if (gameManager.player2 == true)
+        {
+            mediumEndlessAsteroid = PlayerPrefs.GetInt("MediumEndlessAsteroid2") + 1;
+            PlayerPrefs.SetInt("MediumEndlessAsteroid2", mediumEndlessAsteroid);
+            mediumEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("MediumEndlessAsteroid2")}";
+        }
+
+        if (gameManager.player3 == true)
+        {
+            mediumEndlessAsteroid = PlayerPrefs.GetInt("MediumEndlessAsteroid3") + 1;
+            PlayerPrefs.SetInt("MediumEndlessAsteroid3", mediumEndlessAsteroid);
+            mediumEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("MediumEndlessAsteroid3")}";
+        }
+
+    }
+
+    public void HardEndlessAsteroid()
+    {
+        if (gameManager.player1 == true)
+        {
+            hardEndlessAsteroid = PlayerPrefs.GetInt("HardEndlessAsteroid1") + 1;
+            PlayerPrefs.SetInt("HardEndlessAsteroid1", hardEndlessAsteroid);
+            hardEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("HardEndlessAsteroid1")}";
+        }
+
+        if (gameManager.player2 == true)
+        {
+            hardEndlessAsteroid = PlayerPrefs.GetInt("HardEndlessAsteroid2") + 1;
+            PlayerPrefs.SetInt("HardEndlessAsteroid2", hardEndlessAsteroid);
+            hardEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("HardEndlessAsteroid2")}";
+        }
+
+        if (gameManager.player3 == true)
+        {
+            hardEndlessAsteroid = PlayerPrefs.GetInt("HardEndlessAsteroid3") + 1;
+            PlayerPrefs.SetInt("HardEndlessAsteroid3", hardEndlessAsteroid);
+            hardEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("HardEndlessAsteroid3")}";
+        }
+
+    }
+
+    public void TotalEndlessAsteroid()
+    {
+        if (gameManager.player1 == true)
+        {
+            totalEndlessAsteroid = PlayerPrefs.GetInt("TotalEndlessAsteroid1") + 1;
+            PlayerPrefs.SetInt("TotalEndlessAsteroid1", totalEndlessAsteroid);
+            totalEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("TotalEndlessAsteroid1")}";
+        }
+
+        if (gameManager.player2 == true)
+        {
+            totalEndlessAsteroid = PlayerPrefs.GetInt("TotalEndlessAsteroid2") + 1;
+            PlayerPrefs.SetInt("TotalEndlessAsteroid2", totalEndlessAsteroid);
+            totalEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("TotalEndlessAsteroid2")}";
+        }
+
+        if (gameManager.player3 == true)
+        {
+            totalEndlessAsteroid = PlayerPrefs.GetInt("TotalEndlessAsteroid3") + 1;
+            PlayerPrefs.SetInt("TotalEndlessAsteroid3", totalEndlessAsteroid);
+            totalEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("TotalEndlessAsteroid3")}";
+        }
+
+    }
+
     public void BacteriaCollected() 
     {
         if (gameManager.player1 == true)
@@ -940,6 +1061,49 @@ public class CumulativeStatsHandler : MonoBehaviour
             totalRedCollectedText.text = $"{PlayerPrefs.GetInt("TotalRedCollected3")}";
             totalBlueCollectedText.text = $"{PlayerPrefs.GetInt("TotalBlueCollected3")}";
             totalPurpleCollectedText.text = $"{PlayerPrefs.GetInt("TotalPurpleCollected3")}";
+        }
+
+    }
+
+    public void AsteroidsHit() 
+    {
+        if (gameManager.player1 == true)
+        {
+            totalSmallHit = PlayerPrefs.GetInt("TotalSmallHit1") + gameManager.smallAsteroidHit;
+            totalMediumHit = PlayerPrefs.GetInt("TotalMediumHit1") + gameManager.mediumAsteroidHit;
+            totalLargeHit = PlayerPrefs.GetInt("TotalLargeHit1") + gameManager.largeAsteroidHit;
+            PlayerPrefs.SetInt("TotalSmallHit1", totalSmallHit);
+            PlayerPrefs.SetInt("TotalMediumHit1", totalMediumHit);
+            PlayerPrefs.SetInt("TotalLargeHit1", totalLargeHit);
+            totalSmallHitText.text = $"{PlayerPrefs.GetInt("TotalSmallHit1")}";
+            totalMediumHitText.text = $"{PlayerPrefs.GetInt("TotalMediumHit1")}";
+            totalLargeHitText.text = $"{PlayerPrefs.GetInt("TotalLargeHit1")}";
+        }
+
+        if (gameManager.player2 == true)
+        {
+            totalSmallHit = PlayerPrefs.GetInt("TotalSmallHit2") + gameManager.smallAsteroidHit;
+            totalMediumHit = PlayerPrefs.GetInt("TotalMediumHit2") + gameManager.mediumAsteroidHit;
+            totalLargeHit = PlayerPrefs.GetInt("TotalLargeHit2") + gameManager.largeAsteroidHit;
+            PlayerPrefs.SetInt("TotalSmallHit2", totalSmallHit);
+            PlayerPrefs.SetInt("TotalMediumHit2", totalMediumHit);
+            PlayerPrefs.SetInt("TotalLargeHit2", totalLargeHit);
+            totalSmallHitText.text = $"{PlayerPrefs.GetInt("TotalSmallHit2")}";
+            totalMediumHitText.text = $"{PlayerPrefs.GetInt("TotalMediumHit2")}";
+            totalLargeHitText.text = $"{PlayerPrefs.GetInt("TotalLargeHit2")}";
+        }
+
+        if (gameManager.player3 == true)
+        {
+            totalSmallHit = PlayerPrefs.GetInt("TotalSmallHit3") + gameManager.smallAsteroidHit;
+            totalMediumHit = PlayerPrefs.GetInt("TotalMediumHit3") + gameManager.mediumAsteroidHit;
+            totalLargeHit = PlayerPrefs.GetInt("TotalLargeHit3") + gameManager.largeAsteroidHit;
+            PlayerPrefs.SetInt("TotalSmallHit3", totalSmallHit);
+            PlayerPrefs.SetInt("TotalMediumHit3", totalMediumHit);
+            PlayerPrefs.SetInt("TotalLargeHit3", totalLargeHit);
+            totalSmallHitText.text = $"{PlayerPrefs.GetInt("TotalSmallHit3")}";
+            totalMediumHitText.text = $"{PlayerPrefs.GetInt("TotalMediumHit3")}";
+            totalLargeHitText.text = $"{PlayerPrefs.GetInt("TotalLargeHit3")}";
         }
 
     }
@@ -1078,30 +1242,6 @@ public class CumulativeStatsHandler : MonoBehaviour
 
     }
 
-    public void AsteroidCrash()
-    {
-        if (gameManager.player1 == true)
-        {
-            asteroidCrash = PlayerPrefs.GetInt("AsteroidCrash1") + 1;
-            PlayerPrefs.SetInt("AsteroidCrash1", asteroidCrash);
-            asteroidCrashText.text = $"{PlayerPrefs.GetInt("AsteroidCrash1")}";
-        }
-
-        if (gameManager.player2 == true)
-        {
-            asteroidCrash = PlayerPrefs.GetInt("AsteroidCrash2") + 1;
-            PlayerPrefs.SetInt("AsteroidCrash2", asteroidCrash);
-            asteroidCrashText.text = $"{PlayerPrefs.GetInt("AsteroidCrash2")}";
-        }
-
-        if (gameManager.player3 == true)
-        {
-            asteroidCrash = PlayerPrefs.GetInt("AsteroidCrash3") + 1;
-            PlayerPrefs.SetInt("AsteroidCrash3", asteroidCrash);
-            asteroidCrashText.text = $"{PlayerPrefs.GetInt("AsteroidCrash3")}";
-        }
-    }
-
     public void GroundCrash()
     {
         if (gameManager.player1 == true)
@@ -1134,6 +1274,7 @@ public class CumulativeStatsHandler : MonoBehaviour
         Title();
         UpdateDisplay();
         BacteriaCollected();
+        AsteroidsHit();
         VirusEncountered();
         WeaponCollected();
         SmallFuelCollected();
@@ -1176,16 +1317,22 @@ public class CumulativeStatsHandler : MonoBehaviour
             PlayerPrefs.SetInt("MediumEndlessCrash1", 0);
             PlayerPrefs.SetInt("HardEndlessCrash1", 0);
             PlayerPrefs.SetInt("TotalEndlessCrash1", 0);
+            PlayerPrefs.SetInt("EasyEndlessAsteroid1", 0);
+            PlayerPrefs.SetInt("MediumEndlessAsteroid1", 0);
+            PlayerPrefs.SetInt("HardEndlessAsteroid1", 0);
+            PlayerPrefs.SetInt("TotalEndlessAsteroid1", 0);
             PlayerPrefs.SetInt("TotalRedCollected1", 0);
             PlayerPrefs.SetInt("TotalBlueCollected1", 0);
             PlayerPrefs.SetInt("TotalPurpleCollected1", 0);
+            PlayerPrefs.SetInt("TotalSmallHit1", 0);
+            PlayerPrefs.SetInt("TotalMediumHit1", 0);
+            PlayerPrefs.SetInt("TotalLargeHit1", 0);
             PlayerPrefs.SetInt("VirusEncountered1", 0);
             PlayerPrefs.SetInt("AsteroidsBlasted1", 0);
             PlayerPrefs.SetInt("WeaponCollected1", 0);
             PlayerPrefs.SetInt("SmallFuelCollected1", 0);
             PlayerPrefs.SetInt("LargeFuelCollected1", 0);
             PlayerPrefs.SetInt("GroundCrash1", 0);
-            PlayerPrefs.SetInt("AsteroidCrash1", 0);
             RunAll();
 
         }
@@ -1222,16 +1369,22 @@ public class CumulativeStatsHandler : MonoBehaviour
             PlayerPrefs.SetInt("MediumEndlessCrash2", 0);
             PlayerPrefs.SetInt("HardEndlessCrash2", 0);
             PlayerPrefs.SetInt("TotalEndlessCrash2", 0);
+            PlayerPrefs.SetInt("EasyEndlessAsteroid2", 0);
+            PlayerPrefs.SetInt("MediumEndlessAsteroid2", 0);
+            PlayerPrefs.SetInt("HardEndlessAsteroid2", 0);
+            PlayerPrefs.SetInt("TotalEndlessAsteroid2", 0);
             PlayerPrefs.SetInt("TotalRedCollected2", 0);
             PlayerPrefs.SetInt("TotalBlueCollected2", 0);
             PlayerPrefs.SetInt("TotalPurpleCollected2", 0);
+            PlayerPrefs.SetInt("TotalSmallHit2", 0);
+            PlayerPrefs.SetInt("TotalMediumHit2", 0);
+            PlayerPrefs.SetInt("TotalLargeHit2", 0);
             PlayerPrefs.SetInt("VirusEncountered2", 0);
             PlayerPrefs.SetInt("AsteroidsBlasted2", 0);
             PlayerPrefs.SetInt("WeaponCollected2", 0);
             PlayerPrefs.SetInt("SmallFuelCollected2", 0);
             PlayerPrefs.SetInt("LargeFuelCollected2", 0);
             PlayerPrefs.SetInt("GroundCrash2", 0);
-            PlayerPrefs.SetInt("AsteroidCrash2", 0);
             RunAll();
         }
 
@@ -1267,16 +1420,22 @@ public class CumulativeStatsHandler : MonoBehaviour
             PlayerPrefs.SetInt("MediumEndlessCrash3", 0);
             PlayerPrefs.SetInt("HardEndlessCrash3", 0);
             PlayerPrefs.SetInt("TotalEndlessCrash3", 0);
+            PlayerPrefs.SetInt("EasyEndlessAsteroid3", 0);
+            PlayerPrefs.SetInt("MediumEndlessAsteroid3", 0);
+            PlayerPrefs.SetInt("HardEndlessAsteroid3", 0);
+            PlayerPrefs.SetInt("TotalEndlessAsteroid3", 0);
             PlayerPrefs.SetInt("TotalRedCollected3", 0);
             PlayerPrefs.SetInt("TotalBlueCollected3", 0);
             PlayerPrefs.SetInt("TotalPurpleCollected3", 0);
+            PlayerPrefs.SetInt("TotalSmallHit3", 0);
+            PlayerPrefs.SetInt("TotalMediumHit3", 0);
+            PlayerPrefs.SetInt("TotalLargeHit3", 0);
             PlayerPrefs.SetInt("VirusEncountered3", 0);
             PlayerPrefs.SetInt("AsteroidsBlasted3", 0);
             PlayerPrefs.SetInt("WeaponCollected3", 0);
             PlayerPrefs.SetInt("SmallFuelCollected3", 0);
             PlayerPrefs.SetInt("LargeFuelCollected3", 0);
             PlayerPrefs.SetInt("GroundCrash3", 0);
-            PlayerPrefs.SetInt("AsteroidCrash3", 0);
             RunAll();
         }
 
@@ -1306,6 +1465,10 @@ public class CumulativeStatsHandler : MonoBehaviour
             mediumEndlessCrashText.text = $"{PlayerPrefs.GetInt("MediumEndlessCrash1")}";
             hardEndlessCrashText.text = $"{PlayerPrefs.GetInt("HardEndlessCrash1")}";
             totalEndlessCrashText.text = $"{PlayerPrefs.GetInt("TotalEndlessCrash1")}";
+            easyEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("EasyEndlessAsteroid1")}";
+            mediumEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("MediumEndlessAsteroid1")}";
+            hardEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("HardEndlessAsteroid1")}";
+            totalEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("TotalEndlessAsteroid1")}";
             level1LostText.text = $"{PlayerPrefs.GetInt("Level1Lost1")}";
             level2LostText.text = $"{PlayerPrefs.GetInt("Level2Lost1")}";
             level3LostText.text = $"{PlayerPrefs.GetInt("Level3Lost1")}";
@@ -1316,7 +1479,6 @@ public class CumulativeStatsHandler : MonoBehaviour
             mediumEndlessLivesText.text = $"{PlayerPrefs.GetInt("MediumEndlessLives1")}";
             hardEndlessLivesText.text = $"{PlayerPrefs.GetInt("HardEndlessLives1")}";
             totalEndlessLivesText.text = $"{PlayerPrefs.GetInt("TotalEndlessLives1")}";
-            asteroidCrashText.text = $"{PlayerPrefs.GetInt("AsteroidCrash1")}";
             groundCrashText.text = $"{PlayerPrefs.GetInt("GroundCrash1")}";
 
         }
@@ -1343,6 +1505,10 @@ public class CumulativeStatsHandler : MonoBehaviour
             mediumEndlessCrashText.text = $"{PlayerPrefs.GetInt("MediumEndlessCrash2")}";
             hardEndlessCrashText.text = $"{PlayerPrefs.GetInt("HardEndlessCrash2")}";
             totalEndlessCrashText.text = $"{PlayerPrefs.GetInt("TotalEndlessCrash2")}";
+            easyEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("EasyEndlessAsteroid2")}";
+            mediumEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("MediumEndlessAsteroid2")}";
+            hardEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("HardEndlessAsteroid2")}";
+            totalEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("TotalEndlessAsteroid2")}";
             level1LostText.text = $"{PlayerPrefs.GetInt("Level1Lost2")}";
             level2LostText.text = $"{PlayerPrefs.GetInt("Level2Lost2")}";
             level3LostText.text = $"{PlayerPrefs.GetInt("Level3Lost2")}";
@@ -1353,7 +1519,6 @@ public class CumulativeStatsHandler : MonoBehaviour
             mediumEndlessLivesText.text = $"{PlayerPrefs.GetInt("MediumEndlessLives2")}";
             hardEndlessLivesText.text = $"{PlayerPrefs.GetInt("HardEndlessLives2")}";
             totalEndlessLivesText.text = $"{PlayerPrefs.GetInt("TotalEndlessLives2")}";
-            asteroidCrashText.text = $"{PlayerPrefs.GetInt("AsteroidCrash2")}";
             groundCrashText.text = $"{PlayerPrefs.GetInt("GroundCrash2")}";
         }
 
@@ -1379,6 +1544,10 @@ public class CumulativeStatsHandler : MonoBehaviour
             mediumEndlessCrashText.text = $"{PlayerPrefs.GetInt("MediumEndlessCrash3")}";
             hardEndlessCrashText.text = $"{PlayerPrefs.GetInt("HardEndlessCrash3")}";
             totalEndlessCrashText.text = $"{PlayerPrefs.GetInt("TotalEndlessCrash3")}";
+            easyEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("EasyEndlessAsteroid3")}";
+            mediumEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("MediumEndlessAsteroid3")}";
+            hardEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("HardEndlessAsteroid3")}";
+            totalEndlessAsteroidText.text = $"{PlayerPrefs.GetInt("TotalEndlessAsteroid3")}";
             level1LostText.text = $"{PlayerPrefs.GetInt("Level1Lost3")}";
             level2LostText.text = $"{PlayerPrefs.GetInt("Level2Lost3")}";
             level3LostText.text = $"{PlayerPrefs.GetInt("Level3Lost3")}";
@@ -1389,7 +1558,6 @@ public class CumulativeStatsHandler : MonoBehaviour
             mediumEndlessLivesText.text = $"{PlayerPrefs.GetInt("MediumEndlessLives3")}";
             hardEndlessLivesText.text = $"{PlayerPrefs.GetInt("HardEndlessLives3")}";
             totalEndlessLivesText.text = $"{PlayerPrefs.GetInt("TotalEndlessLives3")}";
-            asteroidCrashText.text = $"{PlayerPrefs.GetInt("AsteroidCrash3")}";
             groundCrashText.text = $"{PlayerPrefs.GetInt("GroundCrash3")}";
         }
 
