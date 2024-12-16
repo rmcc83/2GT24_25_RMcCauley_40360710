@@ -1335,8 +1335,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Yes, brilliant!  We definitely don't want to crash into any asteroids! 
-    Remember we can speed the ship up too if we need to get past something.
+  m_text: Yes, brilliant!  We definitely don't want to crash into any asteroids,
+    they damage the ship!  Remember we can speed the ship up too if we need to get
+    past something.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d0176a5ac8b339047b9442771d1f0ca9, type: 2}
   m_sharedMaterial: {fileID: 2684478997668011113, guid: d0176a5ac8b339047b9442771d1f0ca9, type: 2}
