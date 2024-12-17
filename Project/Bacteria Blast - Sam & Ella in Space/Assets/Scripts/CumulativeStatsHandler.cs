@@ -1223,7 +1223,6 @@ public class CumulativeStatsHandler : MonoBehaviour
                 PlayerPrefs.SetInt("SmallFuelCollected1", 0);
                 PlayerPrefs.SetInt("LargeFuelCollected1", 0);
                 PlayerPrefs.SetInt("GroundCrash1", 0);
-                RunAll();
                 break;
             case 2:
                 PlayerPrefs.SetInt("Level1Played2", 0);
@@ -1272,7 +1271,6 @@ public class CumulativeStatsHandler : MonoBehaviour
                 PlayerPrefs.SetInt("SmallFuelCollected2", 0);
                 PlayerPrefs.SetInt("LargeFuelCollected2", 0);
                 PlayerPrefs.SetInt("GroundCrash2", 0);
-                RunAll();
                 break;
             case 3:
                 PlayerPrefs.SetInt("Level1Played3", 0);
@@ -1321,9 +1319,9 @@ public class CumulativeStatsHandler : MonoBehaviour
                 PlayerPrefs.SetInt("SmallFuelCollected3", 0);
                 PlayerPrefs.SetInt("LargeFuelCollected3", 0);
                 PlayerPrefs.SetInt("GroundCrash3", 0);
-                RunAll();
                 break;
         }
+                RunAll();
     }
 
     public void UpdateDisplay()

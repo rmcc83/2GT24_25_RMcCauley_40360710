@@ -698,17 +698,15 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 PlayerPrefs.SetFloat("MusicVolume1", musicSlider.value);
-                PlayerPrefs.Save();
                 break;
             case 2:
                 PlayerPrefs.SetFloat("MusicVolume2", musicSlider.value);
-                PlayerPrefs.Save();
                 break;
             case 3:
                 PlayerPrefs.SetFloat("MusicVolume3", musicSlider.value);
-                PlayerPrefs.Save();
                 break;
         }
+        PlayerPrefs.Save();
     }
 
     public void LoadVolume() //loads previously saved volume setting for that player profile from playerprefs.  If no saved value, defaults to 50%
@@ -755,18 +753,16 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 PlayerPrefs.SetInt("Music1", music);
-                PlayerPrefs.Save();
                 break;
             case 2:
                 PlayerPrefs.SetInt("Music2", music);
-                PlayerPrefs.Save();
                 break;
             case 3:
                 PlayerPrefs.SetInt("Music3", music);
-                PlayerPrefs.Save();
                 break;
         }
-        
+        PlayerPrefs.Save();
+
     }
 
     public void LoadMusic() //loads music setting for current player from playerprefs, and then plays appropriate tune & sets appropriate 'radio' screen to match
@@ -1186,18 +1182,16 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 PlayerPrefs.SetInt("SkinEquipped1", playerSkinEquipped);
-                PlayerPrefs.Save();
                 break;
             case 2:
                 PlayerPrefs.SetInt("SkinEquipped2", playerSkinEquipped);
-                PlayerPrefs.Save();
                 break;
             case 3:
                 PlayerPrefs.SetInt("SkinEquipped3", playerSkinEquipped);
-                PlayerPrefs.Save();
                 break;
         }
-        
+        PlayerPrefs.Save();
+
     }
 
     public void LoadSkin() //loads saved spaceship skin for that player profile from playerprefs

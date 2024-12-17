@@ -27,20 +27,18 @@ public class PlayerSelect : MonoBehaviour
             case 1:
                 PlayerPrefs.SetInt("CurrentProfile", 1);
                 gameManager.profileNumber = 1;
-                gameManager.Load();
                 break;
             case 2:
                 PlayerPrefs.SetInt("CurrentProfile", 3);
                 gameManager.profileNumber = 2;
-                gameManager.Load();
                 break;
             case 3: 
                 PlayerPrefs.SetInt("CurrentProfile", 3);
                 gameManager.profileNumber = 3;
-                gameManager.Load();
                 break;
         }
-       
+        gameManager.Load();
+
     }
 
 
