@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 1313303}
   m_Layer: 5
   m_Name: Unarmed
-  m_TagString: Untagged
+  m_TagString: Unarmed Text Endless
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6652,7 +6652,7 @@ GameObject:
   - component: {fileID: 161801905}
   m_Layer: 5
   m_Name: Unarmed
-  m_TagString: Untagged
+  m_TagString: Unarmed Text
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32737,6 +32737,10 @@ MonoBehaviour:
   fuel: 0
   fuelSlider: {fileID: 319728804}
   fuelSliderEndless: {fileID: 1926163434}
+  armedText: {fileID: 1245997987}
+  unArmedText: {fileID: 161801905}
+  armedTextEndless: {fileID: 1858591866}
+  unArmedTextEndless: {fileID: 1313303}
   lives: 0
   lifeSprites:
   - {fileID: 21300000, guid: ceb74cc7baf975f4f8e061be04157ffd, type: 3}
@@ -32796,9 +32800,6 @@ MonoBehaviour:
   currentLevel3BestTime: 0
   currentLevel4BestTime: 0
   currentLevel5BestTime: 0
-  player1: 0
-  player2: 0
-  player3: 0
   playerName: {fileID: 374893452}
   confirmNameReset: {fileID: 668909491}
   playerSkinEquipped: 0
@@ -32819,6 +32820,7 @@ MonoBehaviour:
   gameEndless: 0
   paused: 0
   currentLevel: 0
+  profileNumber: 0
   gravityModifier: 1
   endlessDifficultyText: {fileID: 662309257}
   playerController: {fileID: 0}
@@ -45737,7 +45739,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -45984,7 +45986,7 @@ GameObject:
   - component: {fileID: 1245997987}
   m_Layer: 5
   m_Name: Armed
-  m_TagString: Untagged
+  m_TagString: Armed Text
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64460,7 +64462,7 @@ GameObject:
   - component: {fileID: 1858591866}
   m_Layer: 5
   m_Name: Armed
-  m_TagString: Untagged
+  m_TagString: Armed Text Endless
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75612,7 +75614,7 @@ PrefabInstance:
     - target: {fileID: 8069516520372649203, guid: c03e84675e4857d45aed27cf72298118, type: 3}
       propertyPath: armedText
       value: 
-      objectReference: {fileID: 1245997987}
+      objectReference: {fileID: 0}
     - target: {fileID: 8069516520372649203, guid: c03e84675e4857d45aed27cf72298118, type: 3}
       propertyPath: boostForce
       value: 10
@@ -75624,7 +75626,7 @@ PrefabInstance:
     - target: {fileID: 8069516520372649203, guid: c03e84675e4857d45aed27cf72298118, type: 3}
       propertyPath: unarmedText
       value: 
-      objectReference: {fileID: 161801905}
+      objectReference: {fileID: 0}
     - target: {fileID: 8069516520372649203, guid: c03e84675e4857d45aed27cf72298118, type: 3}
       propertyPath: spawnManager
       value: 
@@ -75632,11 +75634,11 @@ PrefabInstance:
     - target: {fileID: 8069516520372649203, guid: c03e84675e4857d45aed27cf72298118, type: 3}
       propertyPath: armedTextEndless
       value: 
-      objectReference: {fileID: 1858591866}
+      objectReference: {fileID: 0}
     - target: {fileID: 8069516520372649203, guid: c03e84675e4857d45aed27cf72298118, type: 3}
       propertyPath: unarmedTextEndless
       value: 
-      objectReference: {fileID: 1313303}
+      objectReference: {fileID: 0}
     - target: {fileID: 8069516520372649203, guid: c03e84675e4857d45aed27cf72298118, type: 3}
       propertyPath: cumulativeStatsHandler
       value: 
@@ -75697,7 +75699,7 @@ PrefabInstance:
     - target: {fileID: 6939109243017069935, guid: 88ad5f6daa6e75344b88aaa72d4de8e2, type: 3}
       propertyPath: armedText
       value: 
-      objectReference: {fileID: 1245997987}
+      objectReference: {fileID: 0}
     - target: {fileID: 6939109243017069935, guid: 88ad5f6daa6e75344b88aaa72d4de8e2, type: 3}
       propertyPath: boostForce
       value: 10
@@ -75709,7 +75711,7 @@ PrefabInstance:
     - target: {fileID: 6939109243017069935, guid: 88ad5f6daa6e75344b88aaa72d4de8e2, type: 3}
       propertyPath: unarmedText
       value: 
-      objectReference: {fileID: 161801905}
+      objectReference: {fileID: 0}
     - target: {fileID: 6939109243017069935, guid: 88ad5f6daa6e75344b88aaa72d4de8e2, type: 3}
       propertyPath: spawnManager
       value: 
@@ -75717,11 +75719,11 @@ PrefabInstance:
     - target: {fileID: 6939109243017069935, guid: 88ad5f6daa6e75344b88aaa72d4de8e2, type: 3}
       propertyPath: armedTextEndless
       value: 
-      objectReference: {fileID: 1858591866}
+      objectReference: {fileID: 0}
     - target: {fileID: 6939109243017069935, guid: 88ad5f6daa6e75344b88aaa72d4de8e2, type: 3}
       propertyPath: unarmedTextEndless
       value: 
-      objectReference: {fileID: 1313303}
+      objectReference: {fileID: 0}
     - target: {fileID: 6939109243017069935, guid: 88ad5f6daa6e75344b88aaa72d4de8e2, type: 3}
       propertyPath: cumulativeStatsHandler
       value: 
@@ -75746,7 +75748,7 @@ PrefabInstance:
     - target: {fileID: 5226421979906752735, guid: c81c1b720f8d4fb4f9430c0100747dce, type: 3}
       propertyPath: armedText
       value: 
-      objectReference: {fileID: 1245997987}
+      objectReference: {fileID: 0}
     - target: {fileID: 5226421979906752735, guid: c81c1b720f8d4fb4f9430c0100747dce, type: 3}
       propertyPath: boostForce
       value: 10
@@ -75758,7 +75760,7 @@ PrefabInstance:
     - target: {fileID: 5226421979906752735, guid: c81c1b720f8d4fb4f9430c0100747dce, type: 3}
       propertyPath: unarmedText
       value: 
-      objectReference: {fileID: 161801905}
+      objectReference: {fileID: 0}
     - target: {fileID: 5226421979906752735, guid: c81c1b720f8d4fb4f9430c0100747dce, type: 3}
       propertyPath: spawnManager
       value: 
@@ -75766,11 +75768,11 @@ PrefabInstance:
     - target: {fileID: 5226421979906752735, guid: c81c1b720f8d4fb4f9430c0100747dce, type: 3}
       propertyPath: armedTextEndless
       value: 
-      objectReference: {fileID: 1858591866}
+      objectReference: {fileID: 0}
     - target: {fileID: 5226421979906752735, guid: c81c1b720f8d4fb4f9430c0100747dce, type: 3}
       propertyPath: unarmedTextEndless
       value: 
-      objectReference: {fileID: 1313303}
+      objectReference: {fileID: 0}
     - target: {fileID: 5226421979906752735, guid: c81c1b720f8d4fb4f9430c0100747dce, type: 3}
       propertyPath: cumulativeStatsHandler
       value: 
@@ -75883,7 +75885,7 @@ PrefabInstance:
     - target: {fileID: 3568411918494885248, guid: c40f740032f3f04499674639c54e5f80, type: 3}
       propertyPath: armedText
       value: 
-      objectReference: {fileID: 1245997987}
+      objectReference: {fileID: 1245997985}
     - target: {fileID: 3568411918494885248, guid: c40f740032f3f04499674639c54e5f80, type: 3}
       propertyPath: boostForce
       value: 10
@@ -75895,7 +75897,7 @@ PrefabInstance:
     - target: {fileID: 3568411918494885248, guid: c40f740032f3f04499674639c54e5f80, type: 3}
       propertyPath: unarmedText
       value: 
-      objectReference: {fileID: 161801905}
+      objectReference: {fileID: 161801903}
     - target: {fileID: 3568411918494885248, guid: c40f740032f3f04499674639c54e5f80, type: 3}
       propertyPath: spawnManager
       value: 
@@ -75903,11 +75905,11 @@ PrefabInstance:
     - target: {fileID: 3568411918494885248, guid: c40f740032f3f04499674639c54e5f80, type: 3}
       propertyPath: armedTextEndless
       value: 
-      objectReference: {fileID: 1858591866}
+      objectReference: {fileID: 1858591864}
     - target: {fileID: 3568411918494885248, guid: c40f740032f3f04499674639c54e5f80, type: 3}
       propertyPath: unarmedTextEndless
       value: 
-      objectReference: {fileID: 1313303}
+      objectReference: {fileID: 1313301}
     - target: {fileID: 3568411918494885248, guid: c40f740032f3f04499674639c54e5f80, type: 3}
       propertyPath: cumulativeStatsHandler
       value: 

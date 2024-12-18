@@ -42,13 +42,6 @@ public class PlayerController : MonoBehaviour
     public Transform thrustPosition1;
     public Transform thrustPosition2;
 
-
-    // Weapon Arm text indicators
-    public TextMeshProUGUI armedText;
-    public TextMeshProUGUI unarmedText;
-    public TextMeshProUGUI armedTextEndless;
-    public TextMeshProUGUI unarmedTextEndless;
-
     // Prefabs
     public GameObject sonicBlastPrefab;
     public GameObject flamePrefab;
@@ -184,10 +177,10 @@ public class PlayerController : MonoBehaviour
             hasPowerup = true;
             powerupIndicator.gameObject.SetActive(true);
             playerAudio.PlayOneShot(weaponArm);
-            armedText.gameObject.SetActive(true);
-            unarmedText.gameObject.SetActive(false);
-            armedTextEndless.gameObject.SetActive(true);
-            unarmedTextEndless.gameObject.SetActive(false);
+            gameManager.armedText.gameObject.SetActive(true);
+            gameManager.unArmedText.gameObject.SetActive(false);
+            gameManager.armedTextEndless.gameObject.SetActive(true);
+            gameManager.unArmedTextEndless.gameObject.SetActive(false);
             Destroy(other.gameObject);
             StartCoroutine(PowerupCountdownRoutine());
         }
@@ -293,10 +286,10 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(5);
         hasPowerup = false;
         powerupIndicator.gameObject.SetActive(false);
-        armedText.gameObject.SetActive(false);
-        unarmedText.gameObject.SetActive(true);
-        armedTextEndless.gameObject.SetActive(false);
-        unarmedTextEndless.gameObject.SetActive(true);
+        gameManager.armedText.gameObject.SetActive(false);
+        gameManager.unArmedText.gameObject.SetActive(true);
+        gameManager.armedTextEndless.gameObject.SetActive(false);
+        gameManager.unArmedTextEndless.gameObject.SetActive(true);
 
 
     }

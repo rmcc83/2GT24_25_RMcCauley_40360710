@@ -62,6 +62,13 @@ public class GameManager : MonoBehaviour
     public Slider fuelSlider; // fuel bar display - timed levels
     public Slider fuelSliderEndless; // fuel bar display - endless levels
 
+    // Weapon System text indicators
+    public TextMeshProUGUI armedText;
+    public TextMeshProUGUI unArmedText;
+    public TextMeshProUGUI armedTextEndless;
+    public TextMeshProUGUI unArmedTextEndless;
+
+
     // Lives/Virus pods system
     public int lives; // shown by virus sprites - this reduces when player hits viruses
     public Sprite[] lifeSprites;//array of sprites for each number of lives/virus pods
@@ -1516,7 +1523,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void CommonToResetAndNext() // This is used when level restart or next level button is pressed.  Remaining items on the screen are removed, pause & quit buttons are
-                                        // reactivated, weapon arm indicators are reset
+                                        // reactivated, weapon arm indicators are reset, highscore congrats screen is switched off
     {
         foreach (var gameObj in GameObject.FindGameObjectsWithTag("Blue Bacterium"))
         {
@@ -1562,14 +1569,16 @@ public class GameManager : MonoBehaviour
             Destroy(gameObj);
 
         }
+
+        highscoreCongrats.gameObject.SetActive(false);
         pauseButton.SetActive(true);
         pauseButtonEndless.SetActive(true);
         quitButtonEndless.SetActive(true);
         quitButton.SetActive(true);
-        playerController.armedText.gameObject.SetActive(false);
-        playerController.unarmedText.gameObject.SetActive(true);
-        playerController.armedTextEndless.gameObject.SetActive(false);
-        playerController.unarmedTextEndless.gameObject.SetActive(true);
+        armedText.gameObject.SetActive(false);
+        unArmedText.gameObject.SetActive(true);
+        armedTextEndless.gameObject.SetActive(false);
+        unArmedTextEndless.gameObject.SetActive(true);
 
     }
 
