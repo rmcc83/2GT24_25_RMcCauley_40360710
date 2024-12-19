@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindWithTag("Player");
         gameAudio = GetComponent<AudioSource>();
         initialPosition = new Vector3(-68.3f, 1.28f, -1f); // starting position of player object
 
@@ -1583,7 +1583,7 @@ public class GameManager : MonoBehaviour
     }
 
     void InstantiateNewPlayerObject() // Used to instantaite a new player object when level is restarted after failure.  First the selected type is read from player
-                                      // prefs, then the correct prefab is instantiated in the start position
+                                      // prefs, then the correct prefab is instantiated in the start position at the correct rotation
     {
         switch (profileNumber)
         {
@@ -1602,19 +1602,19 @@ public class GameManager : MonoBehaviour
         {
             
             case 1:
-                Instantiate(spaceship1Prefab, initialPosition, spaceship1.transform.rotation);
+                Instantiate(spaceship1Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
                 break;
 
             case 2:
-                Instantiate(spaceship2Prefab, initialPosition, spaceship1.transform.rotation);
+                Instantiate(spaceship2Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
                 break;
 
             case 3:
-                Instantiate(spaceship3Prefab, initialPosition, spaceship1.transform.rotation);
+                Instantiate(spaceship3Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
                 break;
 
             case 4:
-                Instantiate(spaceship4Prefab, initialPosition, spaceship1.transform.rotation);
+                Instantiate(spaceship4Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
                 break;
         }
 

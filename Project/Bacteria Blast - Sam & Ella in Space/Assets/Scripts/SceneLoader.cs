@@ -27,7 +27,7 @@ public class SceneLoader : MonoBehaviour
 
 
         loadingScreen.gameObject.SetActive(true); // switches on loading screen
-        loadingOperation = SceneManager.LoadSceneAsync("Background"); // starts to load background story
+        loadingOperation = SceneManager.LoadSceneAsync("Background story"); // starts to load background story
         loadingOperation.allowSceneActivation = false; // won't load scene immediately
 
         while (!loadingOperation.isDone) // while loading is not complete
