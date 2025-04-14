@@ -20,6 +20,11 @@ TagManager:
   - Red Bacterium
   - Purple Bacterium
   - Background
+  - Unarmed Text Endless
+  - Unarmed Text
+  - Armed Text
+  - Armed Text Endless
+  - Repair
   layers:
   - Default
   - TransparentFX

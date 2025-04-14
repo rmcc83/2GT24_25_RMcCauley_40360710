@@ -11,6 +11,7 @@ public class HighscoreScreen: MonoBehaviour
     public TextMeshProUGUI easyBlue; // blue collected on highscoring run of easy level
     public TextMeshProUGUI easyPurple; // purple collected on highscoring run on easy level
     public TextMeshProUGUI easyName; // player who acheived easy highscore
+    public TextMeshProUGUI easyControl; // control scheme used by player who acheived easy highscore
     public TextMeshProUGUI easyTime; // time in which easy highscore was achieved
 
     //Medium level
@@ -19,6 +20,7 @@ public class HighscoreScreen: MonoBehaviour
     public TextMeshProUGUI mediumBlue; // blue collected on highscoring run of medium level
     public TextMeshProUGUI mediumPurple; // purple collected on highscoring run on medium level
     public TextMeshProUGUI mediumName; // player who acheived medium highscore
+    public TextMeshProUGUI mediumControl; // control scheme used by player who acheived medium highscore
     public TextMeshProUGUI mediumTime; // time in which medium highscore was achieved
 
     //Hard level
@@ -27,6 +29,7 @@ public class HighscoreScreen: MonoBehaviour
     public TextMeshProUGUI hardBlue; // blue collected on highscoring run of hard level
     public TextMeshProUGUI hardPurple; // purple collected on highscoring run on hard level
     public TextMeshProUGUI hardName; // player who acheived hard highscore
+    public TextMeshProUGUI hardControl; // control scheme used by player who acheived hard highscore
     public TextMeshProUGUI hardTime; // time in which hard highscore was achieved
 
     public void ShowScreen() // runs everything when screen is displayed
@@ -36,18 +39,21 @@ public class HighscoreScreen: MonoBehaviour
         EasyBlue();
         EasyPurple();
         EasyName();
+        EasyControl();
         EasyTime();
         MediumScore();
         MediumRed();
         MediumBlue();
         MediumPurple();
         MediumName();
+        MediumControl();
         MediumTime();
         HardScore();
         HardRed();
         HardBlue();
         HardPurple();
         HardName();
+        HardControl();
         HardTime();
 
     }
@@ -87,6 +93,14 @@ public class HighscoreScreen: MonoBehaviour
         easyName.text = "" + PlayerPrefs.GetString("EasyPlayername", "A Biotic");
 
     }
+
+    public void EasyControl() //gets the control scheme saved for easy run & displays it - default is Classic
+    {
+
+        easyControl.text = "" + PlayerPrefs.GetString("EasyControl", "Classic");
+
+    }
+
 
     public void EasyTime() //gets the time saved for easy run & displays it
     {
@@ -130,6 +144,12 @@ public class HighscoreScreen: MonoBehaviour
 
     }
 
+    public void MediumControl() //gets the control scheme saved for medium run & displays it - default is Classic
+    {
+
+        mediumControl.text = "" + PlayerPrefs.GetString("MediumControl", "Classic");
+
+    }
     public void MediumTime() //gets the time saved for medium run & displays it
     {
 
@@ -169,6 +189,12 @@ public class HighscoreScreen: MonoBehaviour
     {
 
         hardName.text = "" + PlayerPrefs.GetString("HardPlayername", "A Biotic");
+
+    }
+    public void HardControl() //gets the control scheme saved for hard run & displays it - default is Classic
+    {
+
+        hardControl.text = "" + PlayerPrefs.GetString("HardControl", "Classic");
 
     }
 

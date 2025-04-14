@@ -39,6 +39,14 @@ public class MoveLeft : MonoBehaviour
                     transform.Translate(Vector3.right * Time.deltaTime * (speed * 2));
                 }
 
+                // if gameobject is the repair drill, it gets moved to the right instead, due to its orientation
+
+                if (gameObject.CompareTag("Repair"))
+                {
+                    transform.Translate(Vector3.back * Time.deltaTime * (speed * 2));
+
+                }
+
 
 
                 // moves projectile to the right
@@ -71,6 +79,13 @@ public class MoveLeft : MonoBehaviour
 
                 }
 
+                // once again, repair drill moves to backwards
+                if (gameObject.CompareTag("Repair"))
+                {
+                    transform.Translate(Vector3.back * Time.deltaTime * (speed));
+
+                }
+
                 // moves projectile to the right
                 if (gameObject.CompareTag("Projectile"))
                 {
@@ -86,7 +101,7 @@ public class MoveLeft : MonoBehaviour
         // Destroys items when they leave left hand side of screen
         if (transform.position.x < leftBound) 
         {
-            if (gameObject.CompareTag("Blue Bacterium") || gameObject.CompareTag("Red Bacterium") || gameObject.CompareTag("Purple Bacterium") || gameObject.CompareTag("Sonic Blaster PowerUp") || gameObject.CompareTag("Fuel Large") || gameObject.CompareTag("Fuel Small") || gameObject.CompareTag("Asteroid") || gameObject.CompareTag("Virus"))
+            if (gameObject.CompareTag("Blue Bacterium") || gameObject.CompareTag("Red Bacterium") || gameObject.CompareTag("Purple Bacterium") || gameObject.CompareTag("Sonic Blaster PowerUp") || gameObject.CompareTag("Fuel Large") || gameObject.CompareTag("Fuel Small") || gameObject.CompareTag("Asteroid") || gameObject.CompareTag("Virus") || gameObject.CompareTag("Repair"))
 
             {
                 Destroy(gameObject);

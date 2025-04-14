@@ -11,6 +11,7 @@ public class Intro : MonoBehaviour
     public AudioSource introAudio;
     public AudioClip buttonSound;
 
+
     // Loading
     public GameObject loadingScreen;
     AsyncOperation loadingOperation;
@@ -74,4 +75,11 @@ public class Intro : MonoBehaviour
 
         StartCoroutine(LoadScene());
     }
+
+    public void Sentence1()
+    {
+        introAudio.PlayOneShot(buttonSound, 1.0f);
+
+    }
+
 }

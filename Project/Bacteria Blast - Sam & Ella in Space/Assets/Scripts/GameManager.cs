@@ -8,7 +8,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using UnityEditor;
-using UnityEngine.Profiling;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +20,7 @@ public class GameManager : MonoBehaviour
     public int smallFuelCollected; //amount of small fuel powerups collected
     public int largeFuelCollected; //amount of large fuel powerups collected
     public int weaponCollected; //amount of weapon powerups collected
+    public int repairCollected; //amount of repair powerups collected
 
     // Count & display bacteria remaining to collect in timed levels
     public int redRemaining; // count amount of red bacteria 
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
     public Image livesImageEndless; //where the lives/virus pods display in an endless level
 
     //Spaceship health system
-    public int health; // shown by spaceship sprites - this reduces when player hits asteroids
+    public int health; // shown by spaceship sprites - this reduces when player hits asteroids & increases when repair is collected
     public Sprite[] healthSprites;//array of sprites for spaceship health
     public Image healthImage; // where spaeship health displays in timed level
     public Image healthImageEndless; // where spaeship health displays in endless level
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
     public bool gameWin; // true when player succeeds in timed level 
     public GameObject winScreen; // displays when player collects all required bacteria on timed level
     public TextMeshProUGUI winText; // player name is inserted into this on game win
-    public GameObject nextLevelButton; // displayed on win screen but not level 5 win
+    public Button nextLevelButton; // displayed on win screen but not level 5 win
 
     // Lose system
     public bool gameLose; // true when player fails timed level 
@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
     public GameObject timesScreen; // best times screen
     public GameObject highscoreScreen; // highscores screen
     public GameObject helpScreen; // info & control screen
+    public GameObject helpScreen2; // gamescreen guide screen
     public GameObject statsScreen; // cumulative stats screen
     public GameObject characterScreen; // character info screen (Sam, Ella, bacteria, etc)
     public GameObject titleScreen; // Main menu screen
@@ -170,16 +171,31 @@ public class GameManager : MonoBehaviour
     public bool gameStarted; // true when game has started
     public bool gameEndless; // true when endless game is being played
     public bool paused; // true when game is paused
+    public int cheatActive; // number of cheat code entered
+
+    // Alternate Controls
+    public int controlType; // loads control scheme type from playerprefs
+    public Slider altControlSlider; // Control selection slider
+    public TextMeshProUGUI controlEndlessText; // Control type in words on endless level - not displayed but used in score displays etc
+    public TextMeshProUGUI controlTimedText; // Control type in words on timed level - not displayed but used in score displays etc
 
 
+
+    // Misc
+
+    public float repairDropChancePercentage; // % chance of a repair kit appearing when asteroid is blasted
     public int currentLevel; // holds current level number
     public int profileNumber; // current player profile number
     public float gravityModifier;
-    public TextMeshProUGUI endlessDifficultyText; // Difficulty text in words for endless level - not displayed but used in score displys etc
-  
+    public TextMeshProUGUI endlessDifficultyText; // Difficulty text in words for endless level - not displayed but used in score displays etc
+    
+
     private SpawnManager spawnManager;
     public PlayerController playerController;
     public CumulativeStatsHandler cumulativeStatsHandler;
+    private CheatCodeManager cheatCodeManager;
+    public LevelUnlock levelUnlock;
+    public InGameOptions inGameOptions;
 
     // Start is called before the first frame update
     void Start()
@@ -191,7 +207,8 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         gameAudio = GetComponent<AudioSource>();
         initialPosition = new Vector3(-68.3f, 1.28f, -1f); // starting position of player object
-
+        cheatCodeManager = GetComponent<CheatCodeManager>();
+        
     }
 
     public void Load()
@@ -206,6 +223,7 @@ public class GameManager : MonoBehaviour
         UpdateLastScoreDisplay(); // run update last score display method
         LoadVolume(); // run load volume method
         LoadName(); // run load name method
+        
 
         // if main scene, music load method is run
         if (sceneName == "Sam & Ella in Space")
@@ -215,7 +233,7 @@ public class GameManager : MonoBehaviour
         }
 
         LoadSkin();
-
+        LoadControls();
 
     }
 
@@ -289,6 +307,7 @@ public class GameManager : MonoBehaviour
                 lives = 6;
                 health = 4;
                 fuel = 100;
+                repairDropChancePercentage = 80;
                 break;
 
             case 2:
@@ -296,6 +315,7 @@ public class GameManager : MonoBehaviour
                 lives = 6;
                 health = 4;
                 fuel = 100;
+                repairDropChancePercentage = 70;
                 break;
 
             case 3:
@@ -303,6 +323,7 @@ public class GameManager : MonoBehaviour
                 lives = 4;
                 health = 3;
                 fuel = 100;
+                repairDropChancePercentage = 50;
                 break;
 
             case 4:
@@ -310,6 +331,7 @@ public class GameManager : MonoBehaviour
                 lives = 4;
                 health = 3;
                 fuel = 100;
+                repairDropChancePercentage = 40;
                 break;
 
             case 5:
@@ -317,6 +339,7 @@ public class GameManager : MonoBehaviour
                 lives = 3;
                 health = 2;
                 fuel = 75;
+                repairDropChancePercentage = 30;
                 break;
         }
 
@@ -354,6 +377,7 @@ public class GameManager : MonoBehaviour
                 lives = 6;
                 health = 4;
                 fuel = 100;
+                repairDropChancePercentage = 80;
                 endlessDifficultyText.text = "Difficulty: Easy";
                 break;
 
@@ -362,6 +386,7 @@ public class GameManager : MonoBehaviour
                 lives = 4;
                 health = 3;
                 fuel = 80;
+                repairDropChancePercentage = 50;
                 endlessDifficultyText.text = "Difficulty: Medium";
                 break;
 
@@ -370,6 +395,7 @@ public class GameManager : MonoBehaviour
                 lives = 2;
                 health = 2;
                 fuel = 50;
+                repairDropChancePercentage = 30;
                 endlessDifficultyText.text = "Difficulty: Hard";
                 break;
         }
@@ -403,7 +429,7 @@ public class GameManager : MonoBehaviour
         gameLose = false; //sets game lose flag false
         spawnManager.StartSpawn(); // runs start spawn method from spawnmanager
         SaveName(); // runs savename method
-
+        cheatCodeManager.CheatCancel();
     }
 
 
@@ -493,11 +519,24 @@ public class GameManager : MonoBehaviour
     // Adjusts damage from asteroids & displays current amount of health remaining via sprites
     public void DoDamage(int value)
     {
-        health -= value;
+        if (cheatActive != 2)
+        {
+            health -= value;
+        }
         health = Mathf.Clamp(health, 0, 4); // ensures health will not go negative
         healthImage.sprite = healthSprites[health];
         healthImageEndless.sprite = healthSprites[health];
         
+
+    }
+
+    // Adds health from repair kits & displays current amount of health remaining via sprites
+    public void Repair(int value) 
+    {
+        health += value;
+        health = Mathf.Clamp(health, 0, 4); // ensures health will not go above 4
+        healthImage.sprite = healthSprites[health];
+        healthImageEndless.sprite = healthSprites[health];
 
     }
 
@@ -565,9 +604,16 @@ public class GameManager : MonoBehaviour
         UpdateTimedGamesWon();
         UpdateCumulativeStats();
 
-        if (currentLevel == 5)          // If level is 5, next level button is deactivated as there are no more levels
+        if (cheatActive == 0) // if cheat mode is not active, next level is unlocked
+        { 
+           levelUnlock.UnLockLevel();
+          
+        }
+
+
+        if (currentLevel == 5 || cheatActive != 0)        // If level is 5, or cheat is active, next level button is deactivated
         {
-            nextLevelButton.SetActive(false);
+            nextLevelButton.interactable = false;
         }
     }
 
@@ -851,7 +897,7 @@ public class GameManager : MonoBehaviour
     public void CheckHighScore() //handles checking for highscore & saving highscores
     {
 
-        if (score > PlayerPrefs.GetInt("Highscore")) //if current score is higher than saved highscore, new highscore flag is true, new high score notification is displayed,
+        if (score > PlayerPrefs.GetInt("Highscore") && cheatActive == 0) //if current score is higher than saved highscore, and cheat is not active, new highscore flag is true, new high score notification is displayed,
                                                      //and score/playername/bacteria collected/difficulty are saved in playerprefs against overall highscore key
         {
             newHighscore = true;
@@ -870,7 +916,7 @@ public class GameManager : MonoBehaviour
         switch (currentLevel)
         {
             case 99:
-                if (score > PlayerPrefs.GetInt("EasyHighscore"))
+                if (score > PlayerPrefs.GetInt("EasyHighscore") && cheatActive == 0)
                 {
                     newHighscore = true;
                     DisplayHighScoreNotification();
@@ -881,11 +927,12 @@ public class GameManager : MonoBehaviour
                     PlayerPrefs.SetInt("EasyPurple", purpleCollected);
                     PlayerPrefs.SetString("EasyDifficulty", endlessDifficultyText.text);
                     PlayerPrefs.SetString("EasyTime", timerText.text);
+                    PlayerPrefs.SetString("EasyControl", controlEndlessText.text);
                 }
                 break;
 
             case 98:
-                if (score > PlayerPrefs.GetInt("MediumHighscore"))
+                if (score > PlayerPrefs.GetInt("MediumHighscore") && cheatActive == 0)
                 {
                     newHighscore = true;
                     DisplayHighScoreNotification();
@@ -896,12 +943,13 @@ public class GameManager : MonoBehaviour
                     PlayerPrefs.SetInt("MediumPurple", purpleCollected);
                     PlayerPrefs.SetString("MediumDifficulty", endlessDifficultyText.text);
                     PlayerPrefs.SetString("MediumTime", timerText.text);
+                    PlayerPrefs.SetString("MediumControl", controlEndlessText.text);
 
                 }
                 break;
 
             case 97:
-                if (score > PlayerPrefs.GetInt("HardHighscore"))
+                if (score > PlayerPrefs.GetInt("HardHighscore") && cheatActive == 0)
                 {
                     newHighscore = true;
                     DisplayHighScoreNotification();
@@ -912,6 +960,7 @@ public class GameManager : MonoBehaviour
                     PlayerPrefs.SetInt("HardPurple", purpleCollected);
                     PlayerPrefs.SetString("HardDifficulty", endlessDifficultyText.text);
                     PlayerPrefs.SetString("HardTime", timerText.text);
+                    PlayerPrefs.SetString("HardControl", controlEndlessText.text);
                 }
                 break;
 
@@ -928,60 +977,66 @@ public class GameManager : MonoBehaviour
             case 1:
                 currentLevel1BestTime = (PlayerPrefs.GetFloat("Level1BestTime", 3599));
 
-                if (timeElapsed < currentLevel1BestTime)
+                if (timeElapsed < currentLevel1BestTime && cheatActive == 0)
                 {
                     newBestTime = true;
                     DisplayBestTimeNotification();
-                    PlayerPrefs.SetString("Level1Playername", playerName.text.ToUpper()); ;
+                    PlayerPrefs.SetString("Level1Playername", playerName.text.ToUpper()); 
                     PlayerPrefs.SetFloat("Level1BestTime", timeElapsed);
+                    PlayerPrefs.SetString("Level1Control", controlTimedText.text);
+
                 }
                 break;
 
             case 2:
                 currentLevel2BestTime = (PlayerPrefs.GetFloat("Level2BestTime", 3599));
 
-                if (timeElapsed < currentLevel2BestTime)
+                if (timeElapsed < currentLevel2BestTime && cheatActive == 0)
                 {
                     newBestTime = true;
                     DisplayBestTimeNotification();
-                    PlayerPrefs.SetString("Level2Playername", playerName.text.ToUpper()); ;
+                    PlayerPrefs.SetString("Level2Playername", playerName.text.ToUpper()); 
                     PlayerPrefs.SetFloat("Level2BestTime", timeElapsed);
+                    PlayerPrefs.SetString("Level2Control", controlTimedText.text);
                 }
                 break;
 
             case 3:
                 currentLevel3BestTime = (PlayerPrefs.GetFloat("Level3BestTime", 3599));
 
-                if (timeElapsed < currentLevel3BestTime)
+                if (timeElapsed < currentLevel3BestTime && cheatActive == 0)
                 {
                     newBestTime = true;
                     DisplayBestTimeNotification();
-                    PlayerPrefs.SetString("Level3Playername", playerName.text.ToUpper()); ;
+                    PlayerPrefs.SetString("Level3Playername", playerName.text.ToUpper()); 
                     PlayerPrefs.SetFloat("Level3BestTime", timeElapsed);
+                    PlayerPrefs.SetString("Level3Control", controlTimedText.text);
                 }
                 break;
 
             case 4:
                 currentLevel4BestTime = (PlayerPrefs.GetFloat("Level4BestTime", 3599));
 
-                if (timeElapsed < currentLevel4BestTime)
+                if (timeElapsed < currentLevel4BestTime && cheatActive == 0)
                 {
                     newBestTime = true;
                     DisplayBestTimeNotification();
-                    PlayerPrefs.SetString("Level4Playername", playerName.text.ToUpper()); ;
+                    PlayerPrefs.SetString("Level4Playername", playerName.text.ToUpper());
                     PlayerPrefs.SetFloat("Level4BestTime", timeElapsed);
+                    PlayerPrefs.SetString("Level4Control", controlTimedText.text);
                 }
                 break;
 
             case 5:
                 currentLevel5BestTime = (PlayerPrefs.GetFloat("Level5BestTime", 3599));
 
-                if (timeElapsed < currentLevel5BestTime)
+                if (timeElapsed < currentLevel5BestTime && cheatActive == 0)
                 {
                     newBestTime = true;
                     DisplayBestTimeNotification();
-                    PlayerPrefs.SetString("Level5Playername", playerName.text.ToUpper()); ;
+                    PlayerPrefs.SetString("Level5Playername", playerName.text.ToUpper());
                     PlayerPrefs.SetFloat("Level5BestTime", timeElapsed);
+                    PlayerPrefs.SetString("Level5Control", controlTimedText.text);
                 }
                 break;
         }
@@ -1007,9 +1062,9 @@ public class GameManager : MonoBehaviour
     // updates last score display with saved values from player prefs
     public void UpdateLastScoreDisplay() => lastscoreText.text = $"Endless Last Game: {PlayerPrefs.GetInt("LastGamescore")}" + $" Red: {PlayerPrefs.GetInt("LastGameRed")}" + $" Blue: {PlayerPrefs.GetInt("LastGameBlue")}" + $" Purple: {PlayerPrefs.GetInt("LastGamePurple")}" + $" {PlayerPrefs.GetString("LastTime")}" + $" by {PlayerPrefs.GetString("LastGamePlayername")}" + $" on {PlayerPrefs.GetString("LastGameLevel")}";
 
-    public void DisplayHighScoreNotification() // if gameover is true and new highscore is true, personalised notification is displayed 
+    public void DisplayHighScoreNotification() // if gameover is true and new highscore is true & cheat is not active, personalised notification is displayed 
     {
-        if (gameOver == true && newHighscore == true)
+        if (gameOver == true && newHighscore == true && cheatActive == 0)
         {
 
             highscoreCongrats.gameObject.SetActive(true);
@@ -1018,9 +1073,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void DisplayBestTimeNotification() // if gameover is true and new best time is true, personalised notification is displayed 
+    public void DisplayBestTimeNotification() // if gameover is true and new best time is true and cheat is not active, personalised notification is displayed 
     {
-        if (gameOver == true && newBestTime == true)
+        if (gameOver == true && newBestTime == true && cheatActive == 0)
         {
 
             bestTimeCongrats.gameObject.SetActive(true);
@@ -1068,13 +1123,27 @@ public class GameManager : MonoBehaviour
         lastscoreText.gameObject.SetActive(false);
     }
 
-    // For hiding highscores
+   
     public void HelpOff() //hides controls screen & ensures overall highscore & last game score are visible again
     {
         helpScreen.gameObject.SetActive(false);
         highscoreText.gameObject.SetActive(true);
         lastscoreText.gameObject.SetActive(true);
     }
+
+    public void Help2Off() //hides help 2 screen & ensures overall highscore & last game score are visible again
+    {
+        helpScreen2.gameObject.SetActive(false);
+        highscoreText.gameObject.SetActive(true);
+        lastscoreText.gameObject.SetActive(true);
+    }
+    public void Help2Back() //hides help 2 screen but does not make last game score visible (used for going back to controls help screen)
+    {
+        helpScreen2.gameObject.SetActive(false);
+        highscoreText.gameObject.SetActive(false);
+        lastscoreText.gameObject.SetActive(false);
+    }
+
 
     public void StatsOn() //displays stats screen & ensures overall highscore & last game score are hidden
     {
@@ -1122,18 +1191,21 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("EasyRed", 00);
         PlayerPrefs.SetInt("EasyBlue", 00);
         PlayerPrefs.SetInt("EasyPurple", 00);
+        PlayerPrefs.SetString("EasyControl", "CLASSIC");
         PlayerPrefs.SetString("EasyTime", "00:00");
         PlayerPrefs.SetInt("MediumHighscore", 00);
         PlayerPrefs.SetString("MediumPlayername", "A Biotic");
         PlayerPrefs.SetInt("MediumRed", 00);
         PlayerPrefs.SetInt("MediumBlue", 00);
         PlayerPrefs.SetInt("MediumPurple", 0);
+        PlayerPrefs.SetString("MediumControl", "CLASSIC");
         PlayerPrefs.SetString("MediumTime", "00:00");
         PlayerPrefs.SetInt("HardHighscore", 00);
         PlayerPrefs.SetString("HardPlayername", "A Biotic");
         PlayerPrefs.SetInt("HardRed", 00);
         PlayerPrefs.SetInt("HardBlue", 00);
         PlayerPrefs.SetInt("HardPurple", 0);
+        PlayerPrefs.SetString("HardControl", "CLASSIC");
         PlayerPrefs.SetString("HardTime", "00:00");
         UpdateHighScoreDisplay();
     }
@@ -1144,14 +1216,19 @@ public class GameManager : MonoBehaviour
 
         PlayerPrefs.SetFloat("Level1BestTime", 3599);
         PlayerPrefs.SetString("Level1Playername", "A Biotic");
+        PlayerPrefs.SetString("Level1Control", "CLASSIC");
         PlayerPrefs.SetFloat("Level2BestTime", 3599);
         PlayerPrefs.SetString("Level2Playername", "A Biotic");
+        PlayerPrefs.SetString("Level2Control", "CLASSIC");
         PlayerPrefs.SetFloat("Level3BestTime", 3599);
         PlayerPrefs.SetString("Level3Playername", "A Biotic");
+        PlayerPrefs.SetString("Level3Control", "CLASSIC");
         PlayerPrefs.SetFloat("Level4BestTime", 3599);
         PlayerPrefs.SetString("Level4Playername", "A Biotic");
+        PlayerPrefs.SetString("Level4Control", "CLASSIC"); 
         PlayerPrefs.SetFloat("Level5BestTime", 3599);
         PlayerPrefs.SetString("Level5Playername", "A Biotic");
+        PlayerPrefs.SetString("Level5Control", "CLASSIC");
 
     }
 
@@ -1164,10 +1241,12 @@ public class GameManager : MonoBehaviour
             pauseScreen.SetActive(true); // sets pause screen active
             AudioListener.pause = true; //pauses audio
             Time.timeScale = 0; //sets timescale to 0
+
         }
 
         else // in other words if the game is already paused & pause is activated
         {
+            inGameOptions.InGameOff(); //ensure options screen is switched off
             paused = false; // sets pause bool false
             pauseScreen.SetActive(false); //switches off pause screen
             AudioListener.pause = false; // resumes audio
@@ -1492,6 +1571,7 @@ public class GameManager : MonoBehaviour
         InstantiateNewPlayerObject();
         gameOverScreen.SetActive(false);
         loseScreen.SetActive(false);
+       
 
 
         if (gameEndless == true)
@@ -1508,6 +1588,8 @@ public class GameManager : MonoBehaviour
             StartGame(currentLevel);
 
         }
+
+
 
     }
 
@@ -1579,7 +1661,7 @@ public class GameManager : MonoBehaviour
         unArmedText.gameObject.SetActive(true);
         armedTextEndless.gameObject.SetActive(false);
         unArmedTextEndless.gameObject.SetActive(true);
-
+        cheatCodeManager.CheatCancel();
     }
 
     void InstantiateNewPlayerObject() // Used to instantaite a new player object when level is restarted after failure.  First the selected type is read from player
@@ -1620,5 +1702,111 @@ public class GameManager : MonoBehaviour
 
 
     }
+
+    // Turning cheats on
+    public void CheatOn() 
+    {
+        switch (cheatActive)
+        {
+            case 1:
+                playerController.hasPowerup = true;
+                playerController.powerupIndicator.gameObject.SetActive(true);
+                armedText.gameObject.SetActive(true);
+                unArmedText.gameObject.SetActive(false);
+                armedTextEndless.gameObject.SetActive(true);
+                unArmedTextEndless.gameObject.SetActive(false);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+
+        }
+    }
+
+    // Turning cheats off
+    public void CheatOff()
+    {
+        playerController.hasPowerup = false;
+        playerController.powerupIndicator.gameObject.SetActive(false);
+        armedText.gameObject.SetActive(false);
+        unArmedText.gameObject.SetActive(true);
+        armedTextEndless.gameObject.SetActive(false);
+        unArmedTextEndless.gameObject.SetActive(true);
+
+    }
+
+    // Triggers the Alternate controls bool when toggle in options menu is used, and saves the state in playerprefs
+    public void AltControls() 
+    {
+        if (altControlSlider.value == 1)      
+        {
+            controlEndlessText.text = "ALTERNATE";
+            controlTimedText.text = "ALTERNATE";
+            switch (profileNumber)
+            {
+                case 1:
+                    PlayerPrefs.SetInt("Control1", 1);
+                    break;
+                case 2:
+                    PlayerPrefs.SetFloat("Control2", 1);
+                    break;
+                case 3:
+                    PlayerPrefs.SetFloat("Control3", 1);
+                    break;
+            }
+        }
+        else
+        {
+            controlEndlessText.text = "CLASSIC";
+            controlTimedText.text = "CLASSIC";
+            switch (profileNumber)
+            {
+                case 1:
+                    PlayerPrefs.SetInt("Control1", 0);
+                    break;
+                case 2:
+                    PlayerPrefs.SetFloat("Control2", 0);
+                    break;
+                case 3:
+                    PlayerPrefs.SetFloat("Control3", 0);
+                    break;
+            }
+        }
+        PlayerPrefs.Save();
+
+    }
+
+    public void LoadControls() // Load normal or alt control setting from playerprefs and ensure state is displayed in toggle in options menu
+    {
+        switch (profileNumber)
+        {
+            case 1:
+                controlType = PlayerPrefs.GetInt("Control1");
+                break;
+            case 2:
+                controlType = PlayerPrefs.GetInt("Control2");
+                break;
+            case 3:
+                controlType = PlayerPrefs.GetInt("Control3");
+                break;
+        }
+
+        switch (controlType) 
+        {
+            case 0:
+                altControlSlider.value = 0;
+                controlEndlessText.text = "CLASSIC";
+                controlTimedText.text = "CLASSIC";
+                break;
+            case 1:
+                altControlSlider.value = 1;
+                controlEndlessText.text = "ALTERNATE";
+                controlTimedText.text = "ALTERNATE";
+                break;
+        }
+    }
+
+
 
 }

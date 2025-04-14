@@ -74,6 +74,7 @@ public class CumulativeStatsHandler : MonoBehaviour
     public int weaponCollected;
     public int smallFuelCollected;
     public int largeFuelCollected;
+    public int repairCollected;
 
 
     // TEXT FIELDS
@@ -150,6 +151,7 @@ public class CumulativeStatsHandler : MonoBehaviour
     public TextMeshProUGUI weaponCollectedText;
     public TextMeshProUGUI smallFuelCollectedText;
     public TextMeshProUGUI largeFuelCollectedText;
+    public TextMeshProUGUI repairCollectedText;
 
 
     public GameManager gameManager;
@@ -1133,6 +1135,30 @@ public class CumulativeStatsHandler : MonoBehaviour
         }
     }
 
+    public void RepairCollected()
+    {
+        switch (gameManager.profileNumber)
+        {
+            case 1:
+                repairCollected = PlayerPrefs.GetInt("RepairCollected1") + gameManager.repairCollected;
+                PlayerPrefs.SetInt("RepairCollected1", repairCollected);
+                repairCollectedText.text = $"{PlayerPrefs.GetInt("RepairCollected1")}";
+                break;
+            case 2:
+                repairCollected = PlayerPrefs.GetInt("RepairCollected2") + gameManager.repairCollected;
+                PlayerPrefs.SetInt("RepairCollected2", repairCollected);
+                repairCollectedText.text = $"{PlayerPrefs.GetInt("RepairCollected2")}";
+                break;
+            case 3:
+                repairCollected = PlayerPrefs.GetInt("RepairCollected3") + gameManager.repairCollected;
+                PlayerPrefs.SetInt("RepairCollected3", repairCollected);
+                repairCollectedText.text = $"{PlayerPrefs.GetInt("RepairCollected3")}";
+                break;
+        }
+    }
+
+
+
     public void GroundCrash()
     {
         switch (gameManager.profileNumber)
@@ -1169,6 +1195,7 @@ public class CumulativeStatsHandler : MonoBehaviour
         SmallFuelCollected();
         LargeFuelCollected();
         AsteroidsBlasted();
+        RepairCollected();
 
     }
 

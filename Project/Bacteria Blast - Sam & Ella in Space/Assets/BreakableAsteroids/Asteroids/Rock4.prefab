@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bumpSound: {fileID: 8300000, guid: 1769104566c3d5c41843240104fcde0b, type: 3}
   fractured: {fileID: 3838665524093264010, guid: 9b4e5fd1d3dc2424fb4276ce71f932ab, type: 3}
+  repair: {fileID: 3815082112282859163, guid: 94a5fc2f02dd9444ca4545660da6bfdf, type: 3}
   damageAmount: 3
   asteroidType: 2
 --- !u!114 &-4881098855646975609

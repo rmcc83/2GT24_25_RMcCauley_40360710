@@ -13,10 +13,10 @@ public class Asteroid : MonoBehaviour
 
 
     public GameObject fractured; // for the fractured parts of the asteroids
+    public GameObject repair; // spaceship repair kit
     private GameManager gameManager;
     public int damageAmount;
-
-
+    
 
 
     // Start is called before the first frame update
@@ -24,6 +24,7 @@ public class Asteroid : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerAudio = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -48,13 +49,14 @@ public class Asteroid : MonoBehaviour
     
     public void OnTriggerEnter(Collider other) 
     {
-        // if projectile collides with asteroid, projectile is destroyed and asteroid breaks up
+        // if projectile collides with asteroid, projectile is destroyed and asteroid breaks up, and repair spawn co-routine runs
 
         if (other.gameObject.CompareTag("Projectile"))
         {
             FractureObject();
             Destroy(other.gameObject);
             gameManager.asteroidsBlasted += 1;
+            SpawnRepair();
 
         }
 
@@ -98,6 +100,17 @@ public class Asteroid : MonoBehaviour
     {
         Instantiate(fractured, transform.position, transform.rotation); //Spawn in the broken version of the asteroid
         Destroy(gameObject); //Destroy the object to stop it getting in the way - fractured parts will not impact the player as their layer does not interact with player layer
+    }
+
+    public void SpawnRepair() 
+    {
+        if (Random.Range(0f, 100f) < gameManager.repairDropChancePercentage) // if random number between 0 & 100 is less than the drop chance percentage
+        { 
+            Instantiate(repair, transform.position, repair.transform.rotation); //Spawn the spaceship repair kit
+        
+        }
+        
+
     }
 
 }

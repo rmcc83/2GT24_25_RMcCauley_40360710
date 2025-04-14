@@ -16,7 +16,11 @@ public class BestTImeScreen : MonoBehaviour
     public TextMeshProUGUI level3Name; // name of player achieving best time on level 3
     public TextMeshProUGUI level4Name; // name of player achieving best time on level 4
     public TextMeshProUGUI level5Name; // name of player achieving best time on level 5
-
+    public TextMeshProUGUI level1Control; // control scheme used to achieve best time on level 1
+    public TextMeshProUGUI level2Control; // control scheme used to achieve best time on level 2
+    public TextMeshProUGUI level3Control; // control scheme used to achieve best time on level 3
+    public TextMeshProUGUI level4Control; // control scheme used to achieve best time on level 4
+    public TextMeshProUGUI level5Control; // control scheme used to achieve best time on level 5
 
     public void ShowScreen() // runs everything when screen is displayed
     {
@@ -30,6 +34,11 @@ public class BestTImeScreen : MonoBehaviour
         Level3Name();
         Level4Name();
         Level5Name();
+        Level1Control();
+        Level2Control();
+        Level3Control();
+        Level4Control();
+        Level5Control();
 
     }
 
@@ -110,7 +119,42 @@ public class BestTImeScreen : MonoBehaviour
 
     }
 
-    
+    public void Level1Control() //gets the control scheme used to achieve the best time in level 1 & displays it
+    {
+
+        level1Control.text = "" + PlayerPrefs.GetString("Level1Control");
+
+    }
+
+    public void Level2Control() //gets the control scheme used to achieve the best time in level 2 & displays it
+    {
+
+        level2Control.text = "" + PlayerPrefs.GetString("Level2Control");
+
+    }
+
+    public void Level3Control() //gets the control scheme used to achieve the best time in level 3 & displays it
+    {
+
+        level3Control.text = "" + PlayerPrefs.GetString("Level3Control");
+
+    }
+
+    public void Level4Control() //gets the control scheme used to achieve the best time in level 4 & displays it
+    {
+
+        level4Control.text = "" + PlayerPrefs.GetString("Level4Control");
+
+    }
+
+    public void Level5Control() //gets the control scheme used to achieve the best time in level 5 & displays it
+    {
+
+        level5Control.text = "" + PlayerPrefs.GetString("Level5Control");
+
+    }
+
+
 
 }
 

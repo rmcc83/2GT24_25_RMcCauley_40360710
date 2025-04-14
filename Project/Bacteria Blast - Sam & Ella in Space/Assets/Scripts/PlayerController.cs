@@ -19,18 +19,21 @@ public class PlayerController : MonoBehaviour
     public AudioClip laugh;
     public AudioClip fuelFill;
     public AudioClip weaponArm;
+    public AudioClip repair;
+    public AudioClip cheatChime;
 
     // Player-related
     private Rigidbody playerRb;
     public float boostForce;
-    private float fuelDrain = 10;
+    public float fuelDrain;
     public GameObject powerupIndicator;
+    
 
     // Bools
     public bool fastFuelDrain = false;
     public bool doubleSpeed = false;
     public bool fuelAnim = false;
-    public bool hasPowerup = true;
+    public bool hasPowerup = false;
 
     // Projectile spaawn locations
     public Transform projectileSpawnPoint1;
@@ -80,41 +83,94 @@ public class PlayerController : MonoBehaviour
 
         }
 
+
+
         //If game has started & is not over
         if (gameManager.gameStarted == true && gameManager.gameOver == false)
         {
-            // If spacebar is pressed and fuel is available,
+            // If W is pressed and fuel is available,
             // constraint on player's Y position is removed, an upward force is applied to the player,
             // & fuel reduces by the amount set by fuelDrain each second.  Flame prefabs are also instantiated from bottom of spaceship
-            if (Input.GetKey(KeyCode.Space) && gameManager.fuel > 0)
+            if (Input.GetKey(KeyCode.W) && gameManager.fuel > 0)
             {
 
                 playerRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
                 playerRb.AddForce(Vector3.up * boostForce);
                 gameManager.fuel -= fuelDrain * Time.deltaTime;
+                    
                 if (fastFuelDrain == true)
                 {
-                    gameManager.fuel -= (2 * fuelDrain) * Time.deltaTime;
+                   gameManager.fuel -= (2 * fuelDrain) * Time.deltaTime;
                 }
+
+                                         
+                if (gameManager.cheatActive == 3)       // if unlimited fuel cheat is active, fuel drain is 0;
+                {
+                    fuelDrain = 0f;
+  
+                }
+
                 Instantiate(flamePrefab, thrustPosition1.position, flamePrefab.transform.rotation);
                 Instantiate(flamePrefab, thrustPosition2.position, flamePrefab.transform.rotation);
                 
+            }
+
+            if (gameManager.altControlSlider.value == 1)    // if alternate control scheme is in use
+            {
+                if (gameManager.fuel > 0)   // gravity is off as long as there is fuel
+                {
+                    playerRb.useGravity = false;
+
+                }
+                else playerRb.useGravity = true;       // once fuel is 0, gravity switches on & spaceship falls
+                
+
+                if (Input.GetKey(KeyCode.S) && gameManager.fuel > 0)    // controls down movement when alt controls in use
+                {
+                    playerRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
+                    playerRb.AddForce(Vector3.down * boostForce);
+                    gameManager.fuel -= fuelDrain * Time.deltaTime;
+
+                    if (fastFuelDrain == true)
+                    {
+                        gameManager.fuel -= (2 * fuelDrain) * Time.deltaTime;
+                    }
+
+                    if (gameManager.cheatActive == 3)   // no fuel drain if unlimited fuel cheat is active
+                    {
+                        
+                        fuelDrain = 0f;
+
+                    }
+                    Instantiate(flamePrefab, thrustPosition1.position, flamePrefab.transform.rotation);
+                    Instantiate(flamePrefab, thrustPosition2.position, flamePrefab.transform.rotation);
+                }
 
             }
 
-            // spaceship engine sound is played when spacebar is pressed down, having it playing continuously sounds unpleasant
+
+            // spaceship engine sound is played when W is pressed down, having it playing continuously sounds unpleasant
             
-            if (Input.GetKeyDown(KeyCode.Space) && gameManager.fuel > 0) 
+            if (Input.GetKeyDown(KeyCode.W) && gameManager.fuel > 0) 
             {
 
                 playerAudio.PlayOneShot(boostSound);
             }
-            
 
-            if (Input.GetKeyUp(KeyCode.Space))
+            // if alt controls are in use, spaceship engine sound is played when S is pressed down
+
+            if (gameManager.altControlSlider.value == 1 && Input.GetKeyDown(KeyCode.S) && gameManager.fuel > 0)
+            {
+
+                playerAudio.PlayOneShot(boostSound);
+            }
+
+
+            // movement stops when movement key is released
+
+            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
             {
                 playerRb.velocity = Vector3.zero;
-
 
             }
 
@@ -139,9 +195,21 @@ public class PlayerController : MonoBehaviour
                 fastFuelDrain = false;
             }
 
-            // Fire a sonic blast from the player and play sound if game has started & is not over & player has powerup, and left alt is pressed
+            // Fire a sonic blast from the player and play sound if game has started & is not over & player has powerup, and space is pressed
 
-            if (gameManager.gameStarted == true && gameManager.gameOver == false && hasPowerup == true && Input.GetKeyDown(KeyCode.LeftAlt))
+            if (gameManager.gameStarted == true && gameManager.gameOver == false && hasPowerup == true && Input.GetKeyDown(KeyCode.Space))
+
+            {
+                playerAudio.PlayOneShot(weaponSound);
+                Instantiate(sonicBlastPrefab, projectileSpawnPoint1.position, sonicBlastPrefab.transform.rotation);
+                Instantiate(sonicBlastPrefab, projectileSpawnPoint2.position, sonicBlastPrefab.transform.rotation);
+                Instantiate(sonicBlastPrefab, projectileSpawnPoint3.position, sonicBlastPrefab.transform.rotation);
+                Instantiate(sonicBlastPrefab, projectileSpawnPoint4.position, sonicBlastPrefab.transform.rotation);
+
+            }
+
+            // Fire sonic blast if ammo cheat code has been entered & space is pressed
+            if (gameManager.cheatActive == 1  && Input.GetKeyDown(KeyCode.Space))
 
             {
                 playerAudio.PlayOneShot(weaponSound);
@@ -232,6 +300,18 @@ public class PlayerController : MonoBehaviour
             fuelAnim = true;
             StartCoroutine(FuelAnimationCountdownRoutine());
 
+        }
+
+        // if player collides with repair powerup, spaceship health is inceased by 1 if it is not already at max
+
+        if (other.CompareTag("Repair"))
+        {
+            playerAudio.PlayOneShot(repair);
+            Destroy(other.gameObject);
+            gameManager.repairCollected += 1;
+            gameManager.Repair(1);
+            
+            
         }
 
         // if player collides with blue bacterium, a scream is played & floating text colour is set to blue
@@ -329,4 +409,6 @@ public class PlayerController : MonoBehaviour
         Destroy(gameObject);
 
     }
+
+    
 }
