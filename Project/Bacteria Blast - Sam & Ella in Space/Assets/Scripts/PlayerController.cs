@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     // Audio
     private AudioSource groundAudio;
     private AudioSource playerAudio;
+    public AudioClip lowFuelSound;
     public AudioClip weaponSound;
     public AudioClip boostSound;
     public AudioClip crashSound;
@@ -89,6 +90,12 @@ public class PlayerController : MonoBehaviour
         //If game has started & is not over
         if (gameManager.gameStarted == true && gameManager.gameOver == false)
         {
+            if (gameManager.fuel < 30 && gameManager.fuel > 29)
+            {
+                playerAudio.PlayOneShot(lowFuelSound);
+
+            } 
+
             // If W is pressed and fuel is available,
             // constraint on player's Y position is removed, an upward force is applied to the player,
             // & fuel reduces by the amount set by fuelDrain each second.  Flame prefabs are also instantiated from bottom of spaceship
@@ -210,15 +217,21 @@ public class PlayerController : MonoBehaviour
             }
 
             // Fire sonic blast if ammo cheat code has been entered & space is pressed
-            if (gameManager.cheatActive == 1  && Input.GetKeyDown(KeyCode.Space))
-
+            if (gameManager.cheatActive == 1)
             {
-                playerAudio.PlayOneShot(weaponSound);
-                Instantiate(sonicBlastPrefab, projectileSpawnPoint1.position, sonicBlastPrefab.transform.rotation);
-                Instantiate(sonicBlastPrefab, projectileSpawnPoint2.position, sonicBlastPrefab.transform.rotation);
-                Instantiate(sonicBlastPrefab, projectileSpawnPoint3.position, sonicBlastPrefab.transform.rotation);
-                Instantiate(sonicBlastPrefab, projectileSpawnPoint4.position, sonicBlastPrefab.transform.rotation);
+                hasPowerup = true;
+                powerupIndicator.gameObject.SetActive(true);
 
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    playerAudio.PlayOneShot(weaponSound);
+                    Instantiate(sonicBlastPrefab, projectileSpawnPoint1.position, sonicBlastPrefab.transform.rotation);
+                    Instantiate(sonicBlastPrefab, projectileSpawnPoint2.position, sonicBlastPrefab.transform.rotation);
+                    Instantiate(sonicBlastPrefab, projectileSpawnPoint3.position, sonicBlastPrefab.transform.rotation);
+                    Instantiate(sonicBlastPrefab, projectileSpawnPoint4.position, sonicBlastPrefab.transform.rotation);
+
+
+                }
             }
 
         }

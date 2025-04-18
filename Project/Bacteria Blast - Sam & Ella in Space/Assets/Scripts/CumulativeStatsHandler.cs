@@ -1250,6 +1250,7 @@ public class CumulativeStatsHandler : MonoBehaviour
                 PlayerPrefs.SetInt("SmallFuelCollected1", 0);
                 PlayerPrefs.SetInt("LargeFuelCollected1", 0);
                 PlayerPrefs.SetInt("GroundCrash1", 0);
+                PlayerPrefs.SetInt("RepairCollected1", 0);
                 break;
             case 2:
                 PlayerPrefs.SetInt("Level1Played2", 0);
@@ -1298,6 +1299,7 @@ public class CumulativeStatsHandler : MonoBehaviour
                 PlayerPrefs.SetInt("SmallFuelCollected2", 0);
                 PlayerPrefs.SetInt("LargeFuelCollected2", 0);
                 PlayerPrefs.SetInt("GroundCrash2", 0);
+                PlayerPrefs.SetInt("RepairCollected2", 0);
                 break;
             case 3:
                 PlayerPrefs.SetInt("Level1Played3", 0);
@@ -1346,6 +1348,7 @@ public class CumulativeStatsHandler : MonoBehaviour
                 PlayerPrefs.SetInt("SmallFuelCollected3", 0);
                 PlayerPrefs.SetInt("LargeFuelCollected3", 0);
                 PlayerPrefs.SetInt("GroundCrash3", 0);
+                PlayerPrefs.SetInt("RepairCollected3", 0);
                 break;
         }
                 RunAll();
@@ -1391,6 +1394,7 @@ public class CumulativeStatsHandler : MonoBehaviour
                 hardEndlessLivesText.text = $"{PlayerPrefs.GetInt("HardEndlessLives1")}";
                 totalEndlessLivesText.text = $"{PlayerPrefs.GetInt("TotalEndlessLives1")}";
                 groundCrashText.text = $"{PlayerPrefs.GetInt("GroundCrash1")}";
+                repairCollectedText.text = $"{PlayerPrefs.GetInt("RepairCollected1")}";
                 break;
             case 2:
                 level1PlayedText.text = $"{PlayerPrefs.GetInt("Level1Played2")}";
@@ -1428,6 +1432,7 @@ public class CumulativeStatsHandler : MonoBehaviour
                 hardEndlessLivesText.text = $"{PlayerPrefs.GetInt("HardEndlessLives2")}";
                 totalEndlessLivesText.text = $"{PlayerPrefs.GetInt("TotalEndlessLives2")}";
                 groundCrashText.text = $"{PlayerPrefs.GetInt("GroundCrash2")}";
+                repairCollectedText.text = $"{PlayerPrefs.GetInt("RepairCollected2")}";
                 break;
             case 3:
                 level1PlayedText.text = $"{PlayerPrefs.GetInt("Level1Played3")}";
@@ -1465,6 +1470,7 @@ public class CumulativeStatsHandler : MonoBehaviour
                 hardEndlessLivesText.text = $"{PlayerPrefs.GetInt("HardEndlessLives3")}";
                 totalEndlessLivesText.text = $"{PlayerPrefs.GetInt("TotalEndlessLives3")}";
                 groundCrashText.text = $"{PlayerPrefs.GetInt("GroundCrash3")}";
+                repairCollectedText.text = $"{PlayerPrefs.GetInt("RepairCollected3")}";
                 break;
         }
     }

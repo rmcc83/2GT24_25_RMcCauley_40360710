@@ -502,6 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fd6e9a0af4ce94698651477bc7515d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lowFuelSound: {fileID: 8300000, guid: 56c4322b70e1a6546970dc0ee73da557, type: 3}
   weaponSound: {fileID: 8300000, guid: 2ea4df461f58f004d9435331d5ec9449, type: 3}
   boostSound: {fileID: 8300000, guid: e17f251d23bb80345b2a835c73f1a3af, type: 3}
   crashSound: {fileID: 8300000, guid: 19b43e2a9e7811f46925c46366802dad, type: 3}

@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
     // Sound effects
     private AudioSource gameAudio;
     public AudioClip buttonSound;
-    public AudioClip lowFuelSound;
 
     // Radio station items on options screen
     public GameObject screen1; // station 1 name display
@@ -250,7 +249,6 @@ public class GameManager : MonoBehaviour
             FuelGauge();
             CheckHealth();
 
-            
         }
 
         //Check if the user has pressed the P key - only works in main scene if game has started, so won't show pause screen when names being entered
@@ -264,6 +262,7 @@ public class GameManager : MonoBehaviour
             spawnManager.StopSpawn();
 
         }
+
 
     }
 
@@ -454,6 +453,7 @@ public class GameManager : MonoBehaviour
             fuelSlider.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(0.8f, 0.2f, 0.1f);
             fuelSliderEndless.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(0.8f, 0.2f, 0.1f);
 
+            
         }
 
 
@@ -462,15 +462,8 @@ public class GameManager : MonoBehaviour
             fuelSlider.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1f, 0.6f, 0f);
             fuelSliderEndless.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1f, 0.6f, 0f);
 
-
         }
 
-        if (fuel == 25) // plays low fuel alarm sound when fuel is 25%
-        {
-
-            gameAudio.PlayOneShot(lowFuelSound, 1.0f);
-
-        }
 
         if (fuel > 60) // ensures bar is green when fuel is more than 60%
         {
@@ -1589,8 +1582,6 @@ public class GameManager : MonoBehaviour
 
         }
 
-
-
     }
 
     public void NextLevel() // When you win a level in timed mode and press the next level button, this function runs.  Spawning stops, the win screen is switched off,
@@ -1722,8 +1713,6 @@ public class GameManager : MonoBehaviour
         switch (cheatActive)
         {
             case 1:
-                playerController.hasPowerup = true;
-                playerController.powerupIndicator.gameObject.SetActive(true);
                 armedText.gameObject.SetActive(true);
                 unArmedText.gameObject.SetActive(false);
                 armedTextEndless.gameObject.SetActive(true);
@@ -1740,8 +1729,6 @@ public class GameManager : MonoBehaviour
     // Turning cheats off
     public void CheatOff()
     {
-        playerController.hasPowerup = false;
-        playerController.powerupIndicator.gameObject.SetActive(false);
         armedText.gameObject.SetActive(false);
         unArmedText.gameObject.SetActive(true);
         armedTextEndless.gameObject.SetActive(false);
@@ -1819,7 +1806,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
 
 
 }
