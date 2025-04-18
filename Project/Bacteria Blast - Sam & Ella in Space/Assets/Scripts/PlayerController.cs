@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     public GameObject sonicBlastPrefab;
     public GameObject flamePrefab;
     public GameObject explosion;
+    public GameObject escapePod;
 
     // Floating Text
     public Color textColour;
@@ -405,6 +406,7 @@ public class PlayerController : MonoBehaviour
         
         Vector3 expSpawnpos = new(transform.position.x, transform.position.y, transform.position.z);
         Instantiate(explosion, expSpawnpos, explosion.transform.rotation);
+        Instantiate(escapePod, expSpawnpos, escapePod.transform.rotation);
         groundAudio.PlayOneShot(crashSound);
         Destroy(gameObject);
 

@@ -25,6 +25,8 @@ TagManager:
   - Armed Text
   - Armed Text Endless
   - Repair
+  - Escape Pod
+  - Character
   layers:
   - Default
   - TransparentFX

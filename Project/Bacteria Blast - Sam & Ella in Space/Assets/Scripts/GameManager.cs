@@ -1652,6 +1652,18 @@ public class GameManager : MonoBehaviour
 
         }
 
+        foreach (var gameObj in GameObject.FindGameObjectsWithTag("Escape Pod"))
+        {
+            Destroy(gameObj);
+
+        }
+
+        foreach (var gameObj in GameObject.FindGameObjectsWithTag("Character"))
+        {
+            Destroy(gameObj);
+
+        }
+
         highscoreCongrats.gameObject.SetActive(false);
         pauseButton.SetActive(true);
         pauseButtonEndless.SetActive(true);
@@ -1662,6 +1674,7 @@ public class GameManager : MonoBehaviour
         armedTextEndless.gameObject.SetActive(false);
         unArmedTextEndless.gameObject.SetActive(true);
         cheatCodeManager.CheatCancel();
+        LoadMusic();
     }
 
     void InstantiateNewPlayerObject() // Used to instantaite a new player object when level is restarted after failure.  First the selected type is read from player

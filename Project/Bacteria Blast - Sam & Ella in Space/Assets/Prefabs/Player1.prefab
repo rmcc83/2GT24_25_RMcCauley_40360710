@@ -502,29 +502,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fd6e9a0af4ce94698651477bc7515d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostForce: 10
-  fastFuelDrain: 0
-  topBound: 9
-  doubleSpeed: 0
-  fuelAnim: 0
-  projectileSpawnPoint1: {fileID: 8057908488155751217}
-  projectileSpawnPoint2: {fileID: 3373304096175371949}
-  projectileSpawnPoint3: {fileID: 5197542274371667281}
-  projectileSpawnPoint4: {fileID: 5648253482667399748}
-  thrustPosition1: {fileID: 6944552026159482159}
-  thrustPosition2: {fileID: 900366989346764138}
-  powerupIndicator: {fileID: 6138768986954152704}
-  armedText: {fileID: 0}
-  unarmedText: {fileID: 0}
-  armedTextEndless: {fileID: 0}
-  unarmedTextEndless: {fileID: 0}
-  hasPowerup: 0
-  sonicBlastPrefab: {fileID: 4254494684227942826, guid: 64f478ba79903d8469f77889c6a0e23b, type: 3}
-  flamePrefab: {fileID: 182542, guid: 5cd5599e01f32bd418f20a3b9eac1c57, type: 3}
-  explosion: {fileID: 100002, guid: f7efb0d9df2264096af57128df85dddb, type: 3}
-  cumulativeStatsHandler: {fileID: 0}
-  gameManager: {fileID: 0}
-  spawnManager: {fileID: 0}
   weaponSound: {fileID: 8300000, guid: 2ea4df461f58f004d9435331d5ec9449, type: 3}
   boostSound: {fileID: 8300000, guid: e17f251d23bb80345b2a835c73f1a3af, type: 3}
   crashSound: {fileID: 8300000, guid: 19b43e2a9e7811f46925c46366802dad, type: 3}
@@ -534,9 +511,32 @@ MonoBehaviour:
   laugh: {fileID: 8300000, guid: 310ef0aaec14010408710f57b2f22407, type: 3}
   fuelFill: {fileID: 8300000, guid: 67619dd90da6eae4f9f388930175a79c, type: 3}
   weaponArm: {fileID: 8300000, guid: 2394992f915069f4b85d41950e405289, type: 3}
-  playerController: {fileID: 3568411918494885248}
-  FloatingText: {fileID: 8601865132431996700, guid: 6a9ff9d24656f954f9212b6867f14079, type: 3}
+  repair: {fileID: 8300000, guid: edef4d6c3a86de04dbe092f7d5271ad3, type: 3}
+  cheatChime: {fileID: 8300000, guid: ca36c9e904ca25a4690f8c08f4608228, type: 3}
+  boostForce: 10
+  fuelDrain: 10
+  powerupIndicator: {fileID: 6138768986954152704}
+  fastFuelDrain: 0
+  doubleSpeed: 0
+  fuelAnim: 0
+  hasPowerup: 0
+  projectileSpawnPoint1: {fileID: 8057908488155751217}
+  projectileSpawnPoint2: {fileID: 3373304096175371949}
+  projectileSpawnPoint3: {fileID: 5197542274371667281}
+  projectileSpawnPoint4: {fileID: 5648253482667399748}
+  thrustPosition1: {fileID: 6944552026159482159}
+  thrustPosition2: {fileID: 900366989346764138}
+  sonicBlastPrefab: {fileID: 4254494684227942826, guid: 64f478ba79903d8469f77889c6a0e23b, type: 3}
+  flamePrefab: {fileID: 182542, guid: 5cd5599e01f32bd418f20a3b9eac1c57, type: 3}
+  explosion: {fileID: 100002, guid: f7efb0d9df2264096af57128df85dddb, type: 3}
+  escapePod: {fileID: 4247275050138761997, guid: 18ede7cc8c61d9b4a88107b6d0f29ba9, type: 3}
   textColour: {r: 0, g: 0, b: 0, a: 0}
+  FloatingText: {fileID: 8601865132431996700, guid: 6a9ff9d24656f954f9212b6867f14079, type: 3}
+  cumulativeStatsHandler: {fileID: 0}
+  gameManager: {fileID: 0}
+  spawnManager: {fileID: 0}
+  playerController: {fileID: 3568411918494885248}
+  topBound: 9
 --- !u!82 &7203413969306936599
 AudioSource:
   m_ObjectHideFlags: 0
