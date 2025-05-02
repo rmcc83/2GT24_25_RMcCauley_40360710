@@ -515,6 +515,7 @@ MonoBehaviour:
   repair: {fileID: 8300000, guid: edef4d6c3a86de04dbe092f7d5271ad3, type: 3}
   cheatChime: {fileID: 8300000, guid: ca36c9e904ca25a4690f8c08f4608228, type: 3}
   boostForce: 10
+  speed: 0
   fuelDrain: 10
   powerupIndicator: {fileID: 6138768986954152704}
   fastFuelDrain: 0
@@ -538,6 +539,8 @@ MonoBehaviour:
   spawnManager: {fileID: 0}
   playerController: {fileID: 3568411918494885248}
   topBound: 9
+  playerLimitLeft: -74
+  playerLimitRight: -36
 --- !u!82 &7203413969306936599
 AudioSource:
   m_ObjectHideFlags: 0

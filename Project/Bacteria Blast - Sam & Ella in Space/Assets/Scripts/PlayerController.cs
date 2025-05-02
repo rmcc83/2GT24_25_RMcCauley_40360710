@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     // Player-related
     private Rigidbody playerRb;
     public float boostForce;
+    public float speed;
     public float fuelDrain;
     public GameObject powerupIndicator;
     
@@ -61,6 +62,8 @@ public class PlayerController : MonoBehaviour
     public SpawnManager spawnManager;   
     public PlayerController playerController;
     public float topBound;
+    public float playerLimitLeft;
+    public float playerLimitRight;
 
 
 
@@ -73,7 +76,7 @@ public class PlayerController : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         cumulativeStatsHandler = GameObject.Find("CumulativeStatsHandler").GetComponent<CumulativeStatsHandler>();
-
+        
     }
 
     void Update()
@@ -154,6 +157,48 @@ public class PlayerController : MonoBehaviour
                     Instantiate(flamePrefab, thrustPosition2.position, flamePrefab.transform.rotation);
                 }
 
+                if (Input.GetKey(KeyCode.D) && gameManager.fuel > 0)    // controls down movement when alt controls in use
+                {
+                    playerRb.constraints &= ~RigidbodyConstraints.FreezePositionX;
+                    playerRb.AddForce(Vector3.right * boostForce);
+                    gameManager.fuel -= fuelDrain * Time.deltaTime;
+
+                    if (fastFuelDrain == true)
+                    {
+                        gameManager.fuel -= (2 * fuelDrain) * Time.deltaTime;
+                    }
+
+                    if (gameManager.cheatActive == 3)   // no fuel drain if unlimited fuel cheat is active
+                    {
+
+                        fuelDrain = 0f;
+
+                    }
+                    Instantiate(flamePrefab, thrustPosition1.position, flamePrefab.transform.rotation);
+                    Instantiate(flamePrefab, thrustPosition2.position, flamePrefab.transform.rotation);
+                }
+
+                if (Input.GetKey(KeyCode.A) && gameManager.fuel > 0)    // controls down movement when alt controls in use
+                {
+                    playerRb.constraints &= ~RigidbodyConstraints.FreezePositionX;
+                    playerRb.AddForce(Vector3.left * boostForce);
+                    gameManager.fuel -= fuelDrain * Time.deltaTime;
+
+                    if (fastFuelDrain == true)
+                    {
+                        gameManager.fuel -= (2 * fuelDrain) * Time.deltaTime;
+                    }
+
+                    if (gameManager.cheatActive == 3)   // no fuel drain if unlimited fuel cheat is active
+                    {
+
+                        fuelDrain = 0f;
+
+                    }
+                    Instantiate(flamePrefab, thrustPosition1.position, flamePrefab.transform.rotation);
+                    Instantiate(flamePrefab, thrustPosition2.position, flamePrefab.transform.rotation);
+                }
+
             }
 
 
@@ -165,18 +210,19 @@ public class PlayerController : MonoBehaviour
                 playerAudio.PlayOneShot(boostSound);
             }
 
-            // if alt controls are in use, spaceship engine sound is played when S is pressed down
+            // if alt controls are in use, spaceship engine sound is played when S, D or A is pressed down
 
-            if (gameManager.altControlSlider.value == 1 && Input.GetKeyDown(KeyCode.S) && gameManager.fuel > 0)
+            if (gameManager.altControlSlider.value == 1 && gameManager.fuel > 0)
             {
-
-                playerAudio.PlayOneShot(boostSound);
+                if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A))
+                {
+                    playerAudio.PlayOneShot(boostSound);
+                }
             }
-
 
             // movement stops when movement key is released
 
-            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
+            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A))
             {
                 playerRb.velocity = Vector3.zero;
 
@@ -188,6 +234,21 @@ public class PlayerController : MonoBehaviour
                 transform.position = new Vector3(transform.position.x, topBound, transform.position.z);
 
             }
+
+            // Ensures player cannot go outside the left of the screen
+            if (transform.position.x < playerLimitLeft)
+            {
+                transform.position = new Vector3(playerLimitLeft, transform.position.y, transform.position.z);
+
+            }
+
+            // Ensures player cannot go outside the right of the screen
+            if (transform.position.x > playerLimitRight)
+            {
+                transform.position = new Vector3(playerLimitRight, transform.position.y, transform.position.z);
+
+            }
+
 
             // when left control is pressed, double speed is activated, which doubles fuelDrain
             if (Input.GetKeyDown(KeyCode.LeftControl))
