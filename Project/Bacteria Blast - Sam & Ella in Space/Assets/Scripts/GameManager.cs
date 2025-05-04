@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using UnityEditor;
+using ControlFreak2;
 
 public class GameManager : MonoBehaviour
 {
@@ -116,6 +117,8 @@ public class GameManager : MonoBehaviour
     public GameObject characterScreen; // character info screen (Sam, Ella, bacteria, etc)
     public GameObject titleScreen; // Main menu screen
     public GameObject pauseScreen; // pause screen
+    public GameObject confirmQuit; // confirm quit dialog
+    public GameObject confirmQuitEndless; // confirm quit dialog in endless mode
 
     // Highscore system
     public bool newHighscore; // true when new highscore achieved for current level
@@ -195,6 +198,7 @@ public class GameManager : MonoBehaviour
     private CheatCodeManager cheatCodeManager;
     public LevelUnlock levelUnlock;
     public InGameOptions inGameOptions;
+    public GameObject touchControls;
 
     // Start is called before the first frame update
     void Start()
@@ -239,7 +243,23 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
 
+        //Return to Title screen if user presses escape key or PS4 share
+
+        if (CF2Input.GetKeyDown(KeyCode.Escape))
+        {
+
+            if (gameStarted == true && !gameOver)
+            {
+                confirmQuit.SetActive(true);
+                confirmQuitEndless.SetActive(true);
+
+            }
+
+
+        }
 
         // Run the timer & check for nummber of bacteria blasted when the game starts & stop when game is over
         if (gameStarted == true && !gameOver)
@@ -248,11 +268,12 @@ public class GameManager : MonoBehaviour
             UpdateBacteriaBlasted();
             FuelGauge();
             CheckHealth();
+          //  TouchControls();
 
         }
 
         //Check if the user has pressed the P key - only works in main scene if game has started, so won't show pause screen when names being entered
-        if (Input.GetKeyDown(KeyCode.P) && gameStarted == true)
+        if (ControlFreak2.CF2Input.GetKeyDown(KeyCode.P) && gameStarted == true)
         {
             CheckForPause();
         }
@@ -1805,6 +1826,17 @@ public class GameManager : MonoBehaviour
                 controlTimedText.text = "ALTERNATE";
                 break;
         }
+    }
+
+    public void TouchControls() 
+    {
+        if (gameStarted == true)
+        {
+            touchControls.SetActive(true);
+        }
+
+        else touchControls.SetActive(false);
+
     }
 
 

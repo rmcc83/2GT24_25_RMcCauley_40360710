@@ -1,0 +1,83 @@
+Converting script [1 / 10]	[\Scripts\CheatCodeManager.cs]
+	Fragments : 11
+		[ 0] : Line:   37	InputMethod   GetKeyDown          	(KeyCode.UpArrow)
+		[ 1] : Line:   41	InputMethod   GetKeyDown          	(KeyCode.DownArrow)
+		[ 2] : Line:   45	InputMethod   GetKeyDown          	(KeyCode.LeftArrow)
+		[ 3] : Line:   49	InputMethod   GetKeyDown          	(KeyCode.RightArrow)
+		[ 4] : Line:   53	InputMethod   GetKeyDown          	(KeyCode.B)
+		[ 5] : Line:   57	InputMethod   GetKeyDown          	(KeyCode.A)
+		[ 6] : Line:   61	InputMethod   GetKeyDown          	(KeyCode.F)
+		[ 7] : Line:   65	InputMethod   GetKeyDown          	(KeyCode.U)
+		[ 8] : Line:   69	InputMethod   GetKeyDown          	(KeyCode.E)
+		[ 9] : Line:   73	InputMethod   GetKeyDown          	(KeyCode.L)
+		[10] : Line:   77	InputMethod   GetKeyDown          	(KeyCode.Alpha9)
+
+Converting script [2 / 10]	[\Scripts\ClickhandlerCharacter.cs]
+	Fragments : 2
+		[ 0] : Line:   17	InputMethod   GetKeyDown          	(KeyFwd)
+		[ 1] : Line:   24	InputMethod   GetKeyDown          	(KeyBack)
+
+Converting script [3 / 10]	[\Scripts\Epilogue.cs]
+	Fragments : 1
+		[ 0] : Line:   37	InputMethod   GetKeyDown          	(KeyCode.Escape)
+
+Converting script [4 / 10]	[\Scripts\GameManager.cs]
+	Fragments : 1
+		[ 0] : Line:  255	InputMethod   GetKeyDown          	(KeyCode.P)
+
+Converting script [5 / 10]	[\Scripts\Intro.cs]
+	Fragments : 1
+		[ 0] : Line:   31	InputMethod   GetKeyDown          	(KeyCode.Escape)
+
+Converting script [6 / 10]	[\Scripts\IntroShip.cs]
+	Fragments : 1
+		[ 0] : Line:   34	InputMethod   GetKeyDown          	(KeyCode.Escape)
+
+Converting script [7 / 10]	[\Scripts\PlayerController.cs]
+	Fragments : 16
+		[ 0] : Line:  105	InputMethod   GetKey              	(KeyCode.W)
+		[ 1] : Line:  139	InputMethod   GetKey              	(KeyCode.S)
+		[ 2] : Line:  160	InputMethod   GetKey              	(KeyCode.D)
+		[ 3] : Line:  181	InputMethod   GetKey              	(KeyCode.A)
+		[ 4] : Line:  207	InputMethod   GetKeyDown          	(KeyCode.W)
+		[ 5] : Line:  217	InputMethod   GetKeyDown          	(KeyCode.S)
+		[ 6] : Line:  217	InputMethod   GetKeyDown          	(KeyCode.D)
+		[ 7] : Line:  217	InputMethod   GetKeyDown          	(KeyCode.A)
+		[ 8] : Line:  225	InputMethod   GetKeyUp            	(KeyCode.W)
+		[ 9] : Line:  225	InputMethod   GetKeyUp            	(KeyCode.S)
+		[10] : Line:  225	InputMethod   GetKeyUp            	(KeyCode.D)
+		[11] : Line:  225	InputMethod   GetKeyUp            	(KeyCode.A)
+		[12] : Line:  254	InputMethod   GetKeyDown          	(KeyCode.LeftControl)
+		[13] : Line:  261	InputMethod   GetKeyUp            	(KeyCode.LeftControl)
+		[14] : Line:  269	InputMethod   GetKeyDown          	(KeyCode.Space)
+		[15] : Line:  286	InputMethod   GetKeyDown          	(KeyCode.Space)
+
+Converting script [8 / 10]	[\Scripts\TooltipManager.cs]
+	Fragments : 2
+		[ 0] : Line:   26	Other mod.	[Cursor.visible]
+		[ 1] : Line:   33	InputProperty mousePosition       
+
+Converting script [9 / 10]	[\BreakableAsteroids\Scripts\ExampleFracture.cs]
+	Fragments : 2
+		[ 0] : Line:   14	InputMethod   GetKeyDown          	(KeyCode.Space)
+		[ 1] : Line:   19	InputMethod   GetKey              	(KeyCode.I)
+
+Converting script [10 / 10]	[\VirtualKeyboard (NonVR)\Scripts\TNVirtualKeyboard.cs]
+	Fragments : 1
+		[ 0] : Line:   35	InputMethod   GetKeyDown          	(KeyCode.Return)
+
+
+10 scripts modified!
+Overwriting actual scripts...
+	[0 / 10] from  [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/CF2-Data/Script-Backups/2025-05-04-21-33\Assets-After/\Scripts\CheatCodeManager.cs] to [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/Assets/\Scripts\CheatCodeManager.cs]
+	[1 / 10] from  [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/CF2-Data/Script-Backups/2025-05-04-21-33\Assets-After/\Scripts\ClickhandlerCharacter.cs] to [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/Assets/\Scripts\ClickhandlerCharacter.cs]
+	[2 / 10] from  [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/CF2-Data/Script-Backups/2025-05-04-21-33\Assets-After/\Scripts\Epilogue.cs] to [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/Assets/\Scripts\Epilogue.cs]
+	[3 / 10] from  [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/CF2-Data/Script-Backups/2025-05-04-21-33\Assets-After/\Scripts\GameManager.cs] to [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/Assets/\Scripts\GameManager.cs]
+	[4 / 10] from  [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/CF2-Data/Script-Backups/2025-05-04-21-33\Assets-After/\Scripts\Intro.cs] to [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/Assets/\Scripts\Intro.cs]
+	[5 / 10] from  [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/CF2-Data/Script-Backups/2025-05-04-21-33\Assets-After/\Scripts\IntroShip.cs] to [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/Assets/\Scripts\IntroShip.cs]
+	[6 / 10] from  [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/CF2-Data/Script-Backups/2025-05-04-21-33\Assets-After/\Scripts\PlayerController.cs] to [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/Assets/\Scripts\PlayerController.cs]
+	[7 / 10] from  [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/CF2-Data/Script-Backups/2025-05-04-21-33\Assets-After/\Scripts\TooltipManager.cs] to [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/Assets/\Scripts\TooltipManager.cs]
+	[8 / 10] from  [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/CF2-Data/Script-Backups/2025-05-04-21-33\Assets-After/\BreakableAsteroids\Scripts\ExampleFracture.cs] to [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/Assets/\BreakableAsteroids\Scripts\ExampleFracture.cs]
+	[9 / 10] from  [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/CF2-Data/Script-Backups/2025-05-04-21-33\Assets-After/\VirtualKeyboard (NonVR)\Scripts\TNVirtualKeyboard.cs] to [D:/QUB/Intro2GamesTech/2GT24_25_RMcCauley_40360710/Project/Bacteria Blast - Sam & Ella in Space/Assets/\VirtualKeyboard (NonVR)\Scripts\TNVirtualKeyboard.cs]
+
+Overwriting COMPLETED!
