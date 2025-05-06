@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+//using System.Diagnostics;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         gameAudio = GetComponent<AudioSource>();
         initialPosition = new Vector3(-68.3f, 1.28f, -1f); // starting position of player object
         cheatCodeManager = GetComponent<CheatCodeManager>();
@@ -245,6 +245,7 @@ public class GameManager : MonoBehaviour
     {
         Scene currentScene = SceneManager.GetActiveScene();
         string sceneName = currentScene.name;
+       // player = GameObject.FindGameObjectWithTag("Player");
 
         //Return to Title screen if user presses escape key or PS4 share
 
@@ -1579,29 +1580,30 @@ public class GameManager : MonoBehaviour
     public void RestartLevel() // When you fail a level & press the restart button, this function is called.  Spawning stops, a new player object is instantiated
                                // The game over or lose screen is switched off, elapsed time is set to 0, and the current level number is fed into the appropriate
                                // start game function so the same level will restart
+
     {
+        InstantiateNewPlayerObject();
         spawnManager.StopSpawn();
         CommonToResetAndNext();
-        InstantiateNewPlayerObject();
         gameOverScreen.SetActive(false);
         loseScreen.SetActive(false);
-       
+        timeElapsed = 0;
 
 
         if (gameEndless == true)
         {
-            timeElapsed = 0;
-            StartGameEndless(currentLevel);
 
+           StartGameEndless(currentLevel);
         }
 
         if (gameEndless == false)
         {
-            timeElapsed = 0;
+
             score = 0;
             StartGame(currentLevel);
-
         }
+
+
 
     }
 
@@ -1611,6 +1613,7 @@ public class GameManager : MonoBehaviour
         spawnManager.StopSpawn();
         CommonToResetAndNext();
         winScreen.SetActive(false);
+        bestTimeCongrats.SetActive(false);
         timeElapsed = 0;
         StartGame(currentLevel + 1);
 
@@ -1689,42 +1692,30 @@ public class GameManager : MonoBehaviour
         LoadMusic();
     }
 
-    void InstantiateNewPlayerObject() // Used to instantaite a new player object when level is restarted after failure.  First the selected type is read from player
-                                      // prefs, then the correct prefab is instantiated in the start position at the correct rotation
-    {
-        switch (profileNumber)
-        {
-            case 1:
-                playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped1");
-                break;
-            case 2:
-                playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped2");
-                break;
-            case 3:
-                playerSkinEquipped = PlayerPrefs.GetInt("SkinEquipped3");
-                break;
-        }
+    public void InstantiateNewPlayerObject() // Used to instantaite a new player object when level is restarted after failure.  First the selected type is read from player
+    {                                   // prefs, then the correct prefab is instantiated in the start position at the correct rotation
         
+
         switch (playerSkinEquipped)
         {
             
             case 1:
-                Instantiate(spaceship1Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
+                player = spaceship1 = Instantiate(spaceship1Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
                 break;
 
             case 2:
-                Instantiate(spaceship2Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
+                player = spaceship2 = Instantiate(spaceship2Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
                 break;
 
             case 3:
-                Instantiate(spaceship3Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
+                player = spaceship3 = Instantiate(spaceship3Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
                 break;
 
             case 4:
-                Instantiate(spaceship4Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
+                player = spaceship4 = Instantiate(spaceship4Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
                 break;
         }
-
+        
 
     }
 

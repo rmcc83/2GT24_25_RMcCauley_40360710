@@ -11069,7 +11069,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Return to main menu
+            m_StringArgument: Try level again
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -21057,11 +21057,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11470938, guid: 1d57f52e4b3d2244880f650390d1fd00, type: 3}
       propertyPath: m_ReferenceResolution.x
-      value: 1280
+      value: 1920
       objectReference: {fileID: 0}
     - target: {fileID: 11470938, guid: 1d57f52e4b3d2244880f650390d1fd00, type: 3}
       propertyPath: m_ReferenceResolution.y
-      value: 720
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 22452678, guid: 1d57f52e4b3d2244880f650390d1fd00, type: 3}
       propertyPath: m_Pivot.x
@@ -40087,7 +40087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &925532020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40121,6 +40121,60 @@ MonoBehaviour:
     list: []
   axes:
     list:
+    - name: Pause
+      axisType: 2
+      deltaMode: 1
+      snap: 0
+      scale: 1
+      affectSourceKeys: 1
+      affectedKeyPositive: 0
+      affectedKeyNegative: 0
+      keyboardPositive: 112
+      keyboardPositiveAlt0: 0
+      keyboardPositiveAlt1: 0
+      keyboardPositiveAlt2: 0
+      keyboardNegative: 0
+      keyboardNegativeAlt0: 0
+      keyboardNegativeAlt1: 0
+      keyboardNegativeAlt2: 0
+      analogToDigitalThresh: 0.125
+      rawSmoothingTime: 0
+      smoothingTime: 0
+      digitalToAnalogAccelTime: 0.25
+      digitalToAnalogDecelTime: 0.25
+      digitalToScrollAutoRepeat: 1
+      digitalToScrollRepeatInterval: 0.5
+      digitalToScrollDelay: 1
+      scrollToAnalogSmoothingTime: 0.05
+      scrollToAnalogStepDuration: 0.1
+      scrollToDeltaSmoothingTime: 0.1
+    - name: Quit
+      axisType: 2
+      deltaMode: 1
+      snap: 0
+      scale: 1
+      affectSourceKeys: 1
+      affectedKeyPositive: 0
+      affectedKeyNegative: 0
+      keyboardPositive: 27
+      keyboardPositiveAlt0: 0
+      keyboardPositiveAlt1: 0
+      keyboardPositiveAlt2: 0
+      keyboardNegative: 0
+      keyboardNegativeAlt0: 0
+      keyboardNegativeAlt1: 0
+      keyboardNegativeAlt2: 0
+      analogToDigitalThresh: 0.125
+      rawSmoothingTime: 0
+      smoothingTime: 0
+      digitalToAnalogAccelTime: 0.25
+      digitalToAnalogDecelTime: 0.25
+      digitalToScrollAutoRepeat: 1
+      digitalToScrollRepeatInterval: 0.5
+      digitalToScrollDelay: 1
+      scrollToAnalogSmoothingTime: 0.05
+      scrollToAnalogStepDuration: 0.1
+      scrollToDeltaSmoothingTime: 0.1
     - name: Horizontal
       axisType: 4
       deltaMode: 1
@@ -42351,7 +42405,7 @@ MonoBehaviour:
   cumulativeStatsHandler: {fileID: 886066720}
   levelUnlock: {fileID: 1364377610}
   inGameOptions: {fileID: 21077946}
-  touchControls: {fileID: 925532019}
+  touchControls: {fileID: 1535441792}
 --- !u!82 &930227226
 AudioSource:
   m_ObjectHideFlags: 0
@@ -45470,7 +45524,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Return to main menu
+            m_StringArgument: Try level again
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -68146,7 +68200,6 @@ MonoBehaviour:
   - {fileID: 1355900084607990, guid: cafd3d9857dce9743b5d3154fed8cf10, type: 3}
   virusPrefabs:
   - {fileID: 1067925524328404, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
-  player: {fileID: 0}
 --- !u!1 &1509331372
 GameObject:
   m_ObjectHideFlags: 0
@@ -69614,7 +69667,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1535441793
 RectTransform:
   m_ObjectHideFlags: 0
@@ -86724,7 +86777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bff5b65a8c619340b59028dc2a91816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
+  dontDestroyOnLoad: 1
   connectionCheckInterval: 1
 --- !u!4 &2008981760
 Transform:
@@ -87286,7 +87339,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Return to main menu
+            m_StringArgument: Play next level
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1

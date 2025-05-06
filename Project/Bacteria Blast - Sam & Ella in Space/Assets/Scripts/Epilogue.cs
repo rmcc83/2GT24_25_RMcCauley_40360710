@@ -34,7 +34,7 @@ public class Epilogue : MonoBehaviour
     void Update()
     {
 
-        if (ControlFreak2.CF2Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             StartCoroutine(LoadScene());
         }

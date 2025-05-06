@@ -34,7 +34,7 @@ public class SpawnManager : MonoBehaviour
     private float virusStartDelay = 3; // delay before viruses start to spawn is 3 sec  
     private float virusSpawnInterval = 2; // bacteria spawn every 2 seconds
 
-    public GameObject player;
+   // public GameObject player;
     private GameManager gameManager;
 
 

@@ -14,14 +14,14 @@ public class ClickhandlerCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ControlFreak2.CF2Input.GetKeyDown(KeyFwd)) // if keyboard key set in inspector as keyfwd is pressed, run fwd method
+        if (Input.GetKeyDown(KeyFwd)) // if keyboard key set in inspector as keyfwd is pressed, run fwd method
         {
 
             Fwd();
 
         }
 
-        if (ControlFreak2.CF2Input.GetKeyDown(KeyBack)) // if keyboard key set in inspector as keyfwd is pressed, run back method
+        if(Input.GetKeyDown(KeyBack)) // if keyboard key set in inspector as keyfwd is pressed, run back method
 
         {
 
