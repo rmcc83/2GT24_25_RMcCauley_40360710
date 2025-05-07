@@ -104,7 +104,6 @@ public class PlayerController : MonoBehaviour
             // & fuel reduces by the amount set by fuelDrain each second.  Flame prefabs are also instantiated from bottom of spaceship
             if (ControlFreak2.CF2Input.GetKey(KeyCode.W) && gameManager.fuel > 0)
             {
-
                 playerRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
                 playerRb.AddForce(Vector3.up * boostForce);
                 gameManager.fuel -= fuelDrain * Time.deltaTime;
@@ -220,13 +219,16 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            // movement stops when movement key is released
+            // movement stops when movement key is released          
+         
+                if (ControlFreak2.CF2Input.GetKeyUp(KeyCode.W) || ControlFreak2.CF2Input.GetKeyUp(KeyCode.S) || ControlFreak2.CF2Input.GetKeyUp(KeyCode.D) || ControlFreak2.CF2Input.GetKeyUp(KeyCode.A))
+                {
+                    playerRb.velocity = Vector3.zero;
 
-            if (ControlFreak2.CF2Input.GetKeyUp(KeyCode.W) || ControlFreak2.CF2Input.GetKeyUp(KeyCode.S) || ControlFreak2.CF2Input.GetKeyUp(KeyCode.D) || ControlFreak2.CF2Input.GetKeyUp(KeyCode.A))
-            {
-                playerRb.velocity = Vector3.zero;
+                }
 
-            }
+       
+              
 
             // Ensures player cannot go outside the top of the screen
             if (transform.position.y > topBound)

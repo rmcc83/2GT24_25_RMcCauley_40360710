@@ -181,6 +181,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI controlEndlessText; // Control type in words on endless level - not displayed but used in score displays etc
     public TextMeshProUGUI controlTimedText; // Control type in words on timed level - not displayed but used in score displays etc
 
+    // Touch Controls
+    public GameObject touchControls;
+    public GameObject joystick;
+    public GameObject boostButton;
 
 
     // Misc
@@ -198,7 +202,7 @@ public class GameManager : MonoBehaviour
     private CheatCodeManager cheatCodeManager;
     public LevelUnlock levelUnlock;
     public InGameOptions inGameOptions;
-    public GameObject touchControls;
+ 
 
     // Start is called before the first frame update
     void Start()
@@ -269,7 +273,7 @@ public class GameManager : MonoBehaviour
             UpdateBacteriaBlasted();
             FuelGauge();
             CheckHealth();
-          //  TouchControls();
+            TouchControls();
 
         }
 
@@ -1698,7 +1702,10 @@ public class GameManager : MonoBehaviour
 
         switch (playerSkinEquipped)
         {
-            
+            case 0:
+                player = spaceship1 = Instantiate(spaceship1Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
+                break;
+
             case 1:
                 player = spaceship1 = Instantiate(spaceship1Prefab, initialPosition, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
                 break;
@@ -1824,11 +1831,24 @@ public class GameManager : MonoBehaviour
         if (gameStarted == true)
         {
             touchControls.SetActive(true);
-        }
 
-        else touchControls.SetActive(false);
+            if (altControlSlider.value == 1) 
+            {
+                joystick.SetActive(true);
+                boostButton.SetActive(false);          
+            }
 
+            if (altControlSlider.value == 0)
+            {
+                joystick.SetActive(false);
+                boostButton.SetActive(true);
+            }
+         }
+          else touchControls.SetActive(false);
     }
 
-
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

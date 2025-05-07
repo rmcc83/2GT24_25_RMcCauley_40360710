@@ -36,6 +36,7 @@ public class Intro : MonoBehaviour
 
     public IEnumerator LoadScene()
     {
+        Time.timeScale = 1.0f;
         yield return null;
 
 
@@ -61,7 +62,7 @@ public class Intro : MonoBehaviour
 
         }
 
-        Time.timeScale = 1.0f;
+        
     }
 
     public void ButtonSound()

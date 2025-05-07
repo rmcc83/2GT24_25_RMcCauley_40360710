@@ -38,6 +38,7 @@ public class IntroShip : MonoBehaviour
     }
     public IEnumerator LoadScene()
     {
+        Time.timeScale = 1.0f; //ensure timescale is normal
         yield return null;
 
 
@@ -63,7 +64,7 @@ public class IntroShip : MonoBehaviour
 
         }
 
-        Time.timeScale = 1.0f; //ensure timescale is normal
+        
     }
 
     public void ButtonSound()
