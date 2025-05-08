@@ -249,7 +249,6 @@ public class GameManager : MonoBehaviour
     {
         Scene currentScene = SceneManager.GetActiveScene();
         string sceneName = currentScene.name;
-       // player = GameObject.FindGameObjectWithTag("Player");
 
         //Return to Title screen if user presses escape key or PS4 share
 
