@@ -7,6 +7,9 @@ public class CharacterBiosAudio : MonoBehaviour
 {
     public AudioSource characterAudioSource;
     public AudioSource musicAudioSource1;
+    public AudioSource musicAudioSource2;
+    public AudioSource musicAudioSource3;
+    public AudioSource musicAudioSource4;
     public Button samButton;
     public Button ellaButton;
     public Button redButton;
@@ -39,6 +42,9 @@ public class CharacterBiosAudio : MonoBehaviour
         if (characterAudioSource.isPlaying)
         {
             musicAudioSource1.Pause();
+            musicAudioSource2.Pause();
+            musicAudioSource3.Pause();
+            musicAudioSource4.Pause();
             samButton.interactable = false;
             ellaButton.interactable = false;
             redButton.interactable = false;
@@ -57,6 +63,9 @@ public class CharacterBiosAudio : MonoBehaviour
         if (!characterAudioSource.isPlaying)
         {
             musicAudioSource1.UnPause();
+            musicAudioSource2.UnPause();
+            musicAudioSource3.UnPause();
+            musicAudioSource4.UnPause();
             samButton.interactable = true;
             ellaButton.interactable = true;
             redButton.interactable = true;
